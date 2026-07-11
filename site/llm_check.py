@@ -15,7 +15,7 @@ import os, sys, json, time, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TARGETS = sorted(ROOT.glob("essays/**/published.md"))
-MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
 
 RUBRIC = """You are a careful editor. Review the essay for INTERNAL problems only:
 1. Claims presented as fact that the essay itself neither supports nor attributes.

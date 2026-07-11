@@ -22,10 +22,6 @@ jobs:
           pip install --quiet pyenchant requests google-genai
       - name: Deterministic checks (spell, URLs, style) — gating
         run: python3 site/checks.py
-      - name: LLM diagnostic (temporary, non-gating)
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python3 site/llm_diag.py || true
       - name: LLM claim check — gating, retry if it did not run
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
