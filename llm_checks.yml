@@ -1,0 +1,80 @@
+  # --- LLM Checks (Only if Non-LLM Checks Pass) ---
+  llm_checks:
+    needs: validate
+    if: needs.validate.outputs.validation_passed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Gemini SDK
+        run: |
+          pip install google-generativeai
+
+      - name: Run Gemini API Checks
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python3 << 'EOF'
+          import os
+          import sys
+          import google.generativeai as genai
+
+          # Configure the API
+          api_key = os.getenv("GEMINI_API_KEY")
+          if not api_key:
+            print("::error::GEMINI_API_KEY secret is not set or not accessible.")
+            sys.exit(1)
+            
+          genai.configure(api_key=api_key)
+          
+          # gemini-1.5-flash is ideal here: extremely fast, low cost, and highly capable for text analysis
+          model = genai.GenerativeModel('gemini-1.5-flash')
+
+          # Define checks with strict output instructions to avoid parsing errors
+          checks = {
+            "claim_support": "Does the essay adequately support its core claims? Answer exactly and only 'PASS' or 'FAIL'.",
+            "contradiction": "Are there any logical contradictions in the essay? Answer exactly and only 'PASS' if there are NONE, or 'FAIL' if there ARE contradictions.",
+            "completeness": "Does the essay address all points it introduces? Answer exactly and only 'PASS' or 'FAIL'.",
+            "logic_flow": "Does the essay maintain a logical and coherent flow? Answer exactly and only 'PASS' or 'FAIL'.",
+            "readability": "Is the essay structurally clear and accessible? Answer exactly and only 'PASS' or 'FAIL'."
+          }
+
+          # Run checks for each markdown file
+          all_passed = True
+          for root, _, files in os.walk("essays"):
+            for file in files:
+              if file.endswith(".md"):
+                file_path = os.path.join(root, file)
+                with open(file_path, "r", encoding="utf-8") as f:
+                  essay_text = f.read()
+
+                print(f"\n--- Checking {file} ---")
+                for check_name, prompt in checks.items():
+                  try:
+                    # Combine prompt and essay
+                    full_prompt = f"{prompt}\n\nEssay Text:\n{essay_text}"
+                    response = model.generate_content(full_prompt)
+                    
+                    # Clean the response to avoid whitespace/newline issues
+                    result = response.text.strip().upper()
+
+                    if "FAIL" in result:
+                      print(f"::error::{check_name} failed for {file}. Model output: {result}")
+                      all_passed = False
+                    elif "PASS" in result:
+                      print(f"{check_name}: Passed")
+                    else:
+                      print(f"::warning::Unexpected output for {check_name} in {file}: {result}")
+                      all_passed = False
+                      
+                  except Exception as e:
+                    print(f"::error::API Error during {check_name} for {file}: {str(e)}")
+                    sys.exit(1)
+
+          if not all_passed:
+            print("::error::One or more LLM checks failed.")
+            sys.exit(1)
+            
+          print("\nAll Gemini LLM checks passed successfully!")
+          EOF
