@@ -38,16 +38,33 @@ def is_transient(err: Exception) -> bool:
     s = str(err).lower()
     return any(t in s for t in TRANSIENT)
 
+def _extract_json(text: str):
+    """Parse a JSON object from model output, tolerating code fences and preamble."""
+    import re
+    t = text.strip()
+    # strip ```json ... ``` or ``` ... ``` fences
+    t = re.sub(r"^```(?:json)?\s*", "", t)
+    t = re.sub(r"\s*```$", "", t)
+    try:
+        return json.loads(t)
+    except json.JSONDecodeError:
+        pass
+    # fall back to the first {...} block
+    m = re.search(r"\{.*\}", t, re.S)
+    if m:
+        return json.loads(m.group(0))
+    raise ValueError(f"no JSON object in model output: {text[:200]!r}")
+
 def review_one(client, essay: str):
-    """Return (verdict, issues) or raise for transient errors."""
+    """Return (verdict, issues). Raise for transient errors; a malformed but
+    non-empty response raises ValueError (handled as did-not-run upstream)."""
     from google.genai import types
     resp = client.models.generate_content(
         model=MODEL,
         contents=f"{RUBRIC}\n\n---ESSAY---\n{essay}",
-        config=types.GenerateContentConfig(
-            temperature=0.0, response_mime_type="application/json"),
+        config=types.GenerateContentConfig(temperature=0.0),
     )
-    data = json.loads(resp.text)
+    data = _extract_json(resp.text)
     return str(data.get("verdict", "")).upper(), data.get("issues", [])
 
 def main():

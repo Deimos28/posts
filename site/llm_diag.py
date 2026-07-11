@@ -35,3 +35,18 @@ for model in ("gemini-2.0-flash", "gemini-flash-latest", "gemini-1.5-flash"):
         print("  OK ->", repr(r.text[:60]))
     except Exception as e:
         print("  ERROR:", type(e).__name__, str(e)[:200])
+
+# --- also exercise the real review path and print raw verdict ---
+print("\n=== real review path (JSON verdict) ===")
+try:
+    import importlib.util, pathlib
+    spec = importlib.util.spec_from_file_location("llm_check", "site/llm_check.py")
+    lc = importlib.util.module_from_spec(spec); spec.loader.exec_module(lc)
+    for f in sorted(pathlib.Path("essays").glob("**/published.md")):
+        try:
+            v, issues = lc.review_one(client, f.read_text())
+            print(f"  {f}: verdict={v} issues={issues}")
+        except Exception as e:
+            print(f"  {f}: review_one ERROR {type(e).__name__}: {str(e)[:300]}")
+except Exception as e:
+    print("  diag review path error:", type(e).__name__, str(e)[:200])
