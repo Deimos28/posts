@@ -2,7 +2,7 @@
 *Agents don't start the decay: they simply stop the top-up.*
 
 Published 2026-07-10: https://deimos28.substack.com/p/the-comprehension-cursor
-Frozen copy of the published text (images live on Substack).
+Frozen copy of the published text. Figures redrawn as SVG for this mirror.
 
 ---
 
@@ -17,8 +17,7 @@ model something before you can control it".
 For the purpose of this essay, I propose this simplified model for software
 development:
 
-[figure: manual loop — feature request → judgement → manual coding → code; friction →
-ŷ → comprehension → rated mental model → judgement]
+![The manual development loop](figures/manual-loop.svg)
 
 Peter Naur (yes, the same Peter Naur from the "Backus-Naur Form") said *"programming
 properly should be regarded as an activity by which the programmers form or achieve a
@@ -29,8 +28,7 @@ adjusted as our view of the world ŷ surprises us.
 
 Now what happens when we have access to a good agent?
 
-[figure: same loop with "Code or prompt?" router and Agent path — no friction on the
-agent path]
+![The loop with an agent: the router chooses between coding and prompting](figures/agent-loop.svg)
 
 When we let the agent code, we no longer experience the friction and hence we no
 longer get the feeling of unease when we don't understand the code, the sense that our

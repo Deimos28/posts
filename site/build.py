@@ -10,6 +10,21 @@ OUT = ROOT / "_site"
 OUT.mkdir(exist_ok=True)
 (OUT / "style.css").write_text((ROOT / "site/style.css").read_text())
 
+FIGS = ROOT / "shared/figures"
+
+def inline_figures(html_path: pathlib.Path):
+    """Replace <img src="figures/X.svg"...> with the SVG contents so page fonts apply."""
+    h = html_path.read_text()
+    def repl(m):
+        svg_file = FIGS / pathlib.Path(m.group(1)).name
+        if not svg_file.exists():
+            return m.group(0)
+        svg = svg_file.read_text()
+        svg = svg.replace("<svg ", '<svg style="width:100%;height:auto;margin:1.5rem 0" ', 1)
+        return svg
+    h = re.sub(r'<img src="figures/([^"]+\.svg)"[^>]*/?>', repl, h)
+    html_path.write_text(h)
+
 def first_heading(md):
     m = re.search(r"^#\s+(.+)$", md, re.M)
     return m.group(1).strip() if m else "Untitled"
@@ -32,6 +47,7 @@ for d in sorted((ROOT / "essays").iterdir()):
              "--template", str(ROOT / "site/template.html"),
              "--metadata", f"title={title}", "-V", "root=",
              "-o", str(OUT / f"{slug}.html")], check=True)
+        inline_figures(OUT / f"{slug}.html")
         entries.append((title, subtitle(md), f"{slug}.html"))
     elif notes.exists():
         m = re.search(r"https://deimos28\.substack\.com/\S+", notes.read_text())

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" role="img" aria-label="The loop with an agent: the router chooses between coding and prompting">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#26231D"/>
+    </marker>
+  </defs>
+  <style>
+    .b { fill:none; stroke:#26231D; stroke-width:1.4; }
+    .r { fill:#EEE9DC; stroke:#26231D; stroke-width:1.4; }
+    .w { fill:none; stroke:#26231D; stroke-width:1.3; }
+    text { font-family:'EB Garamond', Garamond, Georgia, serif; fill:#26231D; font-size:19px; }
+    .l { font-size:16.5px; font-style:italic; fill:#4A453A; }
+  </style>
+
+  <rect class="b" x="80" y="42" width="190" height="46"/>
+  <text x="175" y="71" text-anchor="middle">Comprehension</text>
+
+  <rect class="b" x="430" y="42" width="140" height="46"/>
+  <text x="500" y="71" text-anchor="middle">Friction</text>
+
+  <path class="w" d="M430,65 L274,65" marker-end="url(#a)"/>
+  <text class="l" x="352" y="56" text-anchor="middle">ŷ</text>
+
+  <rect class="b" x="430" y="162" width="140" height="46"/>
+  <text x="500" y="191" text-anchor="middle">Manual coding</text>
+
+  <path class="w" d="M500,162 L500,92" marker-end="url(#a)"/>
+  <text class="l" x="510" y="132">errors</text>
+
+  <rect class="b" x="80" y="352" width="190" height="46"/>
+  <text x="175" y="381" text-anchor="middle">Judgement</text>
+
+  <path class="w" d="M175,88 L175,348" marker-end="url(#a)"/>
+  <text class="l" x="186" y="222">rated mental model</text>
+
+  <path class="w" d="M8,375 L76,375" marker-end="url(#a)"/>
+  <text class="l" x="10" y="362">feature request</text>
+
+  <rect class="r" x="360" y="352" width="170" height="46"/>
+  <text x="445" y="381" text-anchor="middle">Code or prompt?</text>
+
+  <path class="w" d="M270,375 L356,375" marker-end="url(#a)"/>
+
+  <path class="w" d="M445,352 L445,230 L465,208" marker-end="url(#a)"/>
+  <text class="l" x="405" y="290">intent</text>
+
+  <rect class="b" x="600" y="352" width="120" height="46"/>
+  <text x="660" y="381" text-anchor="middle">Agent</text>
+
+  <path class="w" d="M530,375 L596,375" marker-end="url(#a)"/>
+  <text class="l" x="563" y="366" text-anchor="middle">intent</text>
+
+  <path class="w" d="M570,185 L700,185 L700,96" marker-end="url(#a)"/>
+  <path class="w" d="M720,375 L738,375 L738,96" marker-end="url(#a)"/>
+  <text x="719" y="80" font-style="italic" text-anchor="middle">code</text>
+</svg>
