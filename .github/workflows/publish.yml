@@ -1,62 +1,51 @@
-name: Publish Essays to GitHub Pages
-
+name: Publish essays
 on:
   push:
-    branches: ["main"]
-    paths: ["essays/**"]
-
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
 jobs:
-  validate:
-    runs-on: ubuntu-latest
-    outputs:
-      validation_passed: ${{ steps.validation.outputs.passed }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y pandoc python3-pip && pip install pyyaml requests pyenchant textstat
-      - name: Spell Check
-        run: python3 -c 'import enchant, os, sys; from pathlib import Path; d = enchant.Dict("en_US"); errors = []; [errors.append(f"{f.name}:{i}: {w}") for f in Path("essays").glob("*.md") for i, l in enumerate(open(f), 1) for w in l.split() if (w := "".join(c for c in w if c.isalpha())) and not d.check(w)]; print("::error::Spell check failed:" + chr(10).join(f"::error::{e}" for e in errors)) if errors else print("Spell check passed!")'
-      - name: URL Reachability Check
-        run: python3 -c 'import re, requests, sys; from pathlib import Path; dead = []; [dead.append(f"{f.name}:{i}: {u}") for f in Path("essays").glob("*.md") for i, l in enumerate(open(f), 1) for u in re.findall(r"https?://[^\\s]+", l) if (requests.head(u, timeout=5, allow_redirects=True).status_code >= 400 if True else False)]; print("::error::Dead URLs:" + chr(10).join(f"::error::{u}" for u in dead)) if dead else print("All URLs OK!")'
-      - name: Repetition Check
-        run: python3 -c 'from collections import defaultdict; from pathlib import Path; wc = defaultdict(int); tw = 0; [wc.__setitem__(w, wc[w] + 1) or tw.__iadd__(1) for f in Path("essays").glob("*.md") for l in open(f) for w in l.lower().split() if len(w) > 4]; print("::error::Repetition detected") if any(c > 5 and c/tw > 0.05 for c in wc.values()) else print("No repetition!")'
-      - name: Set Validation Output
-        id: validation
-        run: echo "passed=true" >> $GITHUB_OUTPUT
-
-  llm_checks:
-    needs: validate
-    if: needs.validate.outputs.validation_passed == 'true'
+  checks:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install Gemini SDK
-        run: pip install google-generativeai
-      - name: Run Gemini API Checks
+      - uses: actions/checkout@v4
+      - name: Install check deps
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q enchant-2 hunspell-en-us
+          pip install --quiet pyenchant requests google-generativeai
+      - name: Deterministic checks (spell, URLs, style) — gating
+        run: python3 site/checks.py
+      - name: LLM claim check — gating
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python3 -c 'import os, sys, google.generativeai as genai; from pathlib import Path; genai.configure(api_key=os.getenv("GEMINI_API_KEY")); model = genai.GenerativeModel("gemini-1.5-flash"); checks = {"claim_support": "Does the essay support its claims? Answer PASS or FAIL."}; all_passed = True; [print(f"::error::{n} failed") or all_passed.__setattr__("__value", False) for f in Path("essays").glob("*.md") for n, p in checks.items() if "FAIL" in model.generate_content(f"{p}\n\n{open(f).read()}").text.strip().upper()]; sys.exit(1) if not all_passed else print("All LLM checks passed!")'
+        run: python3 site/llm_check.py
 
-  publish:
-    needs: [validate, llm_checks]
-    if: needs.validate.outputs.validation_passed == 'true' && success()
+  build:
+    needs: checks
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Setup Pandoc
-        run: sudo apt-get update && sudo apt-get install -y pandoc
-      - name: Convert Markdown to HTML
-        run: mkdir -p public && for file in essays/*.md; do pandoc $file -o public/$(basename $file .md).html --standalone; done
-      - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v4
+      - name: Install pandoc
+        run: sudo apt-get update -q && sudo apt-get install -y -q pandoc
+      - name: Build site
+        run: python3 site/build.py
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: public/
-      - name: Deploy to GitHub Pages
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
         uses: actions/deploy-pages@v4
