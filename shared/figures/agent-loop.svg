@@ -41,7 +41,7 @@
 
   <path class="w" d="M270,375 L356,375" marker-end="url(#a)"/>
 
-  <path class="w" d="M445,352 L445,230 L465,208" marker-end="url(#a)"/>
+  <path class="w" d="M445,352 L445,212" marker-end="url(#a)"/>
   <text class="l" x="405" y="290">intent</text>
 
   <rect class="b" x="600" y="352" width="120" height="46"/>

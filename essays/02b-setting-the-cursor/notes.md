@@ -4,6 +4,51 @@ Picks up the published cliffhanger: "We now get to set a cursor on whether to pa
 comprehension, or borrow and move faster. How to do this is the subject of the next
 essay."
 
+## Reframe (2026-07-11): calibration is the theory; falsifiability is the criterion
+
+Thesis restated: design workflows so that humans continue making predictions that
+reality can confirm or refute. Friction was one implementation of calibration —
+incidental and default-on (every keystroke embeds micro-predictions, graded
+instantly). Predict-before-reveal is a deliberate implementation; armies-with-
+prediction a scheduled one; debugging and incidents episodic ones. This resolves
+Chat's objection about implementation's privileged role: nothing was privileged
+except the default-on schedule. "Top-up" is the metaphor; "calibration event" is
+the mechanism under it.
+
+The cursor is not deciding whether to use AI. It sets the boundary of where you
+remain falsifiable: paying comprehension means generating expectations specific
+enough for reality to violate; borrowing means never staking one. On the borrow
+side you cannot be wrong — which is the self-masking condition.
+
+Lineage: Naur (the program is a theory held in minds) + Popper (a theory is
+knowledge only to the extent it is falsifiable). Composed: borrowed comprehension
+is theory that risks nothing. The fitness program is conjectures-and-refutations
+run deliberately; the fear signal is what a refutation feels like from inside.
+Scope: Popper is for the epistemology, a paragraph, not a framework. Verify any
+quote against Conjectures and Refutations directly.
+
+Consequences for structure:
+- The four rules demote from thesis to boundary-estimators: phase, asset class,
+  and blast radius are three estimates of where you must remain falsifiable.
+- The recursion section survives untouched (drawing the boundary requires the
+  calibrated model).
+- 2b states the principle; 2c inventories the mechanisms.
+
+Design prediction (candidate ending): a good future agent is one that
+continuously elicits and tests the user's predictions rather than merely
+producing correct code. Discriminates the current market: Contral's Prove mode
+and Thariq's merge quiz are elicitation; explanation-on-tap is anesthetic.
+
+Two constraints to state (else readers supply them as objections):
+1. Elicitation has a cost curve: demanded before every diff it becomes a
+   confirmation dialog; habituation kills it, or users learn to emit vague —
+   unfalsifiable — predictions, reintroducing self-masking through the front
+   door. Predictions must be specific, and elicitation rationed (Surgical
+   applies to the agent's questions: high blast radius, slow oracles).
+2. The blind-faith boundary holds: where verification is cheap and complete,
+   eliciting predictions is friction theater. The principle governs the
+   no-oracle layer only.
+
 ## Structure (agreed order)
 
 1. **The conveyor belt** (grounds everything that follows)
