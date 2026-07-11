@@ -19,13 +19,31 @@ jobs:
         run: |
           sudo apt-get update -q
           sudo apt-get install -y -q enchant-2 hunspell-en-us
-          pip install --quiet pyenchant requests google-generativeai
+          pip install --quiet pyenchant requests google-genai
       - name: Deterministic checks (spell, URLs, style) — gating
         run: python3 site/checks.py
-      - name: LLM claim check — gating
+      - name: LLM claim check — gating, retry if it did not run
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python3 site/llm_check.py
+        run: |
+          # Exit codes from llm_check.py:
+          #   0 = pass, 1 = content FAIL (gate, do NOT retry), 2 = did-not-run (retry)
+          for attempt in 1 2 3; do
+            set +e
+            python3 site/llm_check.py
+            code=$?
+            set -e
+            if [ "$code" -eq 0 ]; then
+              echo "LLM check passed (attempt $attempt)."; exit 0
+            elif [ "$code" -eq 1 ]; then
+              echo "LLM check FAILED on content; gating."; exit 1
+            else
+              echo "LLM check did not run (attempt $attempt, code $code); retrying in $((attempt*15))s."
+              sleep $((attempt*15))
+            fi
+          done
+          echo "LLM check could not run after retries; failing the gate to be safe."
+          exit 1
 
   build:
     needs: checks
