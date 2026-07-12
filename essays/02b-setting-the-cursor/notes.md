@@ -103,3 +103,26 @@ Two constraints to state (else readers supply them as objections):
 ## Open questions
 - Does "always on time" survive the pay-mode self-test? (When deliberately paying
   comprehension, does schedule pressure return?)
+
+## Open question (2026-07-11): the recursion has levels, and they get worse
+
+L0 judgement about the code — blast radius: the module; oracle: fast.
+L1 judgement about when to borrow — blast radius: the mental model; oracle: slow, self-masking.
+L2 judgement about which frictions to keep — blast radius: what kind of engineer you are;
+oracle: a decade, arriving as obsolescence.
+
+Blast radius grows and oracle quality degrades together. The decisions that matter most
+are the ones you can least check.
+
+Candidate principle: at high recursion levels, favour optionality over commitment.
+Beck's answer to architectural uncertainty (cheap to change, rather than predicted
+correctly), applied to skill acquisition. Calibrate on what stays load-bearing across
+many futures rather than betting a decade on one faculty.
+
+The sushi problem: do not spend ten years becoming a master if the seas empty in three.
+This is the non-moral criterion — fit, not virtue. Nobody is lazy; someone is wrong, and
+finds out too late.
+
+Open, and needs testing before it goes in prose: is the L2 blast radius really the
+largest? Careers may be more recoverable than architectures. If so the monotonic claim
+breaks and only the oracle-degradation half survives.
