@@ -8,8 +8,10 @@ changes first, in its own commit. Terms marked (external) are cited, not coined 
 - **Cognitive debt** (external: Kosmyna et al., arXiv 2506.08872; also Storey) — the
   gap between what you shipped and what you understand; deferring mental effort at
   long-term cost.
-- **Comprehension cursor** — the choice, per task, between paying for comprehension
-  and borrowing to move faster. Previously pinned at "pay"; agents unpinned it.
+- **Comprehension cursor** — the choice, per task, of where to remain falsifiable.
+  Paying means staking expectations specific enough for reality to violate; borrowing
+  means obtaining the result without exposing your own model to refutation.
+  Previously pinned at "pay"; agents unpinned it.
 - **Friction transducer** — the component that converted the act of manual coding
   into measurements (ŷ) consumed by comprehension. Removed on the agent path.
 - **Leaky reservoir / top-up** — comprehension decays regardless; manual coding was a
@@ -59,3 +61,13 @@ changes first, in its own commit. Terms marked (external) are cited, not coined 
 - **The concession** — engineering does not decide; the business holds allocation and
   sees only behavioural signals. The engineer's one lever is the latency of the debt
   signal.
+- **Falsifiability boundary** — what the cursor sets. On one side the engineer stakes
+  claims reality can refute; on the other he borrows outcomes and cannot be wrong.
+  Naur (the program is a theory) + Popper (a theory is knowledge only insofar as it is
+  falsifiable): borrowed comprehension is theory that risks nothing.
+- **Calibration event** — any moment where a specific expectation meets reality and can
+  update the rated mental model. Friction is one implementation among several
+  (debugging, incidents, reading, probes); manual coding supplied them without being
+  asked.
+- **Friction** — the cost of exposing a model to reality: effort, time, discomfort, and
+  the risk of being proven wrong.
