@@ -81,11 +81,15 @@ All agent changes enter `main` through a pull request.
 2. Change only files in the assigned write domain.
 3. Open a draft pull request using `.github/PULL_REQUEST_TEMPLATE.md`.
 4. State the purpose, files changed, uncertainty, boundary check, and author action.
-5. Leave the pull request unmerged. The author merges, requests changes, or closes it.
+5. Leave the pull request unmerged until the author gives an explicit merge instruction.
+   The author may instead request changes or close it.
 
 Merging a scratchbook pull request records an agent proposal. It does not promote the
 idea. Promotion still requires the author to reconstruct the argument in
 `shared/reviewed.md`.
 
-Agents currently act through the author's GitHub identity. The pull request is a visible
-review checkpoint and provenance record; it is not a separate authentication boundary.
+Agents currently act through the author's GitHub identity, so GitHub cannot supply an
+independent approval boundary. The pull request is a visible review checkpoint and
+provenance record. Formal GitHub approval is not required. An agent may merge only after
+an explicit instruction from the author in the conversation or a pull-request comment;
+the absence of objections, a green merge button, or completed checks is not authorization.
