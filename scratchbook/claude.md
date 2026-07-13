@@ -72,3 +72,47 @@ where the question is not what to understand but what kind of engineer to remain
 Status: unresolved. Test: does the L2 blast radius claim hold, or is career damage
 actually MORE recoverable than architectural damage (people retrain; codebases get
 rewritten)? If recoverable, the monotonic "blast radius grows" claim breaks.
+
+## Harman: one ought, "permissible mistakes" — the missing category for the non-moral framing
+Date: 2026-07-12
+Raw contribution (author-sourced paper; my summary): Elizabeth Harman, "There Is No
+Moral Ought and No Prudential Ought" (author's PDF verified). There are not distinct
+moral and prudential oughts; there is one all-things-considered ought, and what varies
+is which considerations CENTRALLY EXPLAIN it. Three tools for the essays:
+1. Moralism rediagnosed: not "using ought-language" but misattributing the
+   explanation — treating a prudentially-explained fact as morally explained, so a
+   mistake becomes a wrong.
+2. The only-a-jerk test: morality/prudence do not always recommend the BEST option;
+   only a jerk would urge the maximal fitness program on a working engineer with a
+   deadline. Principled ground for prescribing less than the maximum.
+3. Nicole's case (YouTube ASL vs the class): the ought tracks the sustainable
+   second-best, not the ideal. 2c should identify and prescribe the YouTube-videos
+   version of calibration (e.g. predict-before-reveal on high-blast-radius diffs
+   only); the full program is there for whoever wants it.
+Category the framing needed: prudentially permissible prudential mistakes — acting as
+you ought not (given your own goals) while doing nothing wrong and deserving no blame.
+Correction recorded: my earlier "prudential ought vs moral ought" framing was the
+Common View this paper attacks. Author's source outran my framing.
+Authority note: Harman is a respected contemporary analytic philosopher (Princeton),
+well known within the field, unknown outside it; this is a live position, not a
+settled result. Cite for the concept, not for weight.
+Status: unresolved — needs author's reconstruction before use in 02b/02c.
+
+## Kant's universalizability as a structural (non-moral) test of the borrow-everything maxim
+Date: 2026-07-12
+Raw contribution: First formulation of the categorical imperative (Groundwork, 1785):
+act only on a maxim you can WILL as universal law — will, not wish; a consistency test,
+not a popularity test; two failure modes (contradiction in conception, contradiction in
+will). Applied non-morally: can "every engineer borrows all comprehension, always" be
+willed as universal? The maxim eats its preconditions — agents are trained on code
+written by people who understood it; review, correction, and future training data
+presuppose a population that maintains models. Universal total borrowing approaches a
+contradiction in conception: the practice free-rides on the comprehension it abolishes.
+This yields a third register alongside the prudential and the moral — ecological: what
+happens to the commons of understanding if the maxim becomes the norm. The individual
+borrower commits (at most) a Harman-style permissible mistake; the AGGREGATE practice
+fails universalizability. Fitness parallel: civilization affords most people sedentary
+only because machines run; it could not afford everyone unable to lift.
+Risk: flirts with grandiosity; the essays' strength is the scale of one engineer's
+loop. Possibly a private answer to "why does this matter beyond me", not prose.
+Status: unresolved.
