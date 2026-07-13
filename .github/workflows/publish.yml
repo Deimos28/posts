@@ -45,6 +45,20 @@ jobs:
           echo "LLM check could not run after retries; failing the gate to be safe."
           exit 1
 
+  risk-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Install deps
+        run: pip install --quiet google-genai
+      - name: Advisory publishing-risk review (never gates)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: python3 site/risk_review.py
+
   build:
     needs: checks
     runs-on: ubuntu-latest
