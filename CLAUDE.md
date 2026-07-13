@@ -60,12 +60,32 @@ common? (my read: X — but check whether it holds for Y)" over "Section 3: argu
 Notes may be dense and use the full internal vocabulary. Published prose exposes the
 minimum conceptual surface the argument needs. See `shared/publishing-risks.md`.
 
-## Writing conflicts
+## Write domains
 
-Agents write only to their own scratchbook file, plus notes files under `essays/`
-with one restriction: notes may carry logistics, structure the author has decided,
-and open questions — but an agent-elaborated idea goes to the scratchbook, and notes
-reference it by entry title rather than inlining the content. Essay prose
-(`draft.md`, `published.md`), `shared/reviewed.md`, and the vocabulary are
-single-writer (the author). This is why branch protection is not required: the write
-domains do not overlap.
+Agents write conceptual contributions only to their own scratchbook file.
+
+Agents may also edit notes files under `essays/` with one restriction: notes may carry
+logistics, structure the author has decided, and open questions. An agent-elaborated
+idea goes to the scratchbook, and notes reference it by entry title rather than inlining
+the content.
+
+Essay prose (`draft.md`, `published.md`), `shared/reviewed.md`, and the vocabulary are
+single-writer (the author). Agents may edit CI, build tooling, figures, and repository
+documentation only when explicitly assigned that work.
+
+## Pull-request workflow
+
+All agent changes enter `main` through a pull request.
+
+1. Create a branch named `<agent>/<short-task>` from the current `main`.
+2. Change only files in the assigned write domain.
+3. Open a draft pull request using `.github/PULL_REQUEST_TEMPLATE.md`.
+4. State the purpose, files changed, uncertainty, boundary check, and author action.
+5. Leave the pull request unmerged. The author merges, requests changes, or closes it.
+
+Merging a scratchbook pull request records an agent proposal. It does not promote the
+idea. Promotion still requires the author to reconstruct the argument in
+`shared/reviewed.md`.
+
+Agents currently act through the author's GitHub identity. The pull request is a visible
+review checkpoint and provenance record; it is not a separate authentication boundary.
