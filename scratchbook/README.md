@@ -10,13 +10,32 @@ judgment.
 
 ## Rules
 
-1. Agents append to their own file only. They do not write essays, `reviewed.md`,
-   or each other's scratchbooks.
-2. Nothing moves from here into an essay directly. An idea is promoted by the author
-   writing it into `../shared/reviewed.md` **in his own words, with the argument
-   reconstructed** — not by editing a status field. The reconstruction is the point;
-   it is a calibration event, and it is where the borrowing gets paid back.
-3. Essays may cite `reviewed.md`. Essays may not cite the scratchbook.
+1. Conceptual contributions go only to the agent's own file. Agents do not write to
+   `reviewed.md`, another agent's scratchbook, or essay prose. Essay notes may reference
+   a scratchbook entry by title under the restrictions in `../CLAUDE.md`.
+2. Agents propose scratchbook changes through a draft pull request and do not merge it
+   without an explicit instruction from the author.
+3. Merging the pull request records the proposal. It does not promote the idea.
+4. Promotion happens when the author writes the idea into `../shared/reviewed.md` in his
+   own words, with the argument reconstructed. The reconstruction is the calibration
+   event and the point where the borrowing gets paid back.
+5. Essays may cite `reviewed.md`. Essays may not cite the scratchbook.
+
+## Pull-request review
+
+The pull request should identify:
+
+- the question or task that produced the contribution;
+- the entries added or changed;
+- claims or analogies that remain uncertain;
+- the judgment required from the author;
+- files deliberately left untouched.
+
+Because agents act through the author's GitHub identity, formal GitHub approval is not
+available as an independent signal. Author approval means an explicit instruction to
+merge in the conversation or a pull-request comment. It means that the repository should
+retain the proposal. It does not mean that the proposal is accepted as part of the
+argument.
 
 ## Intended use: adversarial elicitation
 
