@@ -116,3 +116,38 @@ only because machines run; it could not afford everyone unable to lift.
 Risk: flirts with grandiosity; the essays' strength is the scale of one engineer's
 loop. Possibly a private answer to "why does this matter beyond me", not prose.
 Status: unresolved.
+
+## Popper reading note: the Nicole version
+Date: 2026-07-13
+Raw contribution: falsifiability is now load-bearing in 02b and the author has not
+read Popper. The proportionate fix is Chapter 1 of Conjectures and Refutations
+("Science: Conjectures and Refutations", 1953 lecture, ~30 pages), not The Logic of
+Scientific Discovery. It contains everything in use: demarcation, risky predictions,
+confirmations being cheap, the criterion in Popper's own voice.
+Three cautions for prose:
+1. Two Adlers. Popper's central example of unfalsifiable theorising is ALFRED Adler
+   (psychoanalyst, every case confirms the theory). The essays cite MORTIMER Adler on
+   reading. Do not let a reader conflate them. Pleasant coincidence: Popper's Adler is
+   a portrait of comprehension that cannot be surprised — the self-masking failure.
+2. "We can let our theories die in our stead" is real Popper but from Objective
+   Knowledge (1972), wording approximate — VERIFY against the source before print.
+3. Inoculation sentence needed: strict falsificationism is considered superseded as a
+   theory of science (Kuhn, Lakatos, Duhem–Quine). The essays' use survives — it is a
+   discipline heuristic for one engineer's model of one system, not a demarcation of
+   science — but the prose should not look surprised by the objection.
+Status: unresolved — reading not yet done.
+
+## Barely-good-enough and Bourbaki: the two poles the cursor navigates
+Date: 2026-07-13
+Raw contribution (author's observation, my restatement): "barely good enough" is the
+engineering ideal — and the framework already formalises it as the blind-faith
+strategy, legitimate wherever oracles are fast. The purity loop is its opposite pole —
+Bourbaki as pathology, calibration spent past the point of return. The cursor was
+always the instrument for navigating between the two. What is new: the author enters
+the navigation from the Bourbaki side, and the essay could say so — the prescriber
+feeling the pull of one failure mode while holding the theory of both is the
+confessional register that made essay one work (the hackathon anecdote).
+Related, worth keeping: the essay's difficulty is structural, not a defect —
+prescription honestly written implicates the prescriber, in a way diagnosis does not.
+Status: unresolved — the personal calibration of this stays out of the repo; only the
+two-poles structure is recorded here.
