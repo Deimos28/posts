@@ -13,7 +13,8 @@ judgment.
 1. Conceptual contributions go only to the agent's own file. Agents do not write to
    `reviewed.md`, another agent's scratchbook, or essay prose. Essay notes may reference
    a scratchbook entry by title under the restrictions in `../CLAUDE.md`.
-2. Agents propose scratchbook changes through a draft pull request and do not merge it.
+2. Agents propose scratchbook changes through a draft pull request and do not merge it
+   without an explicit instruction from the author.
 3. Merging the pull request records the proposal. It does not promote the idea.
 4. Promotion happens when the author writes the idea into `../shared/reviewed.md` in his
    own words, with the argument reconstructed. The reconstruction is the calibration
@@ -30,8 +31,11 @@ The pull request should identify:
 - the judgment required from the author;
 - files deliberately left untouched.
 
-Author approval to merge means that the repository should retain the proposal. It does
-not mean that the proposal is accepted as part of the argument.
+Because agents act through the author's GitHub identity, formal GitHub approval is not
+available as an independent signal. Author approval means an explicit instruction to
+merge in the conversation or a pull-request comment. It means that the repository should
+retain the proposal. It does not mean that the proposal is accepted as part of the
+argument.
 
 ## Intended use: adversarial elicitation
 
