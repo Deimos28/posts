@@ -30,3 +30,9 @@ State the relevant files that were reviewed but not modified.
 ## Author action required
 
 What the author must review, decide, reconstruct, verify, or reject.
+
+## Merge authorization
+
+Leave this pull request unmerged until the author gives an explicit merge instruction in
+the conversation or a pull-request comment. Formal GitHub approval is not required,
+because agent changes currently use the author's GitHub identity.
