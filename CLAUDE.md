@@ -62,6 +62,10 @@ minimum conceptual surface the argument needs. See `shared/publishing-risks.md`.
 
 ## Writing conflicts
 
-Agents write only to their own scratchbook file. Essays, `shared/reviewed.md`, and
-the vocabulary are single-writer (the author). This is why branch protection is not
-required: the write domains do not overlap.
+Agents write only to their own scratchbook file, plus notes files under `essays/`
+with one restriction: notes may carry logistics, structure the author has decided,
+and open questions — but an agent-elaborated idea goes to the scratchbook, and notes
+reference it by entry title rather than inlining the content. Essay prose
+(`draft.md`, `published.md`), `shared/reviewed.md`, and the vocabulary are
+single-writer (the author). This is why branch protection is not required: the write
+domains do not overlap.
