@@ -182,3 +182,32 @@ Open falsifiable question for 02b: can a reservoir BUILT through artifact contac
 MAINTAINED without it, on design interrogation + behavioural verification alone? He
 believes yes and is not testing it; the framework predicts no and cannot prove it yet.
 Status: unresolved — the crux belongs in 02b's altitude discussion.
+
+## The two-sided unbundling: friction carried comprehension inward and proof-of-care outward
+Date: 2026-07-14
+Source: https://jacobfilipp.com/care/ (Jacob Filipp, "Proof of Care in the Age of A.I.",
+handwritten and photographed — the form performs the thesis). CAVEAT: the piece is a
+speculative satire (pen-plotter counterfeits, storyteller guilds, scarification); cite
+as such, never as reportage. The underlying mechanism has a real literature: costly
+signaling — Spence (job-market signaling), Zahavi (handicap principle). Those are the
+citations if this enters prose; the mechanism is not a coinage.
+Raw contribution: the external mirror of the friction-collapse argument. Our claim:
+friction was a TRANSDUCER — effort produced comprehension in the producer. Filipp's
+claim: friction was a SIGNAL — effort proved care to the reader (the 4,000-word
+Pomeranian post certified investment because it could not be faked cheaply). Agents
+severed one bundle carrying two unpriced goods: calibration inward, credibility
+outward. The essays so far write only the internal half.
+Three consequences:
+1. Retroactive explanation of a design decision: the hand-drawn figures, sober
+   register, confessional anecdotes, and the LLM-contribution boundary all function as
+   proof-of-care artifacts — part of why the essays read as cared-about in a genre
+   saturated with fluent AI prose.
+2. Warning against the "legibility hack" (making calibration scores visible to hiring
+   managers): every legible costly signal gets counterfeited (the pen plotters),
+   forcing escalation toward the unfakeable — i.e. Goodhart, as narrative.
+3. Serious prediction under the satire: when artifacts stop certifying anyone,
+   synchronous embodied verification regains status. The oral exam returns — live
+   design defense, interrogation where you cannot retrieve what you do not hold.
+   The instruments (Inquisition, merge quizzes) may matter less as self-discipline and
+   more as the profession's next proof-of-competence rituals.
+Status: unresolved — likely stock for a later essay (the social half), not for 02b.
