@@ -151,3 +151,34 @@ Related, worth keeping: the essay's difficulty is structural, not a defect —
 prescription honestly written implicates the prescriber, in a way diagnosis does not.
 Status: unresolved — the personal calibration of this stays out of the repo; only the
 two-poles structure is recorded here.
+
+## Antirez divergence: at which altitude must you remain falsifiable?
+Date: 2026-07-14
+Source: https://antirez.com/news/169 ("Control the ideas, not the code")
+Raw contribution: the strongest practitioner counter-claim the framework has met.
+~70% convergent in our vocabulary: 5k lines/day = denominator explosion; attention as
+the scarce currency; comparative validation of inference implementations = armies
+behaviour; DESIGN.md = Naur's theory externalised; his worry about juniors (build
+interpreters and hash tables, don't review slop) = deliberate calibration exercises.
+The 30% crux: he claims the mental model can be MAINTAINED at design level — ŷ from
+behavioural verification and design interrogation — with code-level contact delegated.
+The framework as written assumes calibration against the artifact. If he is right, the
+friction transducer's level was contingent (it sat at the code because hands did), and
+the cursor question becomes at which ALTITUDE to remain falsifiable, not whether to
+read code.
+Narrowing (two rounds): his practice is not the strong claim. He still reviews all
+Redis code ("out of respect for users") and skips low-stakes review — which is
+Surgical, blast radius deciding where artifact contact is paid. The rhetoric says
+"mostly pointless"; the practice is calibrated. The gap between them is the finding.
+The author's argument (credit: Charly): **the contaminated n=1.** Antirez's evidence
+that design-level comprehension suffices is his own continued competence — while he
+continues to read the code. The experiment never runs. Decades of reading built a
+reservoir deep enough that real decay would surface slowly and be masked meanwhile —
+self-masking at career scale. The practitioners announcing the obsolescence of
+code-reading are running contaminated experiments on their own accumulated capital.
+His juniors paragraph half-concedes it: the practice recommended presupposes capital
+it does not build.
+Open falsifiable question for 02b: can a reservoir BUILT through artifact contact be
+MAINTAINED without it, on design interrogation + behavioural verification alone? He
+believes yes and is not testing it; the framework predicts no and cannot prove it yet.
+Status: unresolved — the crux belongs in 02b's altitude discussion.
