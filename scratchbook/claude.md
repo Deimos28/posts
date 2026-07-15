@@ -314,3 +314,41 @@ Implication for 02c: the toolkit must not be sold as manufacturing the orientati
 Equip the care that exists; leave the door open for practice to grow it; never
 prescribe it.
 Status: unresolved — awaiting author's reconstruction in reviewed.md.
+
+## Care, resolution of the grandmother case: repetition is not mechanization
+Date: 2026-07-14
+Origin: author's resolution.
+The grandmother's cooking, the rower's stroke, the pianist's repeated notes: the motor
+layer is automatic, and automaticity at one layer is what FREES the stretch to move up
+— to intent, expression, the person at the table. Author's formulation: "stretching
+inwards to clarify your intent and outwards to make that intent exist in the world" —
+which the etymology carries: in-tendere / ad-tendere, the two directions of one tension
+(the directional prefix reading is the author's gloss; the shared root tendere is
+philologically sound).
+Condition 3, final form: care survives any amount of automation as long as SOME level
+remains at which one is stretching. Mechanization is deadly only when terminal — when
+no next layer is taken up. "Once it has become mechanical, it is the becoming that
+carries the intent."
+Triple derivation, now closed: the cursor rule (accelerate doing-knowledge, protect
+becoming-knowledge) derived independently from (1) knowledge-type, (2) falsifiability
+(stay where you can be refuted), (3) care (stay where you are stretching). Three lines,
+one boundary.
+Antirez crux, sharpest form: the pianist proves stretch-relocation works — but her
+fingers are still HERS. The agent's diffs are not yours. Whether the becoming continues
+when the doing is delegated to something that is not you is where 02b's open question
+now lives.
+Status: unresolved — awaiting author's reconstruction in reviewed.md.
+
+## The techniques regain ownership; they do not create care
+Date: 2026-07-14
+Origin: author.
+The armies, predict-before-reveal, interrogation: instruments for regaining OWNERSHIP —
+they restore the possibility of stretching (contact, falsifiability, a level at which
+you can be wrong). They do not and cannot supply the care itself, which is volitional
+by definition (condition 1). They are tools to act if you so wish. Gym equipment does
+not create the wish to train.
+Consequence for 02c's framing: the techniques chapter is an armoury, not a programme.
+It equips a choice; it must not be written as if the equipment were the choice. This is
+the describe-and-equip guard restated from the inside: the essays can lower the cost of
+caring and make it possible again; the caring is not theirs to install.
+Status: unresolved.
