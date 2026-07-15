@@ -16,9 +16,19 @@ Essays may cite this file. Essays may not cite the scratchbook.
 ### calibrated predictions
 - Fixed budget: cursor decides where to allocate
 - Recreate prediction opportunities
-- 3x
-- Recursive judgement
+- 3x: determine the cursor position based on the phase
+- Recursive judgement: allocating judgement itself requires judgement. every time we go up the abstraction layer (funding, file, module, project, job, career) the cost and blast radius of poor judgent allocation increases.
 
+## Essay 2c: the practices
+
+- armies (simian/breakers, flexers, stretchers,  etc)
+- the suprise agent: surfaces things that are puzzling or surprising (eg "that cache actually increases response time by 4.2%" or "this supposedly harmless retry path accounts for 38% of duplicate jobs")
+- care: intention, attention, tension, StExupery's fix and the rose )
+- we can fabricate the conditions conducive to care
+
+## Essay 3: expanding the realm of the possible
+
+> concrete mechanisms can restore that exposu
 ### Cursor Economics
 - Knowledge decay rate and acquisition cost
 - Waste due to poor human skill or llm model
