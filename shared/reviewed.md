@@ -6,6 +6,26 @@ Entries are written by the author. Agents do not write to this file.
 
 Essays may cite this file. Essays may not cite the scratchbook.
 
+
+## Essay 2b: setting the cursor
+
+### Falsifiability
+- Naur says programs are theory, Popper says theories are knowledge only if they are falsifiable.
+- The cursor sets the boundary of the domain where we consent being proven wrong (falsifiable), not "who writes the code"
+
+### calibrated predictions
+- Fixed budget: cursor decides where to allocate
+- Recreate prediction opportunities
+- 3x
+- Recursive judgement
+
+### Cursor Economics
+- Knowledge decay rate and acquisition cost
+- Waste due to poor human skill or llm model
+- Human tokens have positive side effects (improving the model)
+- Attention reservoir
+
+
 <!-- Format:
 
 ## <claim>
