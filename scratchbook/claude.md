@@ -211,3 +211,39 @@ Three consequences:
    The instruments (Inquisition, merge quizzes) may matter less as self-discipline and
    more as the profession's next proof-of-competence rituals.
 Status: unresolved — likely stock for a later essay (the social half), not for 02b.
+
+## Care: chosen cost, other-directed — the meaning condition for the discipline
+Date: 2026-07-14
+Raw contribution (author's thread, my record; personal layer stays in conversation):
+Definition (author's): care = choosing to add friction, going through the effort, for
+the direct betterment of something other than oneself. Three conditions: volition
+(mandated discipline is compliance — the SIREHNA Clean Code lesson: doctrine
+manufactures weatherers, not carers), directedness (the object must lie beyond the
+self), and cost — status refined below.
+Evidence settled in discussion: cost-as-pain is NOT constitutive (the SIREHNA
+weatherers bore the most unpleasantness and cared least; the carers mostly enjoyed the
+discipline). First pass concluded "willingness to bear cost" is the substance.
+Author's refinement (2026-07-14): effort ≠ pain. What is constitutive is ENGAGED
+ATTENTION — the chef's knife-work is pleasant but effortful, attention at the edge of
+skill. When a task becomes mechanical (effortless, automatic), the cook stops caring:
+engagement has nothing to grip. Candidate final form: care = chosen, other-directed,
+engaged attention against something that still resists.
+Consequences:
+- Meaning condition: self-directed discipline is meaning-starved ("Seul compte pour
+  l'homme le sens des choses" — Saint-Exupéry, Citadelle XI, VERIFIED against the
+  estate site 2026-07-14). The fitness program needs an object beyond the practitioner:
+  the 3am debugger, the code's inheritors, the reader. Fourth motivational channel
+  after vanity, dread, productivity — the one the SIREHNA carers ran on.
+- Dark implication for agents: delegation makes tasks mechanical; attention disengages;
+  care starves even where responsibility remains. The friction collapse is also an
+  engagement collapse. The armies/inquisition are not only calibration instruments —
+  they are engagement surfaces, care-maintenance.
+- Design principle for the techniques: exercises must sit at the engagement edge
+  (challenge ≈ skill; cf. flow, Csikszentmihalyi — VERIFY citation if used; also
+  Sennett's The Craftsman on resistance — VERIFY). Too easy = mechanical; too hard =
+  abandoned.
+Guards: (1) must not re-moralize — care is volitional, hence supererogatory, hence
+Harman-permissible to skip; (2) describe and equip, never prescribe, or the essay
+reproduces the SIREHNA failure at scale.
+Status: unresolved — awaiting the author's reconstruction in reviewed.md (candidate
+first entry).
