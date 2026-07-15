@@ -282,3 +282,35 @@ Open question: the grandmother cooking the same daily meal, mechanically, with l
 does care persist through the object when the stretch is gone? Scope of condition 3
 needs settling.
 Status: unresolved — awaiting the author's reconstruction in reviewed.md (first entry).
+
+## Care, resolution and extension: repetition is not mechanization; techniques restore ownership, not care
+Date: 2026-07-14
+Origin: author's resolutions, my record.
+Grandmother case dissolved (author): her cooking is not mechanical. Repetition ≠
+mechanization — the rower's stroke, the pianist's repeated notes: automaticity at one
+layer FREES the stretch to move up (intent, expression, the person at the table). The
+stretch is two-directional: inward to clarify intent (in-tendere), outward to make it
+exist in the world (ad-tendere). [Prefix reading is a gloss, not philology; shared
+tendere root is sound.] Condition 3 final form: care survives any automation so long
+as a level remains at which one is stretching; mechanization is deadly only when
+terminal. "Once it has become mechanical, it is the becoming that carries the intent."
+Triple derivation now closed: accelerate doing-knowledge / protect becoming-knowledge
+derived independently from (1) knowledge-type, (2) falsifiability (stay where you can
+be refuted), (3) care (stay where you are stretching). Three lines, one boundary.
+Antirez crux, sharpest form: the pianist proves stretch-relocation works — but her
+fingers are still HERS. The agent's diffs are not yours. 2b's open question: does the
+becoming continue when the doing is delegated to something that is not you?
+New claim (author, 2026-07-14): the techniques (armies, predict-before-reveal,
+interrogation) regain OWNERSHIP — epistemic contact, calibration — but do not in
+themselves create care. Care is the upstream orientation that animates them; run
+dutifully without it, they are weathering (compliance theater).
+Counterpoint to hold against it (not resolve): the fox's secret — "C'est le temps que
+tu as perdu pour ta rose qui fait ta rose si importante" (Le Petit Prince, ch. XXI;
+VERIFY exact wording before print). Attention invested creates attachment: tending
+grows caring (Aristotelian habituation; effort-justification). If true, techniques
+voluntarily practiced can GROW care — loop, not one-way dependency. Volition remains
+the hinge: mandated armies manufacture weatherers; chosen ones may cultivate carers.
+Implication for 02c: the toolkit must not be sold as manufacturing the orientation.
+Equip the care that exists; leave the door open for practice to grow it; never
+prescribe it.
+Status: unresolved — awaiting author's reconstruction in reviewed.md.
