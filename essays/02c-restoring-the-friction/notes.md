@@ -26,6 +26,32 @@ Shrink from eight rows to three failure surfaces — your model, the system, the
 architecture — with the funnel and the canary as the meta-layer keeping detection
 honest.
 
+## Calibration repertoire (author note, 2026-07-15)
+Do not reduce deliberate calibration to explicit prediction elicitation.
+Predict-before-reveal is one mechanism, and a relatively interruption-heavy one.
+Armies, speculative-change probes, fault/load injection, debugging and incidents expose
+an engineer's model to reality in other ways.
+
+Candidate future agent: do most of the mechanical doing-knowledge work while arranging
+cheap encounters between the human's current model and evidence capable of surprising
+it. Possible modes include:
+- ask for an explicit prediction before revealing the resolving evidence;
+- perturb the system and let the human detect, localize or explain the effect;
+- surface a consequential anomaly with a "surprise me" / "did you know?" interaction;
+- hand back a puzzle worth investigating rather than a completed explanation.
+
+The "surprise me" mode is partly about curiosity and attention. The agent cannot create
+care, but it can create an invitation to care by surfacing something unexpected relative
+to the user's current model. Guard against novelty-feed behaviour: prefer surprises that
+change what the user should believe, investigate or decide.
+
+Possible common criterion across the repertoire: the challenge should not merely
+reproduce the implementation's own assumptions. Explicit predictions achieve this by
+timing; armies and probes achieve it through perturbation or independent challenge
+generation. Open question: how should an agent choose among prediction, perturbation,
+anomaly surfacing and puzzle handoff so calibration remains useful without becoming
+tedious or ceremonial?
+
 ## Stability section
 Three bullets, plain words: gain limiting (smaller reviewable steps), delay reduction
 (feedback as early as possible), lead compensation (speculative-change probes).
