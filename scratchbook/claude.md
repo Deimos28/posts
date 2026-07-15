@@ -247,3 +247,38 @@ Harman-permissible to skip; (2) describe and equip, never prescribe, or the essa
 reproduces the SIREHNA failure at scale.
 Status: unresolved — awaiting the author's reconstruction in reviewed.md (candidate
 first entry).
+
+## Care: chosen, other-directed, effortful attention (the third rider on the bundle)
+Date: 2026-07-14
+Origin: author's thread (recalibrating => attention => care), developed in conversation.
+Structural skeleton only; the personal layer stays out of the repo per standing rule.
+The claim (author's, reading B): attention is not a proxy for care — sustained chosen
+attention constitutes it. Definition built across the thread, three conditions:
+1. VOLITION — conscripted attention is not care; doctrine manufactures "weatherers"
+   (SIREHNA evidence: those who merely endured Clean Code bore MORE unpleasantness than
+   those who cared — so suffering cannot be the constitutive term).
+2. OTHER-DIRECTEDNESS — the meaning condition. Self-directed discipline is
+   meaning-starved ("Seul compte pour l'homme le sens des choses" — Saint-Exupéry,
+   Citadelle, ch. XI; VERIFIED against the estate's site 2026-07-14). Candidate
+   objects: users, the 3am debugger, inheritors of the code, juniors without capital.
+3. EFFORTFUL ATTENTION — amended 2026-07-14 by the author against my earlier
+   "willingness-to-bear-cost" fix: what is constitutive is not pain and not a standing
+   disposition but the STRETCH — residence at the edge where attention is genuinely
+   demanded. The chef whose cooking becomes fully mechanical stops caring; ease kills
+   care by removing the stretch, not by removing suffering.
+Etymology (sound, not folk): attention and intention both from Latin tendere, to
+stretch — attendere (stretch toward), intendere (stretch into). "C'est l'intention qui
+compte" / "c'est l'attention qui compte". The stretch is in the words.
+Unification with the framework: the falsifiable frontier and the care frontier
+co-locate. Mechanical work stakes no predictions — the innovation signal flatlines and
+the attention withdraws together. Agents make production mechanical; the stretch
+disappears unless deliberately relocated (design interrogation, probes, chosen
+friction). "We get to choose our friction" = we get to choose where we stretch = where
+we care.
+Guards: (a) must not re-moralize — caring acts are supererogatory, Harman-permissible
+to skip, never grounds for blame; (b) describe and equip, never prescribe — doctrine
+converts care into compliance (the SIREHNA lesson).
+Open question: the grandmother cooking the same daily meal, mechanically, with love —
+does care persist through the object when the stretch is gone? Scope of condition 3
+needs settling.
+Status: unresolved — awaiting the author's reconstruction in reviewed.md (first entry).
