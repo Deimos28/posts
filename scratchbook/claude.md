@@ -386,3 +386,52 @@ Related decisions from the same exchange (author's, recorded for the notes):
 - 2b's thesis in embryo: the link between care, falsifiability, attention, and
   judgement — that link is the cursor.
 Status: unresolved — analysis layer for the author's 2b/2c drafting.
+
+## The fader figure: a two-stage delegation axis, confirmed by the author
+Date: 2026-07-16
+Origin: author's notebook page ("The Cursor", hand-drawn fader); this entry is the
+analysis layer. The page itself is the candidate figure for 02b — hand-drawn, per the
+proof-of-care logic.
+The axis (author-confirmed): what is DELEGATED — none | the doing | the understanding.
+This replaces pay-vs-borrow (one axis, one good) with the two-stage structure the
+published 2a already contains: agents let you delegate implementation, then let you
+delegate comprehension itself (the ever-present teacher). Rows lock onto it:
+- 3X: extract | expand | explore
+- falsification: continuous | at the diff | not yours (the slow oracle only) —
+  author's fix of my "never": at full delegation falsification persists but the
+  stakes are no longer yours
+- care for the code: "coded understanding" (Naur free-association: the artifact as
+  crystallised theory, worth caring for) | med | "necessary waste" (Explore-mode
+  throwaway: by the two-cares argument, NOT caring for it is how care for the
+  business is expressed — attention spent on the disposable is withheld from what
+  matters). Margin note, author's: "you cannot care through work you don't
+  understand."
+- speed slow→fast; cognitive debt none→high; understanding high→low.
+Consequences:
+1. The middle stop IS the antirez position: delegate doing, retain understanding.
+   His claim is that the detent is stable; the contaminated n=1 says his evidence
+   doesn't run; self-masking predicts rightward drift (comprehension delegated a
+   little stops noticing what it no longer holds). 02c's purpose in one line: the
+   armoury is what makes the middle stop hold.
+2. The cursor is PER-REGION (author's correction of my global reading): one fader
+   per module — a mixing desk. Attention conserved ACROSS the desk; setting the
+   cursor = choosing the profile. The single fader is the explanatory figure; "one
+   of these per module" is one sentence at the procedure.
+3. Forces row (author's addition): curiosity and skin-in-the-game pull left;
+   deadline gravity pulls right. "Defaulted" now has a mechanism — the fader rests
+   where the forces balance when ungripped. The procedure sets the cursor AGAINST
+   the field.
+4. The rose has twins (author's note): time-spent-makes-it-matter is the one
+   compounding loop in the system (attention recruits attention), and the same
+   mechanism yields sunk-cost commitment and rabbit-holing (the purity loop, with a
+   mechanism under it). The rose-force also pulls left pathologically: Explore-mode
+   polishing is a betrayal of the actual object of care.
+5. Attention has a max but no floor (author's correction): pre-agent workflows
+   forced a minimum spend; agents remove the floor, so total disengagement is
+   reachable. Conservation holds only for spent attention — mobilisation precedes
+   allocation.
+6. Author's parenthetical, seed for essay 3 ("expanding the realm of the
+   possible"): attention may grow with use — used-on things become interesting.
+   The one resource in the system that compounds when spent.
+Status: unresolved — figure and derivations awaiting the author's prose; the
+notebook page should be photographed properly when home.
