@@ -1,5 +1,7 @@
 # Instructions for working in this repo
 
+Resuming work? Read this file, then `HANDOFF.md` for the current state of work.
+
 ## Style
 Target register: Martin Kleppmann. Plain declarative sentences. Claims stated once,
 without amplification. Uncertainty marked honestly. No drama in transitions.
