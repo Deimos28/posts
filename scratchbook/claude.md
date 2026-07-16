@@ -352,3 +352,37 @@ It equips a choice; it must not be written as if the equipment were the choice. 
 the describe-and-equip guard restated from the inside: the essays can lower the cost of
 caring and make it possible again; the caring is not theirs to install.
 Status: unresolved.
+
+## The surprise agent, redesigned by the author: the funnel rebuilt, and one new instrument
+Date: 2026-07-15
+Origin: author's spec (six trigger categories, "surfaces consequential loose threads,
+does not attempt to close them"); this entry is my analysis layer on it.
+The design answers the "whose expectation?" objection structurally. Of the six
+categories — (1) large or unexplained metric movement, (2) high-blast-radius paths,
+(3) violations of declared invariants, (4) unusual component interactions, (5) rare
+edge cases in declared-sensitive domains, (6) observed effects diverging from stated
+intent — four check observations against HUMAN-DECLARED stakes (invariants, stated
+intent, sensitivity declarations, structural blast radius). The agent does not decide
+what is surprising; it checks the author's declared expectations at a scale the author
+cannot. This is the trust-and-safety escalation classifier rebuilt: cheap triage
+concentrating expensive human attention, surfacing without closing — which preserves
+the stretch (2c's point) and obeys "diagnosis and doing-layer, never verdict".
+Category (6) is secretly a new instrument, not triage: divergence between observed
+effect and stated intent is innovation computation where the prediction IS the prompt.
+Clear-as-spec becomes machine-gradeable — the surprise agent, in this mode, measures
+intent-capture quality per change.
+Residual to hold: category (1), "unexplained" movement, reintroduces the agent's own
+model of normal through the back door. Acceptable as triage; the discipline "flagging
+is not a verdict" binds hardest exactly there.
+Related decisions from the same exchange (author's, recorded for the notes):
+- The recursion ladder's metric is TIME-TO-FALSIFIABILITY, not blast radius —
+  monotonic without exception (function: seconds → career: decade), immune to the
+  recoverability objection, unified with the phase-margin argument. At altitude, one
+  consents to being proven wrong SLOWLY, often after the decision is unrevisable.
+- "The agent should never issue judgement" is scoped, not absolute: within the domain
+  where one has consented to falsifiability, agent judgement must never substitute for
+  one's own; outside it, its judgement is cheap output, regenerated on failure.
+  "Never" is a property of which side of the cursor you stand on, not of the agent.
+- 2b's thesis in embryo: the link between care, falsifiability, attention, and
+  judgement — that link is the cursor.
+Status: unresolved — analysis layer for the author's 2b/2c drafting.
