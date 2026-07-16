@@ -12,23 +12,32 @@ Essays may cite this file. Essays may not cite the scratchbook.
 ### Falsifiability
 - Naur says programs are theory, Popper says theories are knowledge only if they are falsifiable.
 - The cursor sets the boundary of the domain where we consent being proven wrong (falsifiable), not "who writes the code"
+- within the domain where you’ve consented to falsifiability, the agent’s judgement must never substitute for yours
 
 ### calibrated predictions
 - Fixed budget: cursor decides where to allocate
 - Recreate prediction opportunities
 - 3x: determine the cursor position based on the phase
-- Recursive judgement: allocating judgement itself requires judgement. every time we go up the abstraction layer (funding, file, module, project, job, career) the cost and blast radius of poor judgent allocation increases.
+- Recursive judgement: allocating judgement itself requires judgement.
+  every time we go up the abstraction layer (function, file, module, project, job, career)
+  time-to-falsifiability increases monotonically. 
+  High on the ladder you consent to being proven wrong slowly.
 
 ## Essay 2c: the practices
+> concrete mechanisms can restore that exposure
 
-- armies (simian/breakers, flexers, stretchers,  etc)
-- the suprise agent: surfaces things that are puzzling or surprising (eg "that cache actually increases response time by 4.2%" or "this supposedly harmless retry path accounts for 38% of duplicate jobs")
-- care: intention, attention, tension, StExupery's fix and the rose )
+
+
+- armies (simian/breakers, flexers, stretchers, etc.)
+- escalation classifier (the suprise agent): checking your stakes at a scale you can’t.
+  declared invariants, stated intent, declared-sensitive domains, blast radius from structure
+  surfaces things that are puzzling or surprising (eg "that cache actually increases response time by 4.2%" or "this supposedly harmless retry path accounts for 38% of duplicate jobs")
+  changes whose observed effects diverge from their stated intent” is innovation computation where the prediction is the prompt itself
+- care: intention, attention, tension, StExupery's fox and the rose)
 - we can fabricate the conditions conducive to care
 
 ## Essay 3: expanding the realm of the possible
 
-> concrete mechanisms can restore that exposu
 ### Cursor Economics
 - Knowledge decay rate and acquisition cost
 - Waste due to poor human skill or llm model
