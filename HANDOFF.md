@@ -13,10 +13,11 @@ summary becomes the option space.
 5. `shared/vocabulary.md`, `shared/claims-to-verify.md`, `shared/publishing-risks.md`.
 
 ## State (update the date when you change this file)
-As of 2026-07-15:
+As of 2026-07-15 (evening):
 - Published: essay 1 (Substack), essay 2a (Substack + mirror). Mirror:
   https://deimos28.github.io/posts/ — built by CI from `essays/**/published.md`.
-- In progress: 2b ("setting the cursor") — thesis and establishing claims exist in
+- In progress: 2b ("setting the cursor") — plan rewritten in notes.md to the agreed
+  8-section structure (bridge to 2c, procedure + walkthrough); thesis and claims in
   `reviewed.md`; next action is the AUTHOR drafting prose. 2c ("the practices") —
   armoury framing settled, surprise-agent spec in reviewed.md + scratchbook analysis.
 - Essay 3: stock only (`essays/03-token-economy/notes.md`, reviewed.md §3).

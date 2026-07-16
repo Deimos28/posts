@@ -1,111 +1,71 @@
-# Essay 2, part 2: Setting the cursor
+# Essay 2b: Setting the cursor — plan (rewritten 2026-07-15)
 
-Picks up the published cliffhanger: "We now get to set a cursor on whether to pay for
-comprehension, or borrow and move faster. How to do this is the subject of the next
-essay."
+Supersedes the early-July plan, which predated the consent/care synthesis and exited
+to essay 3 instead of 2c. Structure below is author-decided (conversation,
+2026-07-15); open questions marked.
 
-## Reframe (2026-07-11): calibration is the theory; falsifiability is the criterion
+## Two purposes (author's words)
+1. Bridge 2a → 2c: deliver 2a's promise (how to set the cursor, concretely) and end
+   on "the inventory of practices is the subject of the next essay."
+2. Cover falsifiability and care to clarify the attribution between agent and human —
+   the role and scope of the agent. These discussions establish what the 2c
+   techniques are FOR.
 
-Thesis restated: design workflows so that humans continue making predictions that
-reality can confirm or refute. Friction was one implementation of calibration —
-incidental and default-on (every keystroke embeds micro-predictions, graded
-instantly). Predict-before-reveal is a deliberate implementation; armies-with-
-prediction a scheduled one; debugging and incidents episodic ones. This resolves
-Chat's objection about implementation's privileged role: nothing was privileged
-except the default-on schedule. "Top-up" is the metaphor; "calibration event" is
-the mechanism under it.
+## Thesis (reviewed.md)
+The link between care, falsifiability, attention, and judgement — that link is the
+cursor. It sets the boundary of the domain where we consent to being proven wrong,
+not "who writes the code."
 
-The cursor is not deciding whether to use AI. It sets the boundary of where you
-remain falsifiable: paying comprehension means generating expectations specific
-enough for reality to violate; borrowing means never staking one. On the borrow
-side you cannot be wrong — which is the self-masking condition.
+## Structure
+1. **Open from 2a's cliffhanger.** "We now get to set a cursor... how is the subject
+   of this essay."
+2. **The link.** Falsifiability: Naur + Popper, the consent boundary (reviewed.md §2b).
+   Care: the definition — chosen, other-directed, effortful attention; the stretch;
+   repetition is not mechanization (scratchbook/claude.md: "Care: chosen,
+   other-directed, effortful attention"; "Care, resolution of the grandmother case").
+   Keep to the ROLE of care here; cultivation (fox, rose, fabricating conditions)
+   stays in 2c. [OPEN — author's message suggested full care treatment in 2b;
+   reviewed.md keeps cultivation under 2c. One-line decision.]
+3. **Attribution falls out.** The agent's scope: precise diagnosis and the doing
+   layer. Within the consent boundary, agent judgement never substitutes for the
+   author's (reviewed.md, scoped form). Care cannot be automated (volition,
+   condition 1). One sentence on why this tool differs from prior tools: the first
+   whose default mode of use absorbs the becoming layer if permitted.
+4. **The conveyor belt.** One grounding paragraph from the old plan: each
+   generation's substance becomes the next's mechanical layer; the narrative layer
+   stays off the belt because it has no oracle.
+5. **The procedure** (concrete half 1). Three questions, in order, per area of the
+   system: Which phase am I in (3X)? Which kind of knowledge is this
+   (becoming/doing — and how cheap is the oracle: where verification is cheap and
+   complete, borrow freely)? What is the time-to-refutation and blast radius if I am
+   wrong here? Output: a cursor level per area. Budget framing: attention is fixed;
+   the cursor allocates it across space (areas) and time (phases).
+6. **The walkthrough** (concrete half 2). One real feature, cursor decisions made
+   visibly at each rung of the ladder. [OPEN — episode choice, author only.
+   Candidate: an Atlas feature. Must be real; the concreteness is the point.]
+7. **Closing turn: the recursion.** Allocating judgement requires judgement. The
+   ladder (function → file → module → project → job → career): time-to-falsifiability
+   increases monotonically; high on the ladder you consent to being proven wrong
+   slowly. Why no rule, product, or meter can set the cursor for you.
+8. **Bridge out.** The essay ends where 2c begins: the inventory of practices — how
+   to get the most out of the care — is the next essay.
 
-Lineage: Naur (the program is a theory held in minds) + Popper (a theory is
-knowledge only to the extent it is falsifiable). Composed: borrowed comprehension
-is theory that risks nothing. The fitness program is conjectures-and-refutations
-run deliberately; the fear signal is what a refutation feels like from inside.
-Scope: Popper is for the epistemology, a paragraph, not a framework. Verify any
-quote against Conjectures and Refutations directly.
-
-Consequences for structure:
-- The four rules demote from thesis to boundary-estimators: phase, asset class,
-  and blast radius are three estimates of where you must remain falsifiable.
-- The recursion section survives untouched (drawing the boundary requires the
-  calibrated model).
-- 2b states the principle; 2c inventories the mechanisms.
-
-Design prediction (candidate ending): a good future agent is one that
-continuously elicits and tests the user's predictions rather than merely
-producing correct code. Discriminates the current market: Contral's Prove mode
-and Thariq's merge quiz are elicitation; explanation-on-tap is anesthetic.
-
-Two constraints to state (else readers supply them as objections):
-1. Elicitation has a cost curve: demanded before every diff it becomes a
-   confirmation dialog; habituation kills it, or users learn to emit vague —
-   unfalsifiable — predictions, reintroducing self-masking through the front
-   door. Predictions must be specific, and elicitation rationed (Surgical
-   applies to the agent's questions: high blast radius, slow oracles).
-2. The blind-faith boundary holds: where verification is cheap and complete,
-   eliciting predictions is friction theater. The principle governs the
-   no-oracle layer only.
-
-## Structure (agreed order)
-
-1. **The conveyor belt** (grounds everything that follows)
-   Register allocation was once judgement, then the compiler's job; boilerplate was
-   once typing, now the agent's. Each generation's substance becomes the next
-   generation's mechanical layer. The narrative — argument structure, decision
-   structure, the why — is not on that conveyor belt, or at least we are not willing
-   to put it there. Connects to essay 1's no-oracle point: the mechanical layers all
-   had oracles (the compiler is right about register allocation); the narrative layer
-   doesn't. The test for what stays substance is the no-oracle test.
-
-2. **Four rules for the cursor** (four views of the same territory: locating the
-   no-oracle layer)
-   - Phase: 3X — borrow freely in Explore, pay in Extract.
-   - Asset: becoming vs doing knowledge — some understanding was never needed; not
-     all friction is necessary.
-   - Location: blast radius — pay where wrong answers are expensive, borrow in the
-     disposable periphery.
-   - Premise defense (Chat's objection): debugging, incidents, and reading also
-     calibrate; implementation was the only *default-on* refresh. The others require
-     intention — which is precisely what the cursor now governs.
-
-3. **The recursion** (what the rules reveal — comes AFTER the rules, not before)
-   Every rule consumes judgement: knowing which X you're in is a judgement;
-   classifying becoming vs doing is a judgement; estimating blast radius runs on the
-   mental model. The cursor's position is set by the very asset the cursor decides
-   whether to maintain. Consequence: the cursor cannot be automated — no rule, no
-   product, no meter can set it for you, because reading the rules requires the model.
-   Every incentive (deadlines, the exhilaration of vibe coding, the unpleasantness of
-   friction) pushes toward borrow.
-
-4. **Dependency inversion** (the practice that lives with the recursion)
-   Ask the teacher for structure — exploration, options, the mechanical surfacing —
-   and do the substance yourself: the words, the code. You get exploration from the
-   teacher and calibration from doing. The teacher is dangerous as a substitute and
-   valuable as a companion. Completes the Adler thread from part 1. Purpose is better
-   understanding, not speed. Caveat (one sentence): exploration with the teacher still
-   requires bringing your own candidates, or the surfaced options quietly become the
-   option space.
-
-5. **Close**
-   One-sentence gesture at economics as the chain to essay 3: all of this assumes
-   tokens are cheap; what happens when they aren't is a later essay.
-
-## Cut from this essay (moved to 03-token-economy)
-- Human tokens appreciate with use / treasury vs pure outflow
-- Inferior model = mediocre engineer (rework, misdirection)
-- Amortization limit: comprehension has acquisition cost and decay rate; past a
-  certain system-change rate no strategy works
-- LLM memory as institutional memory (curated) — parked; may not need publishing
+## Moved out of this essay
+- Dependency inversion → 2c (it is a practice, not a policy).
+- Economics → essay 3 entirely; at most one chaining sentence, possibly none since
+  the bridge now points at 2c.
+- Elicitation cost-curve constraint → 2c (practice-level).
+- Premise defense (implementation as the only default-on refresh; debugging,
+  incidents, reading are episodic) — optional aside in §2 if space allows; cuttable.
 
 ## Open questions
-- Does "always on time" survive the pay-mode self-test? (When deliberately paying
-  comprehension, does schedule pressure return?)
+- §2 scope of care (above).
+- §6 walkthrough episode.
+- The antirez altitude crux (scratchbook/claude.md: "Antirez divergence") is
+  2b-adjacent — it is a question about cursor LEVEL. Include as one honest open
+  paragraph near §5, or hold for later? [Author's call; the essay survives either
+  way.]
 
-## Open question (2026-07-11): the recursion has levels
-Does the cursor recursion have levels with different blast radii and oracles, and what
-follows for skill allocation? See scratchbook/claude.md: "Blast radius grows and oracle
-quality degrades with each recursion level" and "Non-moral framing under volition".
-Unpromoted; reconstruct before use.
+## Register
+2a's length and voice. Publishing-risks checklist applies; notes are dense, prose
+exposes the minimum conceptual surface.
