@@ -16,39 +16,44 @@ The link between care, falsifiability, attention, and judgement — that link is
 cursor. It sets the boundary of the domain where we consent to being proven wrong,
 not "who writes the code."
 
-## Structure
-1. **Open from 2a's cliffhanger.** "We now get to set a cursor... how is the subject
-   of this essay."
-2. **The link.** Falsifiability: Naur + Popper, the consent boundary (reviewed.md §2b).
-   Care: the definition — chosen, other-directed, effortful attention; the stretch;
-   repetition is not mechanization (scratchbook/claude.md: "Care: chosen,
-   other-directed, effortful attention"; "Care, resolution of the grandmother case").
-   Keep to the ROLE of care here; cultivation (fox, rose, fabricating conditions)
-   stays in 2c. [OPEN — author's message suggested full care treatment in 2b;
-   reviewed.md keeps cultivation under 2c. One-line decision.]
-3. **Attribution falls out.** The agent's scope: precise diagnosis and the doing
-   layer. Within the consent boundary, agent judgement never substitutes for the
-   author's (reviewed.md, scoped form). Care cannot be automated (volition,
-   condition 1). One sentence on why this tool differs from prior tools: the first
-   whose default mode of use absorbs the becoming layer if permitted.
-4. **The conveyor belt.** One grounding paragraph from the old plan: each
-   generation's substance becomes the next's mechanical layer; the narrative layer
-   stays off the belt because it has no oracle.
-5. **The procedure** (concrete half 1). Three questions, in order, per area of the
-   system: Which phase am I in (3X)? Which kind of knowledge is this
-   (becoming/doing — and how cheap is the oracle: where verification is cheap and
-   complete, borrow freely)? What is the time-to-refutation and blast radius if I am
-   wrong here? Output: a cursor level per area. Budget framing: attention is fixed;
-   the cursor allocates it across space (areas) and time (phases).
-6. **The walkthrough** (concrete half 2). One real feature, cursor decisions made
-   visibly at each rung of the ladder. [OPEN — episode choice, author only.
-   Candidate: an Atlas feature. Must be real; the concreteness is the point.]
-7. **Closing turn: the recursion.** Allocating judgement requires judgement. The
-   ladder (function → file → module → project → job → career): time-to-falsifiability
-   increases monotonically; high on the ladder you consent to being proven wrong
-   slowly. Why no rule, product, or meter can set the cursor for you.
-8. **Bridge out.** The essay ends where 2c begins: the inventory of practices — how
-   to get the most out of the care — is the next essay.
+## Structure (revised 2026-07-16: the figure carries the argument)
+
+The hand-drawn fader (author's notebook page, to be photographed at home) is the
+essay's figure. Rows locked to one slider = the thesis shown, not argued. Prose
+annotates the figure: one beat per row-group, each invoking its justification once.
+
+1. **Open from 2a's cliffhanger** (~100 w). "We now get to set a cursor..." The
+   fader is that sentence drawn: what is delegated — none | the doing | the
+   understanding.
+2. **Figure**, then the row-walk (~450 w total, four beats, escalating):
+   a. 3X — orientation; extract | expand | explore.
+   b. Speed, cognitive debt, understanding — the familiar triple, half a
+      paragraph: the reader already believes faster-now-costs-later; the figure
+      matches their intuition.
+   c. Falsification — first new row: continuous | at the diff | not yours.
+      Naur + Popper in two sentences; the consent boundary.
+   d. Care — deepest row: "coded understanding" | med | "necessary waste".
+      The two-cares argument in three sentences; you cannot care through work you
+      don't understand; not caring for throwaway code is how care for the business
+      is expressed.
+3. **The forces row as pivot, not row** (~120 w): curiosity and skin-in-the-game
+   pull left, deadline gravity pulls right; ungripped, the fader rests where the
+   forces balance. The rose's twins (sunk cost, rabbit-holing) pull left
+   pathologically. Setting the cursor means gripping it —
+4. **— and here is how: the procedure** (~250 w). Per region (one fader per module;
+   the desk in one sentence; attention conserved across the desk). Three questions
+   in order: phase? knowledge kind / oracle cost? time-to-refutation and blast
+   radius? Output: a cursor profile, budgeted across space and time.
+5. **The walkthrough** (~400 w). One real feature, fader decisions visible per
+   region. [OPEN — episode, author only; Atlas candidate.]
+6. **Closing turn: the recursion** (~150 w). Allocating judgement requires
+   judgement; the ladder in time-to-falsifiability; high on the ladder you consent
+   to being proven wrong slowly; why no product can grip the fader for you.
+7. **Bridge to 2c** (~60 w). The middle detent drifts right on its own —
+   self-masking is the drift mechanism. What holds the middle stop is the subject
+   of the next essay: the armoury.
+
+Budget: ~1,500 words. 2a's register. Publishing-risks checklist before freeze.
 
 ## Moved out of this essay
 - Dependency inversion → 2c (it is a practice, not a policy).
