@@ -22,15 +22,14 @@ Essays may cite this file. Essays may not cite the scratchbook.
   every time we go up the abstraction layer (function, file, module, project, job, career)
   time-to-falsifiability increases monotonically. 
   High on the ladder you consent to being proven wrong slowly.
-- Care: intention, attention, tension, StExupery's fox and the rose)
-- We can fabricate the conditions conducive to care
 
 
 ## Essay 2c: the practices
 > concrete mechanisms can restore that exposure
 
 
-
+- Care: intention, attention, tension, StExupery's fox and the rose)
+- We can fabricate the conditions conducive to care
 - armies (simian/breakers, flexers, stretchers, etc.)
 - escalation classifier (the suprise agent): checking your stakes at a scale you can’t.
   declared invariants, stated intent, declared-sensitive domains, blast radius from structure
