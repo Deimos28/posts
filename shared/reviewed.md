@@ -14,7 +14,7 @@ Essays may cite this file. Essays may not cite the scratchbook.
 - The cursor sets the boundary of the domain where we consent being proven wrong (falsifiable), not "who writes the code"
 - within the domain where you’ve consented to falsifiability, the agent’s judgement must never substitute for yours
 
-### calibrated predictions
+### Calibrated predictions
 - Fixed budget: cursor decides where to allocate
 - Recreate prediction opportunities
 - 3x: determine the cursor position based on the phase
@@ -22,6 +22,9 @@ Essays may cite this file. Essays may not cite the scratchbook.
   every time we go up the abstraction layer (function, file, module, project, job, career)
   time-to-falsifiability increases monotonically. 
   High on the ladder you consent to being proven wrong slowly.
+- Care: intention, attention, tension, StExupery's fox and the rose)
+- We can fabricate the conditions conducive to care
+
 
 ## Essay 2c: the practices
 > concrete mechanisms can restore that exposure
@@ -33,8 +36,6 @@ Essays may cite this file. Essays may not cite the scratchbook.
   declared invariants, stated intent, declared-sensitive domains, blast radius from structure
   surfaces things that are puzzling or surprising (eg "that cache actually increases response time by 4.2%" or "this supposedly harmless retry path accounts for 38% of duplicate jobs")
   changes whose observed effects diverge from their stated intent” is innovation computation where the prediction is the prompt itself
-- care: intention, attention, tension, StExupery's fox and the rose)
-- we can fabricate the conditions conducive to care
 
 ## Essay 3: expanding the realm of the possible
 
