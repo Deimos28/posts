@@ -435,3 +435,34 @@ Consequences:
    The one resource in the system that compounds when spent.
 Status: unresolved — figure and derivations awaiting the author's prose; the
 notebook page should be photographed properly when home.
+
+## Gamification for 2c: amplifying the leftward force — ignition, not engine
+Date: 2026-07-16
+Origin: author's scoping ("kindle curiosity and engagement: not ranking"); my
+elaboration.
+The frame: the forces row names curiosity as the leftward pull, institutionally
+neglected while deadline gravity is relentlessly supplied. Gamification, correctly
+scoped, is engineering on the neglected side of the force field — fabricating
+conditions conducive to care (fox's rites: il faut des rites — manufactured occasions
+for attention; a floor rebuilt by convention after agents removed the forced minimum
+spend).
+Design principle: the practices already contain their games — SURFACE, don't bolt on.
+Predict-before-reveal is a bet; defect injection is a murder mystery; flexer probes
+are what-if play; the surprise agent's findings are mystery hooks ("this cache adds
+4.2% latency" — the itch to know why is the engagement). Breakers/flexers/stretchers
+already sound like play. Don't wrap a point economy around them; expose the bet, the
+mystery, the counterfactual.
+Layers ruled out (kept from the earlier three-way split):
+- scores as targets: Goodhart in running shoes — junk-miles equivalent is the trivial
+  prediction; numbers stay private, diagnostic, read occasionally, never optimised.
+- leaderboards/public scores: the legibility hack; Filipp's pen plotters; manufactures
+  the vanity channel and its corruption together. One closing sentence in 2c.
+Load-bearing caution, VERIFY before citing: overjustification / crowding-out —
+extrinsic rewards on intrinsically interesting activity can extinguish intrinsic
+motivation (Lepper drawing study; Deci & Ryan, self-determination theory). Converts
+the instinct into an argument: points don't merely fail to kindle, they convert play
+into piecework — the SIREHNA lesson in motivational form.
+Close: curiosity is the entry of the compounding loop — the game gets attention spent,
+spent attention makes the thing matter (the rose), and the rose takes over from the
+game. Gamification is ignition, not engine.
+Status: unresolved — one paragraph in 2c's "fabricate the conditions" section.
