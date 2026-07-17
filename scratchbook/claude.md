@@ -466,3 +466,35 @@ Close: curiosity is the entry of the compounding loop — the game gets attentio
 spent attention makes the thing matter (the rose), and the rose takes over from the
 game. Gamification is ignition, not engine.
 Status: unresolved — one paragraph in 2c's "fabricate the conditions" section.
+
+## Isolation machines: the mind-muscle connection and the compound-lift warning (2c)
+Date: 2026-07-16
+Origin: author's observation ("knowing what the friction is for is probably better
+than unknowingly reaping the side effects; LLMs enable us to target one muscle group,
+like fitness machines"); my elaboration.
+Two halves:
+1. THE AWARENESS LAYER. Mind-muscle connection: attentional focus on the working
+   muscle measurably changes activation (Schoenfeld, internal vs external focus —
+   VERIFY before citing). Transfer: the engineer who knows the friction's function
+   (this review calibrates my model of auth; this prediction maintains the alarm)
+   extracts more comprehension from the same effort than the pre-agent engineer, who
+   farmed side effects unnamed and unoptimizable. Naming the mechanism is itself a
+   technique — the strongest justification yet for the essays' existence: they are
+   the anatomy chart on the gym wall, the awareness layer that makes deliberate
+   friction outperform ambient friction.
+2. ISOLATION MACHINES. Manual coding was compound exercise: everything trained at
+   once, no isolation possible. Agents constrain degrees of freedom like machines:
+   dependency inversion isolates structure-comprehension; predict-before-reveal
+   isolates the alarm; interrogation isolates recall; flexer probes isolate
+   cost-of-change intuition. Each practice loads one comprehension muscle while the
+   agent holds the rest.
+   The imported warning: machine-only training builds non-transferring strength (the
+   stabilizers never fire). A regimen of only isolated exercises could produce
+   someone strong on every instrument and weak at the compound movement — holding a
+   whole system in mind under real constraints. The armoury needs its compound lift:
+   the hand-written load-bearing module, dependency inversion at full depth — the
+   deadlift of the regimen. Prescription is a ratio (isolation for targeted weakness,
+   compound for integration), as coaches actually program.
+Consequence for 2c: upgrades the organizing metaphor from "gyms for comprehension"
+(the why) to "machines vs free weights" (how to program).
+Status: unresolved.
