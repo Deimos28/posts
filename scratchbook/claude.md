@@ -498,3 +498,25 @@ Two halves:
 Consequence for 2c: upgrades the organizing metaphor from "gyms for comprehension"
 (the why) to "machines vs free weights" (how to program).
 Status: unresolved.
+
+## Petit Prince quotes: verified wordings (ch. XXI), for 2c
+Date: 2026-07-17
+All chapter XXI, verified against full-text sources (ebooksgratuits, Gutenberg AU) 2026-07-17:
+- Rites: « Il eût mieux valu revenir à la même heure [...] Mais si tu viens n'importe
+  quand, je ne saurai jamais à quelle heure m'habiller le cœur... Il faut des rites. »
+  Fox's definition, just after — likely the more usable line: « C'est ce qui fait
+  qu'un jour est différent des autres jours, une heure, des autres heures. »
+- Rose/time: « C'est le temps que tu as perdu pour ta rose qui fait ta rose si
+  importante. » NOTE variant in circulation: "qui REND ta rose" — full texts say
+  FAIT; use fait. NOTE the verb is PERDU (lost, not spent): even attention that
+  looks like waste mints the mattering — speaks directly to the "necessary waste"
+  cell and the two-cares row.
+- The secret (use only unquoted, structure not text): « on ne voit bien qu'avec le
+  cœur. L'essentiel est invisible pour les yeux. » — structurally, self-masking:
+  what matters doesn't show on the instrument everyone reads.
+- Responsibility (candidate 2c epigraph): « Tu deviens responsable pour toujours de
+  ce que tu as apprivoisé. » Responsibility as the residue of invested attention —
+  attention creates the bond, the bond the obligation: care condition 2 and the
+  ownership boundary in one sentence.
+Status: verified wordings; usage decisions (French vs translation, quote vs
+structure) are the author's at drafting.
