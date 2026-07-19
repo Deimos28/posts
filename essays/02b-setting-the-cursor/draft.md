@@ -1,10 +1,11 @@
 # Setting the cursor
 
-<!-- Author's manuscript (notebook, Tuscany, July 2026), with the agreed
-precision fixes applied in-line (Naur/Popper scoping, oracle clause, narrowed
-non-benefit, attention budget, care scoping, cognitive-debt alignment) per the
-author's instruction of 2026-07-18. Figures are placeholders for the hand-drawn
-originals, to be photographed at home. -->
+<!-- Author's rewrite, 2026-07-19: care section, Saint-Exupéry, attention budget,
+and the 3X phase walk cut; philosophers demoted to hyperlinks; cut material
+preserved in the Graveyard below the rule. Placeholders: two figure slots, two
+citation links. Author's desk flags: grammar "that we'll be hard to revisit";
+"Or, on the contrary" Gallicism; antecedent of "it" in the price sentence;
+optional single worked instance in the two-clock summary. -->
 
 [FIGURE: the fader — what we delegate: none | the doing | the understanding]
 
@@ -20,7 +21,7 @@ to keep in close contact with the critical pieces, maintaining a tight ownership
 understanding. The difference is how fast I accept being proven wrong.
 
 For instance, when I used to code in C++ I sometimes joked that my job was being proven wrong by
-a compiler all day. Indeed, just like any model, [my internal understanding](insert link to naur) of a system is [only ever "scientific" if it can be falsified](insert hyperlink to Poppe). Otherwise it's not much better than astrology.
+a compiler all day. Indeed, just like any model, [my internal understanding](insert link to naur) of a system is [only ever "scientific" if it can be falsified](insert hyperlink to Popper). Otherwise it's not much better than astrology.
 
 So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but where we accept the risk of being proven wrong. When we
