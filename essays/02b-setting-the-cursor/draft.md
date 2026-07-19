@@ -70,7 +70,7 @@ When they agree, no judgement is spent. When they disagree, judgement is what re
 
 Here are the tradeoffs:
 
-| Stakes         | Nothing    | Doing      | Understanding              |
+|                | Delegate nothing | Delegate the doing | Delegate the understanding |
 |----------------|------------|------------|----------------------------|
 | Falsifiability | Continuous | Diff-level | Does not benefit you       |
 | Speed          | Slow       | Fast       | Fastest                    |
