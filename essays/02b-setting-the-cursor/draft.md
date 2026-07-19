@@ -33,7 +33,7 @@ Popper — by analogy — says a theory is only scientific if it is falsifiable,
 proven wrong. So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but where we accept the risk of being proven wrong. When we
 delegate nothing, falsifiability happens continuously (through, e.g., a type-checker, a
-compiler, etc.). As we delegate more, falsifiability happens later (maybe at the
+compiler…). As we delegate more, falsifiability happens later (maybe at the
 diff/PR level). If we delegate everything, the falsification still happens, but it no longer
 benefits us: we stopped making calibrated predictions, so the signal arrives with
 no expectation of ours to correct. Making those predictions, risking being wrong,
