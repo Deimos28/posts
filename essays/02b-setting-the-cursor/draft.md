@@ -30,10 +30,6 @@ diff/PR level). If we delegate everything, the falsification still happens, but 
 benefits us: we stopped making calibrated predictions, so the signal arrives with
 no expectation of ours to correct.
 
-We humans have a capped amount of attention through which care is exercised. As
-the potential objects of that care greatly exceed our attention budget, we should
-allocate wisely to maximise its impact.
-
 [FIGURE: blast-radius histogram over modules — the allocation profile]
 
 I deliberately offer no metrics or units here, as they would instantly become bad
