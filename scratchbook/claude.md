@@ -520,3 +520,34 @@ All chapter XXI, verified against full-text sources (ebooksgratuits, Gutenberg A
   ownership boundary in one sentence.
 Status: verified wordings; usage decisions (French vs translation, quote vs
 structure) are the author's at drafting.
+
+## ChatGPT critique of the 2b draft: disposition (2026-07-18)
+Adversarial protocol, second reader. Author to apply at the desk; recorded here so
+the decisions survive the holiday.
+ACCEPTED (five precision fixes + one figure catch):
+1. Naur: the theory is IN THE PROGRAMMER, not the code — "building the programs
+   built a theory in me."
+2. Popper: falsifiability demarcates SCIENTIFIC status, not knowledge generally —
+   scope the sentence.
+3. Compiler: continuously tests syntax/types, not the domain theory — one clause;
+   strengthens the fast/slow-oracle distinction rather than weakening the joke.
+4. "Does not benefit us" narrowed: the signal arrives but there is no articulated
+   expectation for it to correct (this IS the mechanism; adopt phrasing).
+5. Capped budget: ATTENTION is bounded; care is exercised through it (matches the
+   author's own max-no-floor correction).
+6. FIGURE: drop or relabel the attention bar — "human attention, remainder LLM"
+   implies the agent supplies missing attention (interchangeability the framework
+   denies). Keep the blast-radius histogram.
+CRUX, half-accepted: "predictions demonstrate care" overclaims AS COMPRESSED (the
+calibrated bookie counterexample). The framework already handles it — prediction-
+staking is care's epistemic face only jointly with volition + other-directedness.
+Fix is one scoping clause in the author's words, not a restructure. Note: Chat's
+proposed repair ("care supplies the stake; exposure to correction supplies the
+calibration; techniques restore ownership, cannot create the stake") independently
+reproduces the ownership-vs-care scratchbook entry — convergence signal.
+FILED AS TASTE (author's calls): rule-before-examples reorder (register risk: the
+July spec-shaped failure); table renames vs dropping the table (author's zero-
+tables lean); concept-count alarm (care section length is purpose (b), fix is the
+connective sentence "care is why regions deserve ownership").
+CHAT MISSED: cognitive-debt definition drift, rose translation, fastest-middle
+cell — two critics, different blind spots; protocol working.
