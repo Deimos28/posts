@@ -13,41 +13,22 @@ comprehension and do something ourselves, or to borrow that comprehension by
 delegating to an AI. That "comprehension cursor" is an ownership boundary between
 the agent and ourselves.
 
-I can choose never to be late on my projects: I can accelerate them by increasing
-agent use, delegating more. The price I pay is that I stop topping up my leaky
-comprehension reservoir, which will gradually increase my cognitive debt, the gap
-between what I have shipped and what I understand. This can be extremely valuable when trying
-to rapidly test as many hypotheses as possible, e.g. when in the "Explore" phase
-of Kent Beck's 3X model. But the human still owns the decision of which hypothesis
-to check. When reaching the Expand phase, the stable areas can be fully delegated.
-But the bottlenecks to growth, the one-way doors, should not be, lest we accrue
-debt that will cap the expansion. In the last phase of the model, the Extract, we
-should definitely delegate all routine work, such as standard operating
-procedures, but keep a tight ownership and thorough understanding of critical
-invariants. The areas where we keep ownership, where the comprehension cursor is
-fully "to the left", are those where we take the risk of being proven wrong.
+I can now choose never to be late on my projects: I can accelerate them by increasing
+agent use, delegating more. The price I pay is that it will gradually increase my cognitive
+debt, the gap between what I have shipped and what I understand. Or, on the contrary, I can choose
+to keep in close contact with the critical pieces, maintaining a tight ownership and a thorough
+understanding. The difference is how fast I accept being proven wrong.
 
-When I coded in C++ I used to sometimes joke that my job was being proven wrong by
-a compiler all day. As Naur said, building those programs built a theory in me; and
-Popper — by analogy — says a theory is only scientific if it is falsifiable, i.e. if it can be
-proven wrong. So the "comprehension cursor" is not really about who writes the code (the
+For instance, when I used to code in C++ I sometimes joked that my job was being proven wrong by
+a compiler all day. Indeed, just like any model, [my internal understanding](insert link to naur) of a system is [only ever "scientific" if it can be falsified](insert hyperlink to Poppe). Otherwise it's not much better than astrology.
+
+So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but where we accept the risk of being proven wrong. When we
 delegate nothing, falsifiability happens continuously (through, e.g., a type-checker, a
 compiler…). As we delegate more, falsifiability happens later (maybe at the
 diff/PR level). If we delegate everything, the falsification still happens, but it no longer
 benefits us: we stopped making calibrated predictions, so the signal arrives with
-no expectation of ours to correct. Making those predictions, risking being wrong,
-is one way care shows up in the work — provided the stake is chosen, and the system is
-one we answer for.
-
-<!-- AUTHOR: one bridge sentence here (falsification -> care), desk pass -->
-To distinguish themselves from AI slop, some authors hand-write and scan their
-notes, as a proof of effort, of care. Care requires volition, which is why being
-compelled to write thousands of lines of code by hand is not necessarily care.
-Choosing a dispensable friction for a longer-term benefit
-is what turns it into care: "it's the time you lost for your rose which makes your
-rose so important" says Saint-Exupéry's fox in Le Petit Prince (my translation). That care does not need to be
-evenly distributed, though.
+no expectation of ours to correct.
 
 We humans have a capped amount of attention through which care is exercised. As
 the potential objects of that care greatly exceed our attention budget, we should
@@ -64,10 +45,10 @@ proven wrong slowly.
 
 To summarise, setting the cursor is done region by region, by answering two questions:
 
-- Q1, the epistemic clock: when will reality grade this region if we’re wrong — how large is the blast radius, and are there one-way doors that never reopen?
-- Q2, the survival clock: what is the cost of being late — of missing the time to market? Each answer, on its own, implies a cursor position.
+- Q1, the epistemic clock: when will reality grade this region? If we’re wrong, how large is the blast radius, and are there decisions that we'll be hard to revisit?
+- Q2, the survival clock: what is the cost of being late — of missing the time to market?
 
-When they agree, no judgement is spent. When they disagree, judgement is what resolves the conflict.
+Each answer, on its own, implies a cursor position. When they agree, no judgement is spent. When they disagree, judgement is what resolves the conflict.
 
 Here are the tradeoffs:
 
@@ -84,7 +65,7 @@ countered:
 - deadlines, judgement erosion, and convenience push it to the right;
 - sunk-cost fallacy, gold-plating, rabbit-holing push it to the left.
 
-Controlling the cursor is the subject of the next essay.
+How to maintain the cursor in the position we want is the subject of the next essay.
 
 
 
