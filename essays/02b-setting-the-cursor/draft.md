@@ -29,7 +29,7 @@ fully "to the left", are those where we take the risk of being proven wrong.
 
 When I coded in C++ I used to sometimes joke that my job was being proven wrong by
 a compiler all day. As Naur said, building those programs built a theory in me; and
-Popper says a theory is only scientific if it is falsifiable, i.e. if it can be
+Popper — by analogy — says a theory is only scientific if it is falsifiable, i.e. if it can be
 proven wrong. So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but where we accept the risk of being proven wrong. When we
 delegate nothing, falsifiability happens continuously (through the type-checker, the
@@ -40,6 +40,7 @@ no expectation of ours to correct. Making those predictions, risking being wrong
 is one way care shows up in the work — provided the stake is chosen, and the system is
 one we answer for.
 
+<!-- AUTHOR: one bridge sentence here (falsification -> care), desk pass -->
 To distinguish themselves from AI slop, some authors hand-write and scan their
 notes, as a proof of effort, of care. Care requires volition, which is why being
 compelled to write thousands of lines of code by hand is not necessarily care.
@@ -71,11 +72,11 @@ When they agree, no judgement is spent. When they disagree, judgement is what re
 Here are the tradeoffs:
 
 |                | Delegate nothing | Delegate the doing | Delegate the understanding |
-|----------------|------------|------------|----------------------------|
-| Falsifiability | Continuous | Diff-level | Does not benefit you       |
-| Speed          | Slow       | Fast       | Fastest                    |
-| Cognitive debt | Low        | Medium     | High, if artifact survives |
-| Understanding  | High       | Medium     | Low                        |
+|----------------|------------------|--------------------------|----------------------------|
+| Falsifiability | Continuous       | At the diff — if we grade it | Does not benefit you    |
+| Speed          | Slow             | Fast                     | Fastest                    |
+| Cognitive debt | Low              | Depends on our verification | High, if artifact survives |
+| Understanding  | High             | Retained, if deliberate  | Low                        |
 
 Once the cursor is set, there are forces that will change its position if not
 countered:
