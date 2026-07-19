@@ -21,7 +21,7 @@ to keep in close contact with the critical pieces, maintaining a tight ownership
 understanding. The difference is how fast I accept being proven wrong.
 
 For instance, when I used to code in C++ I sometimes joked that my job was being proven wrong by
-a compiler all day. Indeed, just like any model, [my internal understanding](insert link to naur) of a system is [only ever "scientific" if it can be falsified](insert hyperlink to Popper). Otherwise it's not much better than astrology.
+a compiler all day. Indeed, just like any model, [my internal understanding](https://pages.cs.wisc.edu/~remzi/Naur.pdf) of a system is [only ever "scientific" if it can be falsified](https://plato.stanford.edu/entries/popper/). Otherwise it's not much better than astrology.
 
 So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but where we accept the risk of being proven wrong. When we
