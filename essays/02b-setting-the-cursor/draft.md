@@ -43,7 +43,7 @@ one we answer for.
 To distinguish themselves from AI slop, some authors hand-write and scan their
 notes, as a proof of effort, of care. Care requires volition, which is why being
 compelled to write thousands of lines of code by hand is not necessarily care.
-Choosing the dispensable unpleasantness, the friction, for a longer-term benefit
+Choosing a dispensable friction for a longer-term benefit
 is what turns it into care: "it's the time you lost for your rose which makes your
 rose so important" says Saint-Exupéry's fox in Le Petit Prince (my translation). That care does not need to be
 evenly distributed, though.
@@ -57,7 +57,7 @@ allocate wisely to maximise its impact.
 I deliberately offer no metrics or units here, as they would instantly become bad
 targets: this allocation is a judgement call, not something that can be
 programmatically optimised. Allocating judgement itself requires judgement, and as
-we move up the abstraction layer (function, file, module, project, job, career),
+we move up the ladder — function, file, module, project, job, career —
 time-to-falsifiability increases: high on the ladder we only consent to being
 proven wrong slowly.
 
