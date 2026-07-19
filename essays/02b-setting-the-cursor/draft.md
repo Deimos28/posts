@@ -37,7 +37,7 @@ compiler — fast oracles for the local part of my theory). As we delegate more,
 diff/PR level). If we delegate everything, the falsification still happens, but it no longer
 benefits us: we stopped making calibrated predictions, so the signal arrives with
 no expectation of ours to correct. Making those predictions, risking being wrong,
-is how care shows up in the work — provided the stake is chosen, and the system is
+is one way care shows up in the work — provided the stake is chosen, and the system is
 one we answer for.
 
 To distinguish themselves from AI slop, some authors hand-write and scan their
