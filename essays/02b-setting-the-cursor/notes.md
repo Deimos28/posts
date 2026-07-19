@@ -16,44 +16,45 @@ The link between care, falsifiability, attention, and judgement — that link is
 cursor. It sets the boundary of the domain where we consent to being proven wrong,
 not "who writes the code."
 
-## Structure (revised 2026-07-16: the figure carries the argument)
+## Structure (reconciled 2026-07-17 to the manuscript — the draft is now authority)
 
-The hand-drawn fader (author's notebook page, to be photographed at home) is the
-essay's figure. Rows locked to one slider = the thesis shown, not argued. Prose
-annotates the figure: one beat per row-group, each invoking its justification once.
+Draft exists in the author's notebook through the care section. Order as written:
 
-1. **Open from 2a's cliffhanger** (~100 w). "We now get to set a cursor..." The
-   fader is that sentence drawn: what is delegated — none | the doing | the
-   understanding.
-2. **Figure**, then the row-walk (~450 w total, four beats, escalating):
-   a. 3X — orientation; extract | expand | explore.
-   b. Speed, cognitive debt, understanding — the familiar triple, half a
-      paragraph: the reader already believes faster-now-costs-later; the figure
-      matches their intuition.
-   c. Falsification — first new row: continuous | at the diff | not yours.
-      Naur + Popper in two sentences; the consent boundary.
-   d. Care — deepest row: "coded understanding" | med | "necessary waste".
-      The two-cares argument in three sentences; you cannot care through work you
-      don't understand; not caring for throwaway code is how care for the business
-      is expressed.
-3. **The forces row as pivot, not row** (~120 w): curiosity and skin-in-the-game
-   pull left, deadline gravity pulls right; ungripped, the fader rests where the
-   forces balance. The rose's twins (sunk cost, rabbit-holing) pull left
-   pathologically. Setting the cursor means gripping it —
-4. **— and here is how: the procedure** (~250 w). Per region (one fader per module;
-   the desk in one sentence; attention conserved across the desk). Three questions
-   in order: phase? knowledge kind / oracle cost? time-to-refutation and blast
-   radius? Output: a cursor profile, budgeted across space and time.
-5. **The walkthrough** (~400 w). One real feature, fader decisions visible per
-   region. [OPEN — episode, author only; Atlas candidate.]
-6. **Closing turn: the recursion** (~150 w). Allocating judgement requires
-   judgement; the ladder in time-to-falsifiability; high on the ladder you consent
-   to being proven wrong slowly; why no product can grip the fader for you.
-7. **Bridge to 2c** (~60 w). The middle detent drifts right on its own —
-   self-masking is the drift mechanism. What holds the middle stop is the subject
-   of the next essay: the armoury.
+1. Opening: 2a recap in first person; the cursor as ownership boundary; the price
+   ("I stop topping up my leaky comprehension reservoir"). [DRAFTED]
+2. Phase walk: Explore / Expand / Extract with the stakes-vs-routine partition
+   inline (hypothesis; bottlenecks and 1-way doors; invariants vs SOP). [DRAFTED]
+3. Falsification: compiler joke → Naur → Popper → the cursor restated as "where we
+   accept the risk of being proven wrong" → the three delegation stops (continuous /
+   diff-PR / does not benefit us — "we stopped making calibrated predictions").
+   [DRAFTED]
+4. Care: predictions-as-demonstration-of-care hinge → external door (hand-scanned
+   notes vs slop) → volition (compelled lines ≠ care) → the rose ("time you lost")
+   → "care does not need to be evenly distributed". [DRAFTED]
+5. Allocation: capped care/attention; the attention bar and blast-radius histogram
+   (two small hand-drawn figures); no metrics on purpose (instant bad targets;
+   judgement call, not programmatically optimisable); recursion absorbed HERE —
+   allocating judgement requires judgement; the ladder in time-to-falsifiability;
+   consent-slowly at altitude. [DRAFTED]
+6. The procedure: three questions, compact. [NEXT]
+7. Force field as the close: curiosity and skin-in-the-game left, deadline gravity
+   right; the ungripped fader drifts; what holds the middle detent → bridge to 2c.
+   [NEXT]
 
-Budget: ~1,500 words. 2a's register. Publishing-risks checklist before freeze.
+Decisions recorded:
+- WALKTHROUGH CUT (author, 2026-07-17): painful and risky to write, low value —
+  its "concretely" job is now done by the phase walk, the procedure, and the
+  histogram. Optimising time-to-ship given field convergence (Storey/Osmani/RCT).
+  Optional one-sentence acknowledgment of the cut in §6.
+- Recursion is NOT a separate closing section; it lives inside §5. The close is
+  the force field.
+- Figures: fader + attention bar + blast-radius histogram, all hand-drawn. Decide
+  at assembly whether all three ship.
+- Rose quote: decide translation lineage at typing (Woods "wasted" vs author's
+  "lost" + note, vs French original).
+
+Budget: ~1,500 words unchanged; walkthrough's ~400 redistributed (care and
+allocation are running longer than planned, correctly).
 
 ## Moved out of this essay
 - Dependency inversion → 2c (it is a practice, not a policy).

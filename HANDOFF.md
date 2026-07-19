@@ -16,9 +16,10 @@ summary becomes the option space.
 As of 2026-07-15 (evening):
 - Published: essay 1 (Substack), essay 2a (Substack + mirror). Mirror:
   https://deimos28.github.io/posts/ — built by CI from `essays/**/published.md`.
-- In progress: 2b ("setting the cursor") — plan rewritten in notes.md to the agreed
-  8-section structure (bridge to 2c, procedure + walkthrough); thesis and claims in
-  `reviewed.md`; next action is the AUTHOR drafting prose. 2c ("the practices") —
+- In progress: 2b ("setting the cursor") — DRAFT IN MANUSCRIPT through the care
+  section (author's notebook, holiday); walkthrough cut by author decision;
+  remaining: procedure + force-field close. notes.md reconciled to the draft
+  2026-07-17. Next: author finishes manuscript, then typing + assembly. 2c ("the practices") —
   armoury framing settled, surprise-agent spec in reviewed.md + scratchbook analysis.
 - Essay 3: stock only (`essays/03-token-economy/notes.md`, reviewed.md §3).
 - CI: deterministic checks + LLM claim check GATE deploys; publishing-risk review is
