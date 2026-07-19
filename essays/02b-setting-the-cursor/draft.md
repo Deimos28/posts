@@ -1,9 +1,10 @@
 # Setting the cursor
 
-<!-- Faithful transcription of the author's manuscript (notebook, Tuscany, July
-2026). The prose is the author's, verbatim, including constructions he may still
-edit. Bracketed ALL-CAPS notes are transcription flags, not prose. Figures are
-placeholders for the hand-drawn originals, to be photographed at home. -->
+<!-- Author's manuscript (notebook, Tuscany, July 2026), with the agreed
+precision fixes applied in-line (Naur/Popper scoping, oracle clause, narrowed
+non-benefit, attention budget, care scoping, cognitive-debt alignment) per the
+author's instruction of 2026-07-18. Figures are placeholders for the hand-drawn
+originals, to be photographed at home. -->
 
 [FIGURE: the fader — what we delegate: none | the doing | the understanding]
 
@@ -15,9 +16,7 @@ the agent and ourselves.
 I can choose never to be late on my projects: I can accelerate them by increasing
 agent use, delegating more. The price I pay is that I stop topping up my leaky
 comprehension reservoir, which will gradually increase my cognitive debt, the gap
-between my model of the world and the world itself. [FLAG: 2a defines cognitive
-debt artifact-relatively — the gap between what is shipped and what is understood;
-decide at the desk whether to align.] This can be extremely valuable when trying
+between what I have shipped and what I understand. This can be extremely valuable when trying
 to rapidly test as many hypotheses as possible, e.g. when in the "Explore" phase
 of Kent Beck's 3X model. But the human still owns the decision of which hypothesis
 to check. When reaching the Expand phase, the stable areas can be fully delegated.
@@ -29,31 +28,30 @@ invariants. The areas where we keep ownership, where the comprehension cursor is
 fully "to the left", are those where we take the risk of being proven wrong.
 
 When I coded in C++ I used to sometimes joke that my job was being proven wrong by
-a compiler all day. As Naur said, the programs I built were a theory; but Popper
-says a theory is only knowledge if it is falsifiable, i.e. that it can be proven
-wrong. So the "comprehension cursor" is not really about who writes the code (the
+a compiler all day. As Naur said, building those programs built a theory in me; and
+Popper says a theory is only scientific if it is falsifiable, i.e. if it can be
+proven wrong. So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but where we accept the risk of being proven wrong. When we
-delegate nothing, falsifiability happens continuously (through the type-checker,
-the compiler). As we delegate more, falsifiability happens later (maybe at the
-diff/PR level). If we delegate everything, the falsification does not benefit us,
-because we stopped making calibrated predictions. Making those predictions,
-risking being wrong, is a demonstration of care.
+delegate nothing, falsifiability happens continuously (through the type-checker, the
+compiler — fast oracles for the local part of my theory). As we delegate more, falsifiability happens later (maybe at the
+diff/PR level). If we delegate everything, the falsification still happens, but it no longer
+benefits us: we stopped making calibrated predictions, so the signal arrives with
+no expectation of ours to correct. Making those predictions, risking being wrong,
+is how care shows up in the work — provided the stake is chosen, and the system is
+one we answer for.
 
 To distinguish themselves from AI slop, some authors hand-write and scan their
 notes, as a proof of effort, of care. Care requires volition, which is why being
 compelled to write thousands of lines of code by hand is not necessarily care.
 Choosing the dispensable unpleasantness, the friction, for a longer-term benefit
 is what turns it into care: "it's the time you lost for your rose which makes your
-rose so important" says Saint-Exupéry's fox in Le Petit Prince. [FLAG: translation
-lineage to decide — Woods has "wasted"; "lost" is the author's rendering of
-"perdu"; consider "(my translation)" or the French.] That care does not need to be
+rose so important" says Saint-Exupéry's fox in Le Petit Prince (my translation). That care does not need to be
 evenly distributed, though.
 
-We humans have a capped "amount" of care and attention we can spend. As the
-potential objects of that care greatly exceed our attention budget, we should
+We humans have a capped amount of attention through which care is exercised. As
+the potential objects of that care greatly exceed our attention budget, we should
 allocate wisely to maximise its impact.
 
-[FIGURE: attention bar — total attention needed vs human attention, remainder LLM]
 [FIGURE: blast-radius histogram over modules — the allocation profile]
 
 I deliberately offer no metrics or units here, as they would instantly become bad
