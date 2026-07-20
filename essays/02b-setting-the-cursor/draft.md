@@ -15,17 +15,17 @@ delegating to an AI. That "comprehension cursor" is an ownership boundary betwee
 the agent and ourselves.
 
 I can now choose never to be late on my projects: I can accelerate them by increasing
-agent use, delegating more. The price I pay is a gradual increase my cognitive
-debt, the gap between what I have shipped and what I understand. I can instead remain in close contact with the critical pieces, retaining ownership and a thorough understanding of the critical pieces. The difference is how quickly I can identify and correct errors.
+agent use, delegating more. The price I pay is a gradual increase in my cognitive
+debt, the gap between what I have shipped and what I understand. I can instead retain ownership and a thorough understanding of the critical pieces. The difference is how quickly I can identify and correct errors.
 
 For instance, when I used to code in C++ I sometimes joked that my job was being proven wrong by
 a compiler all day. Indeed, just like any model, [my internal understanding](https://pages.cs.wisc.edu/~remzi/Naur.pdf) of a system [cannot be calibrated if it never risks contradiction](https://plato.stanford.edu/entries/popper/). Otherwise it's not much better than astrology.
 
 So the "comprehension cursor" is not really about who writes the code (the
-agent or the human) but when and where we can be checked and corrected. When we
+agent or the human) but when and where we  accept being checked and corrected. When we
 delegate nothing, falsifiability happens continuously, through many small decisions (validated by the types, the tests, the executions). As we delegate more, falsifiability happens later, at selected checkpoints (maybe at the
 diff/PR level). If we delegate everything, reality can still expose errors, but  they no longer
-benefits us because we stopped making calibrated predictions: the signal arrives with
+benefit us because we stopped making calibrated predictions: the signal arrives with
 no expectation of ours to correct.
 
 [FIGURE: blast-radius histogram over modules — the allocation profile]
