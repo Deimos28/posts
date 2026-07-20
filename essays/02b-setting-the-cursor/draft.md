@@ -15,10 +15,8 @@ delegating to an AI. That "comprehension cursor" is an ownership boundary betwee
 the agent and ourselves.
 
 I can now choose never to be late on my projects: I can accelerate them by increasing
-agent use, delegating more. The price I pay is that it will gradually increase my cognitive
-debt, the gap between what I have shipped and what I understand. Or, on the contrary, I can choose
-to keep in close contact with the critical pieces, maintaining a tight ownership and a thorough
-understanding. The difference is how quickly I can identify and correct errors.
+agent use, delegating more. The price I pay is a gradual increase my cognitive
+debt, the gap between what I have shipped and what I understand. I can instead remain in close contact with the critical pieces, retaining ownership and a thorough understanding of the critical pieces. The difference is how quickly I can identify and correct errors.
 
 For instance, when I used to code in C++ I sometimes joked that my job was being proven wrong by
 a compiler all day. Indeed, just like any model, [my internal understanding](https://pages.cs.wisc.edu/~remzi/Naur.pdf) of a system [cannot be calibrated if it never risks contradiction](https://plato.stanford.edu/entries/popper/). Otherwise it's not much better than astrology.
@@ -26,8 +24,8 @@ a compiler all day. Indeed, just like any model, [my internal understanding](htt
 So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but when and where we can be checked and corrected. When we
 delegate nothing, falsifiability happens continuously, through many small decisions (validated by the types, the tests, the executions). As we delegate more, falsifiability happens later, at selected checkpoints (maybe at the
-diff/PR level). If we delegate everything, the falsification still happens, but it no longer
-benefits us: we stopped making calibrated predictions, so the signal arrives with
+diff/PR level). If we delegate everything, reality can still expose errors, but  they no longer
+benefits us because we stopped making calibrated predictions: the signal arrives with
 no expectation of ours to correct.
 
 [FIGURE: blast-radius histogram over modules — the allocation profile]
@@ -36,19 +34,19 @@ I deliberately offer no metrics or units here, as they would instantly become ba
 targets: this allocation is a judgement call, not something that can be
 programmatically optimised. Allocating judgement itself requires judgement, and as
 we move up the ladder — function, file, module, project, job, career —
-time-to-falsifiability increases: high on the ladder we only consent to being
-proven wrong slowly.
+evidence generally arrives later, noisier, and is harder to attribute. High on the ladder we only consent to being
+ corrected slowly.
 
 To summarise, setting the cursor is done region by region, by answering two questions:
 
-- Q1, the epistemic clock: what will being wrong cost by the time reality grades this region?
+- Q1, the epistemic clock: what will being wrong cost before reality grades this region?
 - Q2, the survival clock: what is the cost of being late — of missing the time to market?
 
-Each question pulls the cursor in one direction. When they agree, cursor placement is easy. When they don't, judgement is what resolves the conflict.
+Each question pulls the cursor in one direction. When they  point in the same direction, cursor placement is easy. When they conflict, judgement is what resolves the conflict.
 
 Here are the tradeoffs:
 
-|                | Delegate nothing | Delegate the doing | Forgo the understanding |
+|                | Delegate nothing | Delegate the doing | Forgo understanding |
 |----------------|------------------|--------------------------|----------------------------|
 | Falsifiability | Continuous       | At the diff — if we grade it | Does not benefit you    |
 | Speed          | Slow             | Fast                     | Fastest                    |
