@@ -23,6 +23,8 @@ agent or the human) but when and where we accept being checked and corrected. Wh
 delegate nothing, our internal model is tested continuously, through many small decisions, challenged by the type system, the tests, the executions. As we delegate more, our model is tested later, at selected checkpoints (maybe at the
 diff/PR level). If we delegate everything, reality can still expose errors, but the signal no longer calibrates us: we formed no expectation of our own for it to revise.
 
+We cannot keep every region on the left: attention is capped, and the regions that would benefit from it exceed the budget.
+
 ![Attention allocated unevenly across modules: the critical few receive most of it](figures/cursor-allocation.svg)
 
 I deliberately offer no metrics or units here, as they would instantly become bad
