@@ -18,15 +18,14 @@ I can now choose never to be late on my projects: I can accelerate them by incre
 agent use, delegating more. The price I pay is that it will gradually increase my cognitive
 debt, the gap between what I have shipped and what I understand. Or, on the contrary, I can choose
 to keep in close contact with the critical pieces, maintaining a tight ownership and a thorough
-understanding. The difference is how fast I accept being proven wrong.
+understanding. The difference is how quickly I can identify and correct errors.
 
 For instance, when I used to code in C++ I sometimes joked that my job was being proven wrong by
-a compiler all day. Indeed, just like any model, [my internal understanding](https://pages.cs.wisc.edu/~remzi/Naur.pdf) of a system is [only ever "scientific" if it can be falsified](https://plato.stanford.edu/entries/popper/). Otherwise it's not much better than astrology.
+a compiler all day. Indeed, just like any model, [my internal understanding](https://pages.cs.wisc.edu/~remzi/Naur.pdf) of a system [cannot be calibrated if it never risks contradiction](https://plato.stanford.edu/entries/popper/). Otherwise it's not much better than astrology.
 
 So the "comprehension cursor" is not really about who writes the code (the
-agent or the human) but where we accept the risk of being proven wrong. When we
-delegate nothing, falsifiability happens continuously (through, e.g., a type-checker, a
-compiler…). As we delegate more, falsifiability happens later (maybe at the
+agent or the human) but when and where we can be checked and corrected. When we
+delegate nothing, falsifiability happens continuously, through many small decisions (validated by the types, the tests, the executions). As we delegate more, falsifiability happens later, at selected checkpoints (maybe at the
 diff/PR level). If we delegate everything, the falsification still happens, but it no longer
 benefits us: we stopped making calibrated predictions, so the signal arrives with
 no expectation of ours to correct.
@@ -42,14 +41,14 @@ proven wrong slowly.
 
 To summarise, setting the cursor is done region by region, by answering two questions:
 
-- Q1, the epistemic clock: when will reality grade this region? If we’re wrong, how large is the blast radius, and are there decisions that we'll be hard to revisit?
+- Q1, the epistemic clock: what will being wrong cost by the time reality grades this region?
 - Q2, the survival clock: what is the cost of being late — of missing the time to market?
 
-Each answer, on its own, implies a cursor position. When they agree, no judgement is spent. When they disagree, judgement is what resolves the conflict.
+Each question pulls the cursor in one direction. When they agree, cursor placement is easy. When they don't, judgement is what resolves the conflict.
 
 Here are the tradeoffs:
 
-|                | Delegate nothing | Delegate the doing | Delegate the understanding |
+|                | Delegate nothing | Delegate the doing | Forgo the understanding |
 |----------------|------------------|--------------------------|----------------------------|
 | Falsifiability | Continuous       | At the diff — if we grade it | Does not benefit you    |
 | Speed          | Slow             | Fast                     | Fastest                    |
@@ -58,10 +57,10 @@ Here are the tradeoffs:
 
 As an illustration, let's consider [Kent Beck's "3X" framework](https://medium.com/@kentbeck_7670/the-product-development-triathlon-6464e2763c46) (eXplore, eXpand, eXtract).
 
-A startup begins in *eXplore* mode, where the aim is to discover their value by testing many hypotheses very quickly. In that mode, the founders will probably delegate code to an agent because being fast is more important than being exactly right at that stage (the survival clock dominates). Indeed, most of the code will not survive in this phase, whether written by a human or an LLM, so it can be thought of as ["necessary waste"](https://www.leanproduction.com/essence-of-lean/#:~:text=is%20required.%20Create-,Necessary%20Waste,-?The%20customer%20would).
+A startup begins in *eXplore* mode, where the aim is to discover its value by testing many hypotheses very quickly. In that mode, the founders will probably delegate code to an agent because being fast is more important than being exactly right, as long as they are "right enough": the survival clock dominates. Indeed, most of the code will not survive in this phase, whether written by a human or an LLM, so it can be thought of as ["necessary waste"](https://www.leanproduction.com/essence-of-lean/#:~:text=is%20required.%20Create-,Necessary%20Waste,-?The%20customer%20would).
 However, deciding which hypotheses to test is where they spend their judgement.
 
-In the *eXpand* phase, scale problems start to appear and the epidemic clock gains more weight. To solve the bottlenecks, some design and architectural changes will be necessary:  the founders will want to keep human judgement involved in deciding which ones are ["1-way doors"](https://www.producttalk.org/glossary-discovery-one-way-door-decision/?srsltid=AfmBOooIbhTkPa-OxVL0QiBvsBv9uSnykrJm5SfBDA1HbrTCloaSV6Y7) and keep a deep understanding of the trade-offs they are making. Other areas are well-understood and gradually stabilising: these can be fully delegated.
+In the *eXpand* phase, scale problems start to appear and the epistemic clock gains more weight. To solve the bottlenecks, some design and architectural changes will be necessary:  the founders will want to keep human judgement involved in deciding which decisions are ["1-way doors"](https://www.producttalk.org/glossary-discovery-one-way-door-decision/?srsltid=AfmBOooIbhTkPa-OxVL0QiBvsBv9uSnykrJm5SfBDA1HbrTCloaSV6Y7) and keep a deep understanding of the trade-offs they are making. Other areas are well-understood and gradually stabilising: these can be fully delegated.
 
 When the startup reaches the *eXtract* phase, there might be standard operating procedures, which can be automated by agents. Humans should still preserve understanding and judgement of the system's key invariants.
 
