@@ -35,7 +35,7 @@ To summarise, setting the cursor is done region by region, by answering two ques
 - Q1, the epistemic clock: how long will we likely stay wrong, and at what cost? A proxy for this can be how quickly mistakes in this region have historically become visible and attributable—for example through bug-fixes, reverts, and incidents linked to earlier changes.
 - Q2, the survival clock: what is the cost of being late — of missing the time to market? We can estimate this using runway, committed dates, the [cost of delay](https://en.wikipedia.org/wiki/Cost_of_delay).
 
-I deliberately offer no formula for converting these signals into a cursor position: athough evidence can inform each clock, their relative importance remains a judgement call.
+I deliberately offer no formula for converting these signals into a cursor position: although evidence can inform each clock, their relative importance remains a judgement call.
 
 Each clock pulls the cursor in one direction. When they pull in the same direction, cursor placement is easy. When they conflict, judgement is what resolves the conflict.
 
