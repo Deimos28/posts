@@ -8,7 +8,7 @@
   <text x="46" y="105" font-size="16" fill="#2b2b2b" text-anchor="middle" transform="rotate(-90 46 105)">attention</text>
   <g font-size="13" fill="#2b2b2b">
     <rect x="452" y="34" width="16" height="16" fill="none" stroke="#8a7f6a" stroke-width="1.6"/>
-    <text x="476" y="47">needed</text>
+    <text x="476" y="47">not allocated</text>
     <rect x="452" y="60" width="16" height="16" fill="#6b5d45"/>
     <text x="476" y="73">allocated</text>
   </g>
