@@ -65,4 +65,3 @@ Even after you make a deliberate choice about where to place the cursor, the env
 - sunk-cost fallacy, gold-plating, rabbit-holing push it to the left.
 
 How to maintain the cursor in the position we want is the subject of the next essay.
-
