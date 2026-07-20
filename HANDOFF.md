@@ -13,13 +13,13 @@ summary becomes the option space.
 5. `shared/vocabulary.md`, `shared/claims-to-verify.md`, `shared/publishing-risks.md`.
 
 ## State (update the date when you change this file)
-As of 2026-07-15 (evening):
+As of 2026-07-20:
 - Published: essay 1 (Substack), essay 2a (Substack + mirror). Mirror:
   https://deimos28.github.io/posts/ — built by CI from `essays/**/published.md`.
-- In progress: 2b ("setting the cursor") — DRAFT IN MANUSCRIPT through the care
-  section (author's notebook, holiday); walkthrough cut by author decision;
-  remaining: procedure + force-field close. notes.md reconciled to the draft
-  2026-07-17. Next: author finishes manuscript, then typing + assembly. 2c ("the practices") —
+- PUBLISHED: 2b ("Setting the cursor") — published.md created 2026-07-20 from
+  draft.md (Graveyard excluded, enforced by CI stock check). Hero: Eight Bells
+  (Homer, 1886). Next: 2c ("controlling the cursor") — stock in scratchbook +
+  reviewed.md; armoury framing settled. 2c ("the practices") —
   armoury framing settled, surprise-agent spec in reviewed.md + scratchbook analysis.
 - Essay 3: stock only (`essays/03-token-economy/notes.md`, reviewed.md §3).
 - CI: deterministic checks + LLM claim check GATE deploys; publishing-risk review is
