@@ -23,7 +23,7 @@ agent or the human) but when and where we accept being checked and corrected. Wh
 delegate nothing, our internal model is tested continuously, through many small decisions, challenged by the type system, the tests, the executions. As we delegate more, our model is tested later, at selected checkpoints (maybe at the
 diff/PR level). If we delegate everything, reality can still expose errors, but the signal no longer calibrates us: we formed no expectation of our own for it to revise.
 
-We cannot keep every region on the left: attention is capped, and the regions that would benefit from it exceed the budget.
+Human attention is capped and attempting to cover all the code regions risks diluting attention where it matters the most. Thanks to agents, we don't have to: we can set the comprehension cursor region by region, focusing our attention on the most critical modules and delegating execution of the rest.
 
 ![Attention allocated unevenly across modules: the critical few receive most of it](figures/cursor-allocation.svg)
 
