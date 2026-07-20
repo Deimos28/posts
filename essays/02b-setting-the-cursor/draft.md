@@ -48,7 +48,7 @@ Here are the tradeoffs:
 
 |                | Delegate nothing | Delegate the doing | Forgo understanding |
 |----------------|------------------|--------------------------|----------------------------|
-| Corrections | Continuous       | At the diff — if we grade it | Does not benefit us    |
+| Corrections | Continuous       | At the diff — if we grade it |  Painful and delayed    |
 | Potential acceleration | None      | Some                     | Most                       |
 | Cognitive debt | Low              | Depends on our verification | High, if artifact survives |
 | Understanding  | High             | Retained, if deliberate  | Low                        |
@@ -63,8 +63,8 @@ routine work in these areas can be delegated more aggressively.
 
 When the startup reaches the *eXtract* phase, there might be standard operating procedures, which can be automated by agents. Humans should still preserve understanding and judgement of the system's key invariants.
 
-Once the cursor is set, there are forces that will change its position if not
-countered:
+
+Even after you make a deliberate choice about where to place the cursor, the environment will actively try to move it:
 
 - deadlines, judgement erosion, and convenience push it to the right;
 - sunk-cost fallacy, gold-plating, rabbit-holing push it to the left.
