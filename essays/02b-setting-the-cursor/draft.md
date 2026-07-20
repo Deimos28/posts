@@ -49,7 +49,7 @@ Here are the tradeoffs:
 |                | Delegate nothing | Delegate the doing | Forgo understanding |
 |----------------|------------------|--------------------------|----------------------------|
 | Falsifiability | Continuous       | At the diff — if we grade it | Does not benefit you    |
-| Speed          | Slow             | Fast                     | Fastest                    |
+| Potential acceleration | None      | Some                     | Most                       |
 | Cognitive debt | Low              | Depends on our verification | High, if artifact survives |
 | Understanding  | High             | Retained, if deliberate  | Low                        |
 
