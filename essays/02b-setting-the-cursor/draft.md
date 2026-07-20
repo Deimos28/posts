@@ -24,9 +24,7 @@ a compiler all day. Indeed, just like any model, [my internal understanding](htt
 So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but when and where we accept being checked and corrected. When we
 delegate nothing, our internal model is tested continuously, through many small decisions, challenged by the type system, the tests, the executions. As we delegate more, falsifiability happens later, at selected checkpoints (maybe at the
-diff/PR level). If we delegate everything, reality can still expose errors, but they no longer
- correct our model because we stopped making calibrated predictions: the signal arrives with
-no expectation of ours to correct.
+diff/PR level). If we delegate everything, reality can still expose errors, but the signal no longer calibrates us: we formed no expectation of our own for it to revise.
 
 [FIGURE: blast-radius histogram over modules — the allocation profile]
 
