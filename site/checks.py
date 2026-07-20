@@ -103,6 +103,16 @@ def check_style():
         annotate(rel(f), i, f"Style: {label} — “{snip}…”")
     return not hits
 
+def check_no_graveyard():
+    """Working stock (the Graveyard) must never ship in a published essay."""
+    ok = True
+    for f in TARGETS:
+        text = f.read_text()
+        if "Graveyard" in text or "\U0001faa6" in text:
+            print(f"GRAVEYARD: {rel(f)} contains working stock; publish only the essay above the rule")
+            ok = False
+    return ok
+
 def main():
     if not TARGETS:
         print("No published.md files to check; nothing to gate.")
@@ -114,6 +124,7 @@ def main():
         "spell": check_spell(),
         "urls":  check_urls(),
         "style": check_style(),
+        "stock": check_no_graveyard(),
     }
     print("\nResults:")
     for k, v in results.items():

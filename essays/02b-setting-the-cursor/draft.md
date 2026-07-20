@@ -1,11 +1,8 @@
 # Setting the cursor
 
-<!-- Author's rewrite, 2026-07-19: care section, Saint-Exupéry, attention budget,
-and the 3X phase walk cut; philosophers demoted to hyperlinks; cut material
-preserved in the Graveyard below the rule. Placeholders: two figure slots, two
-citation links. Author's desk flags: grammar "that we'll be hard to revisit";
-"Or, on the contrary" Gallicism; antecedent of "it" in the price sentence;
-optional single worked instance in the two-clock summary. -->
+<!-- Author's essay, July 2026. Figures live in shared/figures (inlined at
+build). The Graveyard below the horizontal rule is working stock and must NOT be
+copied into published.md — CI now checks for this. -->
 
 ![The comprehension cursor: a fader from paying for comprehension to borrowing it](figures/cursor-fader.svg)
 
@@ -23,7 +20,7 @@ a compiler all day. Indeed, just like any model, [my internal understanding](htt
 
 So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but when and where we accept being checked and corrected. When we
-delegate nothing, our internal model is tested continuously, through many small decisions, challenged by the type system, the tests, the executions. As we delegate more, falsifiability happens later, at selected checkpoints (maybe at the
+delegate nothing, our internal model is tested continuously, through many small decisions, challenged by the type system, the tests, the executions. As we delegate more, our model is tested later, at selected checkpoints (maybe at the
 diff/PR level). If we delegate everything, reality can still expose errors, but the signal no longer calibrates us: we formed no expectation of our own for it to revise.
 
 ![Attention allocated unevenly across modules: the critical few receive most of it](figures/cursor-allocation.svg)
@@ -55,7 +52,7 @@ Here are the tradeoffs:
 
 As an illustration, let's consider [Kent Beck's "3X" framework](https://medium.com/@kentbeck_7670/the-product-development-triathlon-6464e2763c46) (eXplore, eXpand, eXtract).
 
-A startup begins in *eXplore* mode, where the aim is to discover  what creates value for its customers by testing many hypotheses very quickly. In that mode, the founders will probably delegate code to an agent because being fast is more important than being exactly right: the implementation needs only enough fidelity to test the hypothesis so the survival clock dominates. Indeed, most of that experimental code will not survive, whether written by a human or an LLM.
+A startup begins in *eXplore* mode, where the aim is to discover what creates value for its customers by testing many hypotheses very quickly. In that mode, the founders will probably delegate code to an agent because being fast is more important than being exactly right: the implementation needs only enough fidelity to test the hypothesis so the survival clock dominates. Indeed, most of that experimental code will not survive, whether written by a human or an LLM.
 However, deciding which hypotheses to test is where they spend their judgement.
 
 In the *eXpand* phase, scale problems start to appear. This is the phase where the clocks conflict most sharply because the cost of delay remains acute and the cost of remaining wrong rises due to scale, dependencies, and increasingly irreversible choices. To solve the bottlenecks, some design and architectural changes will be necessary: the founders will want to keep human judgement involved in identifying which architectural choices are ["one-way doors"](https://www.producttalk.org/glossary-discovery-one-way-door-decision/?srsltid=AfmBOooIbhTkPa-OxVL0QiBvsBv9uSnykrJm5SfBDA1HbrTCloaSV6Y7) and keep a deep understanding of the trade-offs they are making. Other areas are well-understood and gradually stabilising: 
