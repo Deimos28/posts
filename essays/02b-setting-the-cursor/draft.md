@@ -23,9 +23,9 @@ a compiler all day. Indeed, just like any model, [my internal understanding](htt
 
 So the "comprehension cursor" is not really about who writes the code (the
 agent or the human) but when and where we accept being checked and corrected. When we
-delegate nothing, falsifiability happens continuously, through many small decisions (validated by the types, the tests, the executions). As we delegate more, falsifiability happens later, at selected checkpoints (maybe at the
+delegate nothing, our internal model is tested continuously, through many small decisions, challenged by the type system, the tests, the executions. As we delegate more, falsifiability happens later, at selected checkpoints (maybe at the
 diff/PR level). If we delegate everything, reality can still expose errors, but they no longer
-benefit us because we stopped making calibrated predictions: the signal arrives with
+ correct our model because we stopped making calibrated predictions: the signal arrives with
 no expectation of ours to correct.
 
 [FIGURE: blast-radius histogram over modules — the allocation profile]
@@ -39,26 +39,28 @@ evidence generally arrives later, noisier, and is harder to attribute. High on t
 
 To summarise, setting the cursor is done region by region, by answering two questions:
 
-- Q1, the epistemic clock: what will being wrong cost before reality grades this region? This is retrievable from the commit history (the lag between a change touching the region and the bug-fix, revert, or an incident that later referenced it).
-- Q2, the survival clock: what is the cost of being late — of missing the time to market? Runway, committed dates, the [cost of delay](https://en.wikipedia.org/wiki/Cost_of_delay) can serve as proxies.
+- Q1, the epistemic clock: what will being wrong cost before reality grades this region? A proxy for thid is the commit history (the lag between a change touching the region and the bug-fix, revert, or an incident that later referenced it).
+- Q2, the survival clock: what is the cost of being late — of missing the time to market? We can estimate this using runway, committed dates, the [cost of delay](https://en.wikipedia.org/wiki/Cost_of_delay).
 
-Unlike the cursor, the clocks can be read from evidence. Each clock pulls the cursor in one direction. When they point in the same direction, cursor placement is easy. When they conflict, judgement is what resolves the conflict.
+I deliberately offer no formula for converting these signals into a cursor position because whilst the clocks can be informed by evidence, their relative importance remains a judgement call.
+
+Each clock pulls the cursor in one direction. When they point in the same direction, cursor placement is easy. When they conflict, judgement is what resolves the conflict.
 
 Here are the tradeoffs:
 
 |                | Delegate nothing | Delegate the doing | Forgo understanding |
 |----------------|------------------|--------------------------|----------------------------|
-| Falsifiability | Continuous       | At the diff — if we grade it | Does not benefit you    |
+| Corrections | Continuous       | At the diff — if we grade it | Does not benefit us    |
 | Potential acceleration | None      | Some                     | Most                       |
 | Cognitive debt | Low              | Depends on our verification | High, if artifact survives |
 | Understanding  | High             | Retained, if deliberate  | Low                        |
 
 As an illustration, let's consider [Kent Beck's "3X" framework](https://medium.com/@kentbeck_7670/the-product-development-triathlon-6464e2763c46) (eXplore, eXpand, eXtract).
 
-A startup begins in *eXplore* mode, where the aim is to discover  what creates value to its customers by testing many hypotheses very quickly. In that mode, the founders will probably delegate code to an agent because being fast is more important than being exactly right, as long as they are "right enough": the survival clock dominates. Indeed, most of that experimental code will not survive, whether written by a human or an LLM.
+A startup begins in *eXplore* mode, where the aim is to discover  what creates value for its customers by testing many hypotheses very quickly. In that mode, the founders will probably delegate code to an agent because being fast is more important than being exactly right: the implementation needs only enough fidelity to test the hypothesis so the survival clock dominates. Indeed, most of that experimental code will not survive, whether written by a human or an LLM.
 However, deciding which hypotheses to test is where they spend their judgement.
 
-In the *eXpand* phase, scale problems start to appear and the epistemic clock gains more weight. To solve the bottlenecks, some design and architectural changes will be necessary: the founders will want to keep human judgement involved in identifying which architectural choices are ["one-way doors"](https://www.producttalk.org/glossary-discovery-one-way-door-decision/?srsltid=AfmBOooIbhTkPa-OxVL0QiBvsBv9uSnykrJm5SfBDA1HbrTCloaSV6Y7) and keep a deep understanding of the trade-offs they are making. Other areas are well-understood and gradually stabilising: 
+In the *eXpand* phase, scale problems start to appear. This is the phase where the clocks conflict most sharply because the cost of delay remains acute and the cost of remaining wrong rises due to scale, dependencies, and increasingly irreversible choices. To solve the bottlenecks, some design and architectural changes will be necessary: the founders will want to keep human judgement involved in identifying which architectural choices are ["one-way doors"](https://www.producttalk.org/glossary-discovery-one-way-door-decision/?srsltid=AfmBOooIbhTkPa-OxVL0QiBvsBv9uSnykrJm5SfBDA1HbrTCloaSV6Y7) and keep a deep understanding of the trade-offs they are making. Other areas are well-understood and gradually stabilising: 
 routine work in these areas can be delegated more aggressively.
 
 When the startup reaches the *eXtract* phase, there might be standard operating procedures, which can be automated by agents. Humans should still preserve understanding and judgement of the system's key invariants.
