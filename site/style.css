@@ -34,5 +34,5 @@ footer a { color: #6E6753; }
 
 figure.hero { margin: 2rem 0; }
 figure.hero img { width: 100%; height: auto; display: block; }
-figure.hero figcaption { font-variant: small-caps; letter-spacing: 0.04em;
-  color: #8a7f6a; font-size: 0.85rem; text-align: center; margin-top: 0.5rem; }
+figcaption { font-style: italic; color: #8a7f6a; font-size: 0.9rem;
+  text-align: center; margin-top: 0.5rem; }
