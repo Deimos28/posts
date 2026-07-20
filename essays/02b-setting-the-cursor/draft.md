@@ -7,7 +7,7 @@ citation links. Author's desk flags: grammar "that we'll be hard to revisit";
 "Or, on the contrary" Gallicism; antecedent of "it" in the price sentence;
 optional single worked instance in the two-clock summary. -->
 
-[FIGURE: the fader — what we delegate: none | the doing | the understanding]
+![The comprehension cursor: a fader from paying for comprehension to borrowing it](figures/cursor-fader.svg)
 
 In a previous essay I argued agents allow us to choose whether to pay for
 comprehension and do something ourselves, or to borrow that comprehension by
@@ -26,7 +26,7 @@ agent or the human) but when and where we accept being checked and corrected. Wh
 delegate nothing, our internal model is tested continuously, through many small decisions, challenged by the type system, the tests, the executions. As we delegate more, falsifiability happens later, at selected checkpoints (maybe at the
 diff/PR level). If we delegate everything, reality can still expose errors, but the signal no longer calibrates us: we formed no expectation of our own for it to revise.
 
-[FIGURE: blast-radius histogram over modules — the allocation profile]
+![Attention allocated unevenly across modules: the critical few receive most of it](figures/cursor-allocation.svg)
 
 I deliberately offer no metrics or units here, as they would instantly become bad
 targets: this allocation is a judgement call, not something that can be

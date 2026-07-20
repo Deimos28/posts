@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 170" role="img" aria-label="The comprehension cursor as a fader with three stops">
+  <g stroke="#2b2b2b" stroke-width="2" fill="none">
+    <line x1="60" y1="78" x2="640" y2="78"/>
+    <line x1="90" y1="66" x2="90" y2="90"/>
+    <line x1="350" y1="66" x2="350" y2="90"/>
+    <line x1="610" y1="66" x2="610" y2="90"/>
+  </g>
+  <rect x="336" y="58" width="28" height="40" rx="5" fill="#F5F1E8" stroke="#2b2b2b" stroke-width="2.5"/>
+  <line x1="350" y1="64" x2="350" y2="92" stroke="#2b2b2b" stroke-width="1.2"/>
+  <text x="62" y="40" font-size="15" fill="#8a7f6a" font-style="italic">pay</text>
+  <text x="638" y="40" font-size="15" fill="#8a7f6a" font-style="italic" text-anchor="end">borrow</text>
+  <g font-size="16" fill="#2b2b2b" text-anchor="middle">
+    <text x="90" y="118">delegate</text><text x="90" y="138">nothing</text>
+    <text x="350" y="118">delegate</text><text x="350" y="138">the doing</text>
+    <text x="610" y="118">forgo the</text><text x="610" y="138">understanding</text>
+  </g>
+</svg>
