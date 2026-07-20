@@ -27,8 +27,8 @@ Human attention is capped and attempting to cover all the code regions risks dil
 
 ![Attention allocated unevenly across modules: the critical few receive most of it](figures/cursor-allocation.svg)
 
-I deliberately offer no metrics or units here, as they would instantly become bad
-targets: this allocation is a judgement call, not something that can be
+I deliberately offer no metrics or units here, as they would instantly become [bad
+targets](https://en.wikipedia.org/wiki/Goodhart%27s_law): this allocation is a judgement call, not something that can be
 programmatically optimised. Allocating judgement itself requires judgement, and as
 we move up the ladder — function, file, module, project, job, career —
 evidence generally arrives later, noisier, and is harder to attribute. High on the ladder we only consent to being
