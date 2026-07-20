@@ -55,10 +55,11 @@ Here are the tradeoffs:
 
 As an illustration, let's consider [Kent Beck's "3X" framework](https://medium.com/@kentbeck_7670/the-product-development-triathlon-6464e2763c46) (eXplore, eXpand, eXtract).
 
-A startup begins in *eXplore* mode, where the aim is to discover its value by testing many hypotheses very quickly. In that mode, the founders will probably delegate code to an agent because being fast is more important than being exactly right, as long as they are "right enough": the survival clock dominates. Indeed, most of the code will not survive in this phase, whether written by a human or an LLM, so it can be thought of as ["necessary waste"](https://www.leanproduction.com/essence-of-lean/#:~:text=is%20required.%20Create-,Necessary%20Waste,-?The%20customer%20would).
+A startup begins in *eXplore* mode, where the aim is to discover  what creates value to its customers by testing many hypotheses very quickly. In that mode, the founders will probably delegate code to an agent because being fast is more important than being exactly right, as long as they are "right enough": the survival clock dominates. Indeed, most of that experimental code will not survive, whether written by a human or an LLM.
 However, deciding which hypotheses to test is where they spend their judgement.
 
-In the *eXpand* phase, scale problems start to appear and the epistemic clock gains more weight. To solve the bottlenecks, some design and architectural changes will be necessary: the founders will want to keep human judgement involved in deciding which decisions are ["1-way doors"](https://www.producttalk.org/glossary-discovery-one-way-door-decision/?srsltid=AfmBOooIbhTkPa-OxVL0QiBvsBv9uSnykrJm5SfBDA1HbrTCloaSV6Y7) and keep a deep understanding of the trade-offs they are making. Other areas are well-understood and gradually stabilising: these can be fully delegated.
+In the *eXpand* phase, scale problems start to appear and the epistemic clock gains more weight. To solve the bottlenecks, some design and architectural changes will be necessary: the founders will want to keep human judgement involved in identifying which architectural choices are ["one-way doors"](https://www.producttalk.org/glossary-discovery-one-way-door-decision/?srsltid=AfmBOooIbhTkPa-OxVL0QiBvsBv9uSnykrJm5SfBDA1HbrTCloaSV6Y7) and keep a deep understanding of the trade-offs they are making. Other areas are well-understood and gradually stabilising: 
+routine work in these areas can be delegated more aggressively.
 
 When the startup reaches the *eXtract* phase, there might be standard operating procedures, which can be automated by agents. Humans should still preserve understanding and judgement of the system's key invariants.
 
