@@ -14,7 +14,30 @@ Only essays/**/published.md are checked.
 import os, sys, json, time, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-TARGETS = sorted(ROOT.glob("essays/**/published.md"))
+
+def _targets():
+    """Changed published.md files only (vs HEAD^), to respect the tiny daily
+    quota. Falls back to all published essays if the diff is unavailable
+    (shallow clone, first commit) or if LLM_CHECK_ALL=1."""
+    everything = sorted(ROOT.glob("essays/**/published.md"))
+    if os.getenv("LLM_CHECK_ALL") == "1":
+        return everything
+    import subprocess
+    try:
+        out = subprocess.run(
+            ["git", "diff", "--name-only", "HEAD^", "HEAD"],
+            cwd=ROOT, capture_output=True, text=True, check=True).stdout
+    except Exception:
+        return everything
+    changed = {l.strip() for l in out.splitlines()}
+    picked = [f for f in everything if str(f.relative_to(ROOT)) in changed]
+    if picked:
+        print(f"Changed-essay scoping: {[str(f.relative_to(ROOT)) for f in picked]}")
+        return picked
+    print("No published.md changed in this commit; LLM check has nothing to gate.")
+    return []
+
+TARGETS = _targets()
 MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
 
 RUBRIC = """You are a careful editor. Review the essay for INTERNAL problems only:
@@ -91,6 +114,10 @@ def main():
                 break
             except Exception as e:
                 last_err = e
+                if "PerDay" in str(e):
+                    # daily quota: retrying is pure waste until the window resets
+                    print(f"  {rel}: daily quota exhausted; skipping retries.")
+                    break
                 if is_transient(e) and attempt < 4:
                     wait = 2 ** attempt       # 2,4,8s backoff
                     print(f"  {rel}: transient error (attempt {attempt}), retrying in {wait}s: {e}")
