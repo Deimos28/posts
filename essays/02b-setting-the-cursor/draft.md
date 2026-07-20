@@ -40,9 +40,9 @@ evidence generally arrives later, noisier, and is harder to attribute. High on t
 To summarise, setting the cursor is done region by region, by answering two questions:
 
 - Q1, the epistemic clock: what will being wrong cost before reality grades this region? This is retrievable from the commit history (the lag between a change touching the region and the bug-fix, revert, or an incident that later referenced it).
-- Q2, the survival clock: what is the cost of being late — of missing the time to market? [Runway](https://www.moonshotnx.com/hub/startup-financial-planning-runway-burn-and-capital-strategy#:~:text=What%20is%20startup%20runway?), committed dates, the [cost of delay](https://en.wikipedia.org/wiki/Cost_of_delay) can serve as proxies.
+- Q2, the survival clock: what is the cost of being late — of missing the time to market? Runway, committed dates, the [cost of delay](https://en.wikipedia.org/wiki/Cost_of_delay) can serve as proxies.
 
-Unlike the cursor, the clocks can be read from evidence, which is why I have proxy metrics for them. Each clock pulls the cursor in one direction. When they point in the same direction, cursor placement is easy. When they conflict, judgement is what resolves the conflict.
+Unlike the cursor, the clocks can be read from evidence. Each clock pulls the cursor in one direction. When they point in the same direction, cursor placement is easy. When they conflict, judgement is what resolves the conflict.
 
 Here are the tradeoffs:
 
