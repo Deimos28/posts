@@ -31,3 +31,8 @@ ul.essays li { margin: 1.1rem 0; }
 ul.essays .sub { display: block; color: #6E6753; font-style: italic; font-size: 1rem; }
 footer { margin-top: 4rem; font-size: .9rem; color: #6E6753; font-variant: small-caps; letter-spacing: .04em; }
 footer a { color: #6E6753; }
+
+figure.hero { margin: 2rem 0; }
+figure.hero img { width: 100%; height: auto; display: block; }
+figure.hero figcaption { font-variant: small-caps; letter-spacing: 0.04em;
+  color: #8a7f6a; font-size: 0.85rem; text-align: center; margin-top: 0.5rem; }

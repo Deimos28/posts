@@ -25,6 +25,22 @@ def inline_figures(html_path: pathlib.Path):
     h = re.sub(r'<img src="figures/([^"]+\.svg)"[^>]*/?>', repl, h)
     html_path.write_text(h)
 
+def insert_hero(html_path: pathlib.Path, essay_dir: pathlib.Path, slug: str):
+    """If essays/<dir>/hero.jpg exists, copy it to _site and insert as a
+    <figure class="hero"> right after the first <h1>. Caption from hero.txt."""
+    hero = essay_dir / "hero.jpg"
+    if not hero.exists():
+        return
+    import shutil
+    shutil.copy(hero, OUT / f"{slug}-hero.jpg")
+    cap_file = essay_dir / "hero.txt"
+    cap = html.escape(cap_file.read_text().strip()) if cap_file.exists() else ""
+    fig = (f'<figure class="hero"><img src="{slug}-hero.jpg" alt="{cap}">'
+           + (f"<figcaption>{cap}</figcaption>" if cap else "") + "</figure>")
+    h = html_path.read_text()
+    h = re.sub(r"(</h1>)", r"\1\n" + fig.replace("\\", "\\\\"), h, count=1)
+    html_path.write_text(h)
+
 def first_heading(md):
     m = re.search(r"^#\s+(.+)$", md, re.M)
     return m.group(1).strip() if m else "Untitled"
@@ -48,6 +64,7 @@ for d in sorted((ROOT / "essays").iterdir()):
              "--metadata", f"title={title}", "-V", "root=",
              "-o", str(OUT / f"{slug}.html")], check=True)
         inline_figures(OUT / f"{slug}.html")
+        insert_hero(OUT / f"{slug}.html", d, slug)
         entries.append((title, subtitle(md), f"{slug}.html"))
     elif notes.exists():
         m = re.search(r"https://deimos28\.substack\.com/\S+", notes.read_text())
