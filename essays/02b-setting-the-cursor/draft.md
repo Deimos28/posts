@@ -41,7 +41,7 @@ To summarise, setting the cursor is done region by region, by answering two ques
 
 I deliberately offer no formula for converting these signals into a cursor position because whilst the clocks can be informed by evidence, their relative importance remains a judgement call.
 
-Each clock pulls the cursor in one direction. When they point in the same direction, cursor placement is easy. When they conflict, judgement is what resolves the conflict.
+Each clock pulls the cursor in one direction. When they pull in the same direction, cursor placement is easy. When they conflict, judgement is what resolves the conflict.
 
 Here are the tradeoffs:
 
