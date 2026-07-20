@@ -37,7 +37,7 @@ evidence generally arrives later, noisier, and is harder to attribute. High on t
 
 To summarise, setting the cursor is done region by region, by answering two questions:
 
-- Q1, the epistemic clock: what will being wrong cost before reality grades this region? A proxy for thid is the commit history (the lag between a change touching the region and the bug-fix, revert, or an incident that later referenced it).
+- Q1, the epistemic clock: how long can we afford to be wrong before reality catches up? A proxy for this is the commit history (the lag between a change touching the region and the bug-fix, revert, or an incident that later referenced it).
 - Q2, the survival clock: what is the cost of being late — of missing the time to market? We can estimate this using runway, committed dates, the [cost of delay](https://en.wikipedia.org/wiki/Cost_of_delay).
 
 I deliberately offer no formula for converting these signals into a cursor position because whilst the clocks can be informed by evidence, their relative importance remains a judgement call.
