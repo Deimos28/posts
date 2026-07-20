@@ -6,7 +6,7 @@ copied into published.md — CI now checks for this. -->
 
 ![The comprehension cursor: a fader from paying for comprehension to borrowing it](figures/cursor-fader.svg)
 
-In a previous essay I argued agents allow us to choose whether to pay for
+In [a previous essay](https://deimos28.substack.com/p/the-comprehension-cursor) I argued agents allow us to choose whether to pay for
 comprehension and do something ourselves, or to borrow that comprehension by
 delegating to an AI. That "comprehension cursor" is an ownership boundary between
 the agent and ourselves.
