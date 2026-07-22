@@ -551,3 +551,29 @@ tables lean); concept-count alarm (care section length is purpose (b), fix is th
 connective sentence "care is why regions deserve ownership").
 CHAT MISSED: cognitive-debt definition drift, rose translation, fastest-middle
 cell — two critics, different blind spots; protocol working.
+
+## Role inversion: correction of the dependency-inversion entry
+Date: 2026-07-22
+Origin: author's clarification in conversation; this entry corrects my
+isolation-machines entry of 2026-07-16, which recorded the wrong concept.
+What the author meant: the agent holds the scaffold and hands chosen pieces back
+to the human to implement. The human becomes the dependency the agent's plan calls
+into. NOT Martin's dependency-inversion principle (SOLID), which my entry reached
+for; the author renamed the technique ROLE INVERSION (2026-07-22) to avoid the
+collision.
+Consequences the author confirmed or implied in the same exchange:
+- The machine/compound-lift wobble in the original entry dissolves: same mechanism
+  at two scopes. A handed-back function is an isolation machine (agent holds all
+  else fixed, one muscle loads); a reserved load-bearing module is the compound
+  lift. The programming variable is scope; "prescription is a ratio" becomes
+  literal — the human sets the handback ratio, the agent enforces it.
+- A standing handback ratio is a ritual (continuous trigger column), not a
+  per-question probe.
+- Whose-choice guard, same structure as the surprise agent: the human declares the
+  classes of piece that must come back (load-bearing, declared-sensitive, high
+  blast radius); the agent applies the declaration. The agent never allocates the
+  human's training on its own model.
+Open: none of this is promoted; awaiting the author's reconstruction in
+reviewed.md. The original entry's "dependency inversion isolates
+structure-comprehension" line should be read as superseded.
+Status: unresolved — correction on record.
