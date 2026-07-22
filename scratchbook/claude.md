@@ -577,3 +577,36 @@ Open: none of this is promoted; awaiting the author's reconstruction in
 reviewed.md. The original entry's "dependency inversion isolates
 structure-comprehension" line should be read as superseded.
 Status: unresolved — correction on record.
+
+## Role inversion prior art: 12-Factor Agents, Factor 7 (contact humans with tool calls)
+Date: 2026-07-22
+Origin: author asked what to take from humanlayer/12-factor-agents (Dex Horthy);
+this entry records the coinage-audit finding and citation candidate.
+Finding: Factor 7, "Contact humans with tool calls," is prior art for role
+inversion's MECHANISM — the agent reaching out to the human as a structured step
+in its own control flow. Source: https://github.com/humanlayer/12-factor-agents
+(README + content/factor-07-contact-humans-with-tools.md), CC BY-SA 4.0, widely
+circulated (~23k stars as of 2026-07-22).
+Differential, stated for the essay's use: Horthy's purpose is reliability and
+approval — the human as a gate on high-stakes actions. Role inversion's purpose
+is training allocation — the piece comes back so the human's comprehension gets
+loaded. Same slot as the Shihipar citation in 2c's notes: the practices emerge
+convergently; the essay's differential is the mechanism/purpose, not the
+mechanics.
+Consequences:
+- Cite Factor 7 when role inversion appears in prose; do not present the
+  handback mechanism as novel.
+- Naming: "role inversion" does not collide with Horthy's vocabulary (checked
+  README only; full coinage search still owed at publication per CLAUDE.md).
+Lesser findings from the same source, recorded so they are not re-derived:
+- The framework journey he reports (70-80% quality bar, then reverse-engineering
+  the framework, then starting over) reads as cognitive debt in production
+  clothing — deferred comprehension cost coming due at the boundary. Anecdote-
+  grade corroboration only; it concerns frameworks, not agents. Stretching it
+  would invite the objection the essays design against.
+- Factor 10 (small, focused agents) rhymes with Small, Clear, Early at
+  footnote level; object differs (agent scope vs human review units).
+- If the surprise agent is ever built, the 12 factors are implementation
+  guidance (trigger-from-anywhere matches the event-driven column), not essay
+  material.
+Status: unresolved — citation candidate awaiting the author's placement.
