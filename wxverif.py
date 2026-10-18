@@ -25,17 +25,28 @@ Observations: NOAA GHCN-hourly (GHCNh), the successor of ISD, read from the
               printed so the rule can be adjusted (--drop-qc, --keep-flagged).
 
 Stations (--station, GHCNh ids; FFNIIIIIIII = country, network, id):
-  POM00008521  WMO 08521, Funchal                                    [default]
-  POM00008520  WMO 08520, the other Funchal/Madeira SYNOP station
-  POI0000LPMA  Madeira airport METARs (half-hourly, no precipitation totals)
+  POM00008521  WMO 08521 "FUNCHAL/S.CATARINA" = Madeira airport, 3-hourly
+               SYNOP with precipitation totals                      [default]
+  POM00008520  WMO 08520, the other Madeira SYNOP station (--find to see)
+  POI0000LPMA  Madeira airport METARs: half-hourly temperature, no totals;
+               use as --temp-station alongside the SYNOP station
   The first lines of the report print the station name and coordinates the
   file actually carries. `--find PO` lists every Portuguese station file for
   the current year with its name and position, so you can pick.
+
+Sampling: a station reporting every 3 h still gets daily Tmin/Tmax, taken
+over the reported stamps on both sides (forecast sampled at the same hours),
+so extremes are "3-hourly" extremes but the comparison stays fair.
+Precipitation: a SYNOP station omits the precipitation group when there is
+nothing to report, so a 06Z-06Z day with temperature reports but no
+precipitation value is scored as dry (0 mm) and a partly covered day as the
+sum of its reports; --strict-tiling keeps only fully tiled days instead.
 
 Usage:
     uv run wxverif_madeira.py                        # fetch (cached) + report
     uv run wxverif_madeira.py --find PO              # list candidate stations
     uv run wxverif_madeira.py --station POM00008520
+    uv run wxverif_madeira.py --temp-station POI0000LPMA   # METAR temps
     uv run wxverif_madeira.py --season 10-01:11-15   # default window, every year
     uv run wxverif_madeira.py --models ecmwf_ifs025,ecmwf_aifs025_single
     uv run wxverif_madeira.py --selftest             # synthetic data, no network
@@ -77,7 +88,11 @@ CANDIDATE_MODELS = [
 ]
 LEADS = range(1, 6)
 RAIN_THRESHOLDS_MM = [0.1, 1.0, 5.0]   # daily totals
-MIN_HOURS_PER_DAY = 22                 # completeness required to score a day
+MIN_HOURS_PER_DAY = 22                 # hourly station: hours needed per day
+MIN_STAMPS_SPARSE = 8                  # 3-hourly station: stamps needed per day
+MIN_SPAN_SPARSE_H = 18                 # ... spread over at least this many hours
+ALIVE_MIN_STAMPS = 6                   # temperature stamps that prove the station
+                                       # was reporting during a precip window
 PRECIP_DAY_START_UTC = 6               # WMO climatological day: 06Z -> 06Z
 MIN_FRAC = 0.8                         # model must cover this share of dates
 N_BOOT = 2000
@@ -347,8 +362,11 @@ def parse_ghcnh(raw, start, end):
     val = _numeric(raw[tcol])
     val[_flagged(raw, tcol)] = np.nan
     rt_col = _col(raw, f"{tcol}_Report_Type", "REPORT_TYPE")
-    rtype = (raw[rt_col] if rt_col else pd.Series("", index=raw.index)).fillna("").str.strip()
-    prio = rtype.map({"FM-12": 0, "SY-MT": 1, "SY-SY": 1}).fillna(2)
+    rtype = (raw[rt_col] if rt_col else pd.Series("", index=raw.index)).fillna("") \
+        .str.strip().str.upper().str.replace("-", "", regex=False)
+    prio = pd.Series(2.0, index=raw.index)
+    prio[rtype.str.startswith("FM94") | rtype.isin(["SYMT", "SYSY"])] = 1   # BUFR
+    prio[rtype == "FM12"] = 0                                                 # SYNOP
     rounded = t.dt.round("h")
     off = (t - rounded).abs()
     hourly = pd.DataFrame({"time": rounded, "t2m_obs": val, "prio": prio, "off": off})
@@ -390,37 +408,68 @@ def parse_ghcnh(raw, start, end):
 
 # ------------------------------------------------------------------ pipeline
 
-def tile_windows(reports, start_hour=PRECIP_DAY_START_UTC):
-    """Assemble daily totals from accumulation reports that exactly tile each
-    24 h window starting at start_hour UTC (longest report first, no gaps,
-    no overlaps). Days that cannot be tiled are dropped, not approximated.
-    Returns date (UTC date of the window start), rr_obs, n_pieces."""
-    if reports.empty:
-        return pd.DataFrame(columns=["date", "rr_obs", "n_pieces"])
+def window_date(times, start_hour=PRECIP_DAY_START_UTC):
+    """Label of the 24 h window (t0, t0+24h], t0 = start_hour UTC, that an
+    hourly stamp belongs to: the UTC date of t0."""
+    return (times - pd.Timedelta(hours=start_hour + 1)).dt.floor("D").dt.date
+
+
+def tile_windows(reports, alive=None, strict=False, start_hour=PRECIP_DAY_START_UTC):
+    """Daily totals from accumulation reports over each 24 h window starting at
+    start_hour UTC, walking from the window start and taking the longest
+    report that starts at the current time (no overlaps).
+
+    strict=True keeps only windows tiled without gaps ("tiled").
+    Otherwise, when the station was reporting (alive: date -> number of
+    temperature stamps in the window, >= ALIVE_MIN_STAMPS), gaps count as
+    0 mm, since SYNOP stations omit the precipitation group when there is
+    nothing to report: status "partial" (some reports) or "silent" (none).
+    Returns date (UTC date of t0), rr_obs, n_pieces, covered_h, status."""
+    cols = ["date", "rr_obs", "n_pieces", "covered_h", "status"]
+    alive = alive if alive is not None else {}
+    if reports.empty and strict:
+        return pd.DataFrame(columns=cols)
     rep = reports.copy()
     rep["start"] = rep["end"] - pd.to_timedelta(rep["period_h"], unit="h")
     by_start = {}
     for r in rep.itertuples(index=False):
         by_start.setdefault(r.start, []).append((int(r.period_h), float(r.mm)))
+    candidates = set(alive.keys())
+    if not rep.empty:
+        candidates |= set(pd.date_range(rep["end"].min().floor("D") - pd.Timedelta(days=1),
+                                        rep["end"].max().floor("D"), freq="D").date)
     rows = []
-    days = pd.date_range(rep["end"].min().floor("D") - pd.Timedelta(days=1),
-                         rep["end"].max().floor("D"), freq="D")
-    for d in days:
-        t0 = d + pd.Timedelta(hours=start_hour)
+    for d in sorted(candidates):
+        t0 = pd.Timestamp(d, tz="UTC") + pd.Timedelta(hours=start_hour)
         t1 = t0 + pd.Timedelta(hours=24)
-        t, total, pieces = t0, 0.0, 0
+        t, total, pieces, covered = t0, 0.0, 0, 0
         while t < t1:
             opts = [(p, mm) for p, mm in by_start.get(t, [])
                     if t + pd.Timedelta(hours=p) <= t1]
-            if not opts:
-                break
-            p, mm = max(opts)
-            total += mm
-            t += pd.Timedelta(hours=p)
-            pieces += 1
-        if t == t1:
-            rows.append(dict(date=t0.date(), rr_obs=round(total, 2), n_pieces=pieces))
-    return pd.DataFrame(rows, columns=["date", "rr_obs", "n_pieces"])
+            if opts:
+                p, mm = max(opts)
+                total += mm
+                covered += p
+                pieces += 1
+                t += pd.Timedelta(hours=p)
+            else:
+                t += pd.Timedelta(hours=1)
+        if covered == 24:
+            status = "tiled"
+        elif strict or alive.get(d, 0) < ALIVE_MIN_STAMPS:
+            continue
+        else:
+            status = "partial" if covered else "silent"
+        rows.append(dict(date=d, rr_obs=round(total, 2), n_pieces=pieces,
+                         covered_h=covered, status=status))
+    return pd.DataFrame(rows, columns=cols)
+
+
+def alive_stamps(hourly):
+    """date -> number of temperature stamps inside that 06Z-06Z window."""
+    if hourly.empty:
+        return {}
+    return window_date(hourly["time"]).value_counts().to_dict()
 
 
 def make_daily_temp(fc, hourly):
@@ -428,23 +477,28 @@ def make_daily_temp(fc, hourly):
     Daily min/max are derived from hourly values on both sides so forecasts
     and observations are aggregated identically."""
     df = fc.merge(hourly, on="time", how="inner").dropna(subset=["t2m", "t2m_obs"])
-    df["date"] = df["time"].dt.tz_convert(TZ).dt.date
+    local = df["time"].dt.tz_convert(TZ)
+    df["date"] = local.dt.date
+    df["hour"] = local.dt.hour
     daily = df.groupby(["date", "model", "lead"]).agg(
-        n_hours=("t2m", "size"),
+        n_hours=("t2m", "size"), h_min=("hour", "min"), h_max=("hour", "max"),
         tmin=("t2m", "min"), tmax=("t2m", "max"),
         tmin_obs=("t2m_obs", "min"), tmax_obs=("t2m_obs", "max"),
     ).reset_index()
-    return daily[daily["n_hours"] >= MIN_HOURS_PER_DAY].drop(columns="n_hours")
+    full = daily["n_hours"] >= MIN_HOURS_PER_DAY
+    sparse = ((daily["n_hours"] >= MIN_STAMPS_SPARSE)
+              & (daily["h_max"] - daily["h_min"] >= MIN_SPAN_SPARSE_H))
+    daily["sampling"] = np.where(full, "hourly", "sparse")
+    return daily[full | sparse].drop(columns=["h_min", "h_max"])
 
 
-def make_daily_precip(fc, reports):
-    """Forecast totals over the same 06Z-06Z windows as the tiled observations.
+def make_daily_precip(fc, reports, alive=None, strict=False):
+    """Forecast totals over the same 06Z-06Z windows as the observations.
     A forecast hour stamped T covers (T-1h, T], so the window (t0, t0+24h]
     is the 24 stamps t0+1h .. t0+24h."""
-    obs_days = tile_windows(reports)
+    obs_days = tile_windows(reports, alive, strict)
     f = fc.dropna(subset=["precip"]).copy()
-    shift = pd.Timedelta(hours=PRECIP_DAY_START_UTC + 1)
-    f["date"] = (f["time"] - shift).dt.floor("D").dt.date
+    f["date"] = window_date(f["time"])
     g = f.groupby(["date", "model", "lead"]).agg(
         n=("precip", "size"), rr=("precip", "sum")).reset_index()
     g = g[g["n"] == 24].drop(columns="n")
@@ -495,7 +549,9 @@ def summarize(daily_t, daily_p, min_frac=MIN_FRAC):
             temp_rows.append(dict(
                 model=m, lead=lead, n_days=len(s),
                 mae_tmin=e_min.abs().mean(), bias_tmin=e_min.mean(),
+                mae_tmin_debiased=(e_min - e_min.mean()).abs().mean(),
                 mae_tmax=e_max.abs().mean(), bias_tmax=e_max.mean(),
+                mae_tmax_debiased=(e_max - e_max.mean()).abs().mean(),
             ))
     for lead in sorted(daily_p["lead"].unique()):
         d, models, drp = complete_cases(daily_p, lead, min_frac)
@@ -615,7 +671,8 @@ def report(daily_t, daily_p, label, tag, n_boot, min_frac, log):
         log("\n(no temperature days to score)")
     else:
         log("\n-- Temperature: daily Tmin/Tmax vs station, degC "
-            "(MAE, bias = forecast - obs) --")
+            "(MAE, bias = forecast - obs; debiased = MAE after removing the "
+            "model's mean bias, i.e. day-to-day skill) --")
         log(temp.round(2).to_string(index=False))
         for var, name in (("tmax", "Tmax"), ("tmin", "Tmin")):
             rk = rank_vs_best(daily_t, var, n_boot, min_frac)
@@ -686,6 +743,16 @@ def _selftest_ghcnh_parsing():
 def _selftest_tiling():
     def rep(end, period, mm):
         return dict(end=pd.Timestamp(end, tz="UTC"), period_h=period, mm=mm)
+    # dry inference: 2025-10-10 has no reports; alive -> 0 mm, strict -> dropped
+    r12 = pd.DataFrame([rep("2025-10-11 18:00", 12, 2.0)])
+    alive = {pd.Timestamp("2025-10-10").date(): 8, pd.Timestamp("2025-10-11").date(): 8,
+             pd.Timestamp("2025-10-12").date(): 2}
+    relaxed = tile_windows(r12, alive).set_index("date")
+    assert relaxed.loc[pd.Timestamp("2025-10-10").date(), "status"] == "silent"
+    assert relaxed.loc[pd.Timestamp("2025-10-11").date(), "status"] == "partial"
+    assert relaxed.loc[pd.Timestamp("2025-10-11").date(), "rr_obs"] == 2.0
+    assert pd.Timestamp("2025-10-12").date() not in relaxed.index, "station not alive"
+    assert tile_windows(r12, alive, strict=True).empty
     reports = pd.DataFrame([
         rep("2025-10-02 06:00", 24, 5.0),                       # day 1: one 24h
         rep("2025-10-02 18:00", 12, 1.0), rep("2025-10-03 06:00", 12, 2.5),  # day 2
@@ -694,7 +761,8 @@ def _selftest_tiling():
         rep("2025-10-04 18:00", 12, 9.0),                       # day 4: gap -> drop
         rep("2025-10-05 06:00", 24, 7.0), rep("2025-10-05 06:00", 12, 4.0),  # day 4 also
     ])
-    days = tile_windows(reports)
+    days = tile_windows(reports, strict=True)
+    assert (days["status"] == "tiled").all()
     got = {str(r.date): (r.rr_obs, r.n_pieces) for r in days.itertuples()}
     assert got["2025-10-01"] == (5.0, 1), got
     assert got["2025-10-02"] == (3.5, 2), got
@@ -736,9 +804,16 @@ def selftest():
             }))
     fc = pd.concat(parts, ignore_index=True)
     daily_t = make_daily_temp(fc, hourly)
-    daily_p = make_daily_precip(fc, reports)
+    assert (daily_t["sampling"] == "hourly").all()
+    # a 3-hourly station gives sparse-sampled extremes, fair on both sides
+    sparse_obs = hourly[hourly["time"].dt.hour % 3 == 0]
+    daily_s = make_daily_temp(fc, sparse_obs)
+    assert len(daily_s) > 300 and (daily_s["sampling"] == "sparse").all()
+    assert (daily_s["tmax_obs"] <= daily_t["tmax_obs"].max()).all()
+    daily_p = make_daily_precip(fc, reports, alive_stamps(hourly))
     assert len(daily_p) > 300 and daily_p["n_pieces"].eq(2).all(), \
         "12h reports should tile in pairs"
+    assert (daily_p["status"] == "tiled").all()
 
     temp, precip, dropped = summarize(daily_t, daily_p)
     assert dropped.empty
@@ -768,7 +843,15 @@ def main():
     ap.add_argument("--find", metavar="PREFIX",
                     help="list GHCNh station files whose id starts with PREFIX "
                          "(e.g. PO, POM0000852) and exit")
-    ap.add_argument("--station", default=STATION, help="GHCNh station id")
+    ap.add_argument("--station", default=STATION,
+                    help="GHCNh station id (precipitation, and temperature unless "
+                         "--temp-station is given)")
+    ap.add_argument("--temp-station", default=None,
+                    help="GHCNh station id for temperature only, e.g. POI0000LPMA")
+    ap.add_argument("--strict-tiling", action="store_true",
+                    help="score only days whose precipitation reports tile the "
+                         "whole 06Z-06Z window; default infers 0 mm for silent "
+                         "periods of a reporting station")
     ap.add_argument("--lat", type=float, help="override forecast point latitude")
     ap.add_argument("--lon", type=float, help="override forecast point longitude")
     ap.add_argument("--elev", type=float, help="override forecast point elevation (m)")
@@ -809,26 +892,43 @@ def main():
                 lon=args.lon if args.lon is not None else meta["lon"],
                 elev=args.elev if args.elev is not None else meta["elev"])
     hourly, reports, info = parse_ghcnh(raw, args.start, end)
-    daily_obs = tile_windows(reports)
-
+    alive = alive_stamps(hourly)          # liveness from the precipitation station
     log(f"station {args.station}: {meta['name']} "
         f"lat {meta['lat']:.3f} lon {meta['lon']:.3f} elev {meta['elev']:.0f} m")
+    if args.temp_station and args.temp_station != args.station:
+        raw_t = fetch_ghcnh_raw(args.temp_station, args.start, end)
+        meta_t = station_metadata(raw_t)
+        hourly, _, info_t = parse_ghcnh(raw_t, args.start, end)
+        log(f"temperature station {args.temp_station}: {meta_t['name']} "
+            f"lat {meta_t['lat']:.3f} lon {meta_t['lon']:.3f} elev {meta_t['elev']:.0f} m")
+        info.update({k: info_t[k] for k in ("temp_hours", "temp_flagged",
+                                             "median_hours_per_day", "report_types")})
+        info["qc_codes"].update({f"temp:{k}": v for k, v in info_t["qc_codes"].items()
+                                 if k.lower() == "temperature"})
+    daily_obs = tile_windows(reports, alive, args.strict_tiling)
+
     log(f"forecast point: lat {site['lat']:.3f} lon {site['lon']:.3f} "
         f"elev {site['elev']:.0f} m; period {args.start}..{end}; season {args.season}")
     log(f"obs rows {info['rows']}, temperature report types {info['report_types']}")
-    log(f"hourly temperatures {info['temp_hours']} "
+    log(f"temperature stamps {info['temp_hours']} "
         f"({info['temp_flagged']} values dropped by QC flags; "
-        f"median {info['median_hours_per_day']:.0f} per day; "
-        f"{MIN_HOURS_PER_DAY} needed to score a day)")
-    log(f"precip values by column: {info['precip_values_by_column']}; "
-        f"tiled 06Z-06Z days: {len(daily_obs)}")
+        f"median {info['median_hours_per_day']:.0f} per day; a day needs "
+        f"{MIN_HOURS_PER_DAY} hourly or {MIN_STAMPS_SPARSE} spread-out stamps)")
+    log(f"precip values by column: {info['precip_values_by_column']}")
+    status = daily_obs["status"].value_counts().to_dict() if len(daily_obs) else {}
+    wet = float((daily_obs["rr_obs"] >= 0.1).mean()) if len(daily_obs) else float("nan")
+    wet5 = float((daily_obs["rr_obs"] >= 5.0).mean()) if len(daily_obs) else float("nan")
+    log(f"precip 06Z-06Z days: {len(daily_obs)} {status}; wet-day share "
+        f">=0.1 mm {wet:.0%}, >=5 mm {wet5:.0%} (Funchal climatology is roughly "
+        "25-30% and 8-10%; far below means silent days are not dry, "
+        "use --strict-tiling)")
     log(f"quality codes seen (dropping {sorted(BAD_QC)}): {info['qc_codes']}")
-    if info["median_hours_per_day"] < MIN_HOURS_PER_DAY:
-        log("WARNING: station reports too sparsely for daily Tmin/Tmax from hourly "
-            "values; try another station id (--find PO)")
+    if info["median_hours_per_day"] < MIN_STAMPS_SPARSE:
+        log("WARNING: station reports too sparsely for daily Tmin/Tmax; "
+            "use --temp-station POI0000LPMA or another id (--find PO)")
     if len(daily_obs) < 60:
-        log("WARNING: few tileable precipitation days; check the precipitation "
-            "columns above, or try another station id (--find PO)")
+        log("WARNING: few precipitation days; check the precipitation columns "
+            "above, or try another station id (--find PO)")
 
     print("probing models")
     models = (args.models.split(",") if args.models
@@ -839,7 +939,9 @@ def main():
     fc = fetch_forecasts(models, site, args.start, end)
 
     daily_t = make_daily_temp(fc, hourly)
-    daily_p = make_daily_precip(fc, reports)
+    daily_p = make_daily_precip(fc, reports, alive, args.strict_tiling)
+    samp = daily_t.drop_duplicates("date")["sampling"].value_counts().to_dict()
+    log(f"temperature days scored: {daily_t['date'].nunique()} {samp}")
     daily_t.to_csv(OUT / "paired_daily_temperature.csv", index=False)
     daily_p.to_csv(OUT / "paired_daily_precip.csv", index=False)
     pd.set_option("display.width", 200)
