@@ -20,6 +20,9 @@ Observations: NOAA GHCN-hourly (GHCNh), the successor of ISD, read from the
               exactly onto 06Z-06Z days so forecast and observation cover the
               same window. Station name/coordinates/elevation are read from
               the file itself and the forecast point is placed on the station.
+              Quality codes are the source's own (SYNOP/ISD-style); values with
+              known failure codes are dropped and the code distribution is
+              printed so the rule can be adjusted (--drop-qc, --keep-flagged).
 
 Stations (--station, GHCNh ids; FFNIIIIIIII = country, network, id):
   POM00008521  WMO 08521, Funchal                                    [default]
@@ -219,7 +222,7 @@ def fetch_ghcnh_raw(station, start, end):
             if r.status_code in (403, 404):
                 print(f"    no GHCNh file for {station} in {year}")
                 continue
-            if not r.content.lstrip().startswith(b"Station_ID"):
+            if not r.content.lstrip()[:7].lower().startswith(b"station"):
                 head = r.content[:200].decode("utf-8", "replace")
                 raise RuntimeError(f"unexpected content for {station} {year} "
                                    f"(not a GHCNh PSV): {head!r}")
@@ -256,15 +259,29 @@ def find_stations(prefix, year):
             print(f"{sid:12} {int(size)/1e6:7.1f}  (could not read head: {e})")
 
 
+def _col(raw, *names):
+    """Actual column name matching any of names, case-insensitively, or None."""
+    lower = {c.lower(): c for c in raw.columns}
+    for n in names:
+        if n.lower() in lower:
+            return lower[n.lower()]
+    return None
+
+
 def station_metadata(raw):
     first = raw.iloc[0]
-    def num(col):
+    def num(*names):
+        c = _col(raw, *names)
         try:
-            return float(first.get(col, "nan") or "nan")
+            return float(first[c]) if c else float("nan")
         except ValueError:
             return float("nan")
-    return dict(name=str(first.get("Station_name", "?")).strip(),
-                lat=num("Latitude"), lon=num("Longitude"), elev=num("Elevation"))
+    name_col = _col(raw, "NAME", "Station_name")
+    id_col = _col(raw, "STATION", "Station_ID")
+    name = str(first[name_col]).strip() if name_col else \
+        (str(first[id_col]).strip() if id_col else "?")
+    return dict(name=name, lat=num("LATITUDE"), lon=num("LONGITUDE"),
+                elev=num("ELEVATION"))
 
 
 # ---------------------------------------------------------- GHCNh parsing
@@ -275,15 +292,27 @@ def _numeric(series):
     return v
 
 
-KEEP_FLAGGED = False   # --keep-flagged: ignore GHCNh quality codes
+KEEP_FLAGGED = False   # --keep-flagged: ignore quality codes altogether
+# GHCNh keeps the *source's* quality code, so meanings vary by source. The
+# ISD/SYNOP convention is 0/1/4/5/9 = usable, 2/3/6/7 = suspect/erroneous,
+# P = suspect by validator. Extend with --drop-qc if the printed code
+# distribution shows other failure flags.
+BAD_QC = {"2", "3", "6", "7", "P"}
+
+
+def _qc(raw, col):
+    """The element's quality codes as stripped strings ('' = none)."""
+    c = _col(raw, f"{col}_Quality_Code")
+    if c is None:
+        return pd.Series("", index=raw.index)
+    return raw[c].fillna("").str.strip()
 
 
 def _flagged(raw, col):
-    """True where the element's quality code is non-blank (failed a check)."""
-    q = raw.get(f"{col}_Quality_Code")
-    if q is None or KEEP_FLAGGED:
+    """True where the element's quality code is a known failure code."""
+    if KEEP_FLAGGED:
         return pd.Series(False, index=raw.index)
-    return q.fillna("").str.strip() != ""
+    return _qc(raw, col).isin(BAD_QC)
 
 
 def parse_ghcnh(raw, start, end):
@@ -292,18 +321,33 @@ def parse_ghcnh(raw, start, end):
     hourly:  time (UTC, on the hour), t2m_obs
     reports: end (UTC), period_h, mm   -- one row per accumulation value
     """
-    t = pd.to_datetime(pd.DataFrame({
-        k.lower(): pd.to_numeric(raw[k], errors="coerce")
-        for k in ("Year", "Month", "Day", "Hour", "Minute")}), utc=True, errors="coerce")
+    date_col = _col(raw, "DATE")
+    if date_col:
+        t = pd.to_datetime(raw[date_col], utc=True, errors="coerce", format="ISO8601")
+        if t.isna().all():
+            t = pd.to_datetime(raw[date_col], utc=True, errors="coerce", format="mixed")
+    else:
+        parts = {k: _col(raw, k) for k in ("Year", "Month", "Day", "Hour", "Minute")}
+        missing = [k for k, c in parts.items() if c is None]
+        if missing:
+            raise RuntimeError(f"cannot find time columns {missing} in header: "
+                               f"{list(raw.columns)[:12]}...")
+        t = pd.to_datetime(pd.DataFrame({
+            k.lower(): pd.to_numeric(raw[c], errors="coerce")
+            for k, c in parts.items()}), utc=True, errors="coerce")
     lo = pd.Timestamp(start, tz="UTC")
     hi = pd.Timestamp(end, tz="UTC") + pd.Timedelta(days=2)
     in_range = (t >= lo) & (t <= hi)
     raw, t = raw[in_range].reset_index(drop=True), t[in_range].reset_index(drop=True)
 
     # --- temperature (degC); SYNOP rows (tenths) preferred over METAR (integers)
-    val = _numeric(raw["temperature"])
-    val[_flagged(raw, "temperature")] = np.nan
-    rtype = raw.get("temperature_Report_Type", pd.Series("", index=raw.index)).fillna("")
+    tcol = _col(raw, "temperature")
+    if tcol is None:
+        raise RuntimeError(f"no temperature column in header: {list(raw.columns)}")
+    val = _numeric(raw[tcol])
+    val[_flagged(raw, tcol)] = np.nan
+    rt_col = _col(raw, f"{tcol}_Report_Type", "REPORT_TYPE")
+    rtype = (raw[rt_col] if rt_col else pd.Series("", index=raw.index)).fillna("").str.strip()
     prio = rtype.map({"FM-12": 0, "SY-MT": 1, "SY-SY": 1}).fillna(2)
     rounded = t.dt.round("h")
     off = (t - rounded).abs()
@@ -314,11 +358,13 @@ def parse_ghcnh(raw, start, end):
               .reset_index(drop=True))
 
     # --- precipitation (mm): `precipitation` = 1 h, `precipitation_N_hour` = N h
-    rows, inventory = [], {}
+    rows, inventory, qc_codes = [], {}, {}
+    qc_codes[tcol] = _qc(raw, tcol).replace("", "(blank)").value_counts().head(8).to_dict()
     for col in raw.columns:
-        m = re.fullmatch(r"precipitation(?:_(\d+)_hour)?", col)
+        m = re.fullmatch(r"precipitation(?:_(\d+)_hour)?", col, flags=re.I)
         if not m:
             continue
+        qc_codes[col] = _qc(raw, col).replace("", "(blank)").value_counts().head(8).to_dict()
         period = int(m.group(1) or 1)
         mm = _numeric(raw[col])
         mm[_flagged(raw, col)] = np.nan
@@ -333,8 +379,8 @@ def parse_ghcnh(raw, start, end):
 
     hours_per_day = hourly.groupby(hourly["time"].dt.floor("D")).size()
     info = dict(
-        rows=len(raw), temp_hours=len(hourly),
-        temp_flagged=int(_flagged(raw, "temperature").sum()),
+        rows=len(raw), temp_hours=len(hourly), qc_codes=qc_codes,
+        temp_flagged=int(_flagged(raw, tcol).sum()),
         median_hours_per_day=float(hours_per_day.median()) if len(hours_per_day) else 0.0,
         report_types=rtype.replace("", "(blank)").value_counts().head(6).to_dict(),
         precip_values_by_column=inventory,
@@ -600,39 +646,41 @@ def report(daily_t, daily_p, label, tag, n_boot, min_frac, log):
 # ------------------------------------------------------------------ selftest
 
 def _selftest_ghcnh_parsing():
-    cols = ["Station_ID", "Station_name", "Year", "Month", "Day", "Hour", "Minute",
-            "Latitude", "Longitude", "Elevation",
-            "temperature", "temperature_Measurement_Code", "temperature_Quality_Code",
-            "temperature_Report_Type", "temperature_Source_Code",
-            "precipitation", "precipitation_Quality_Code",
-            "precipitation_6_hour", "precipitation_6_hour_Quality_Code",
-            "precipitation_24_hour", "precipitation_24_hour_Quality_Code"]
-    rows = [
-        # 06Z SYNOP with tenths temperature, 6 h and 24 h totals
-        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "6", "0",
-         "32.633", "-16.9", "58.0", "18.3", "", "", "FM-12", "", "", "",
-         "1.2", "", "5.2", ""],
+    elements = ["temperature", "temperature_Measurement_Code", "temperature_Quality_Code",
+                "temperature_Report_Type", "temperature_Source_Code",
+                "precipitation", "precipitation_Quality_Code",
+                "precipitation_6_hour", "precipitation_6_hour_Quality_Code",
+                "precipitation_24_hour", "precipitation_24_hour_Quality_Code"]
+    values = [
+        # 06Z SYNOP with tenths temperature, 6 h and 24 h totals (QC 1 = passed)
+        ("2025-10-01T06:00:00", ["18.3", "", "1", "FM-12", "", "", "", "1.2", "", "5.2", ""]),
         # same hour METAR with integer temperature: must lose to the SYNOP row
-        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "6", "0",
-         "32.633", "-16.9", "58.0", "18.0", "", "", "FM-15", "", "", "", "", "", "", ""],
+        ("2025-10-01T06:00:00", ["18.0", "", "", "FM-15", "", "", "", "", "", "", ""]),
         # half-hour METAR: not on the hour, dropped
-        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "6", "30",
-         "32.633", "-16.9", "58.0", "19.0", "", "", "FM-15", "", "", "", "", "", "", ""],
-        # 07Z missing temperature, 08Z flagged by QC: both dropped
-        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "7", "0",
-         "32.633", "-16.9", "58.0", "", "", "", "FM-12", "", "", "", "", "", "", ""],
-        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "8", "0",
-         "32.633", "-16.9", "58.0", "20.1", "", "L", "FM-12", "", "0.0", "",
-         "", "", "", ""],
+        ("2025-10-01T06:30:00", ["19.0", "", "", "FM-15", "", "", "", "", "", "", ""]),
+        # 07Z missing temperature; 08Z QC 3 (erroneous): both dropped
+        ("2025-10-01T07:00:00", ["", "", "", "FM-12", "", "", "", "", "", "", ""]),
+        ("2025-10-01T08:00:00", ["20.1", "", "3", "FM-12", "", "0.0", "", "", "", "", ""]),
     ]
-    raw = pd.DataFrame(rows, columns=cols)
-    hourly, reports, info = parse_ghcnh(raw, "2025-10-01", "2025-10-02")
-    assert len(hourly) == 1 and abs(hourly["t2m_obs"].iloc[0] - 18.3) < 1e-9, hourly
-    assert sorted(reports["period_h"].tolist()) == [1, 6, 24], reports
-    assert info["precip_values_by_column"] == {
-        "precipitation": 1, "precipitation_6_hour": 1, "precipitation_24_hour": 1}
-    meta = station_metadata(raw)
-    assert meta["name"].startswith("FUNCHAL") and abs(meta["lat"] - 32.633) < 1e-9
+    # current bucket layout: STATION|DATE|LATITUDE|LONGITUDE|ELEVATION|NAME|...
+    cols = ["STATION", "DATE", "LATITUDE", "LONGITUDE", "ELEVATION", "NAME"] + elements
+    rows = [["POM00008521", d, "32.633", "-16.9", "58.0", "FUNCHAL"] + v for d, v in values]
+    raw_new = pd.DataFrame(rows, columns=cols)
+    # documented v1 layout: Station_ID|Station_name|Year|Month|Day|Hour|Minute|...
+    cols = ["Station_ID", "Station_name", "Year", "Month", "Day", "Hour", "Minute",
+            "Latitude", "Longitude", "Elevation"] + elements
+    rows = [["POM00008521", "FUNCHAL [WMO=08521]", d[:4], d[5:7], d[8:10], d[11:13],
+             d[14:16], "32.633", "-16.9", "58.0"] + v for d, v in values]
+    raw_old = pd.DataFrame(rows, columns=cols)
+    for raw in (raw_new, raw_old):
+        hourly, reports, info = parse_ghcnh(raw, "2025-10-01", "2025-10-02")
+        assert len(hourly) == 1 and abs(hourly["t2m_obs"].iloc[0] - 18.3) < 1e-9, hourly
+        assert sorted(reports["period_h"].tolist()) == [1, 6, 24], reports
+        assert info["precip_values_by_column"] == {
+            "precipitation": 1, "precipitation_6_hour": 1, "precipitation_24_hour": 1}
+        assert info["qc_codes"]["temperature"] == {"(blank)": 3, "1": 1, "3": 1}
+        meta = station_metadata(raw)
+        assert meta["name"].startswith("FUNCHAL") and abs(meta["lat"] - 32.633) < 1e-9
 
 
 def _selftest_tiling():
@@ -730,7 +778,9 @@ def main():
     ap.add_argument("--models", default=None,
                     help="comma-separated Open-Meteo model ids (default: probe list)")
     ap.add_argument("--keep-flagged", action="store_true",
-                    help="ignore GHCNh quality codes (if the flagged share looks absurd)")
+                    help="ignore quality codes altogether")
+    ap.add_argument("--drop-qc", default="",
+                    help="extra quality codes to treat as failures, comma-separated")
     ap.add_argument("--min-frac", type=float, default=MIN_FRAC)
     ap.add_argument("--n-boot", type=int, default=N_BOOT)
     args = ap.parse_args()
@@ -740,6 +790,7 @@ def main():
         return
     global KEEP_FLAGGED
     KEEP_FLAGGED = args.keep_flagged
+    BAD_QC.update(c.strip() for c in args.drop_qc.split(",") if c.strip())
 
     end = args.end or (pd.Timestamp.now(tz="UTC") - pd.Timedelta(days=1)).date().isoformat()
     if args.find:
@@ -771,9 +822,7 @@ def main():
         f"{MIN_HOURS_PER_DAY} needed to score a day)")
     log(f"precip values by column: {info['precip_values_by_column']}; "
         f"tiled 06Z-06Z days: {len(daily_obs)}")
-    if info["temp_flagged"] > info["temp_hours"]:
-        log("WARNING: more temperature values flagged than kept; if the quality-code "
-            "convention differs from 'blank = passed', rerun with --keep-flagged")
+    log(f"quality codes seen (dropping {sorted(BAD_QC)}): {info['qc_codes']}")
     if info["median_hours_per_day"] < MIN_HOURS_PER_DAY:
         log("WARNING: station reports too sparsely for daily Tmin/Tmax from hourly "
             "values; try another station id (--find PO)")
