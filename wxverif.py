@@ -10,29 +10,36 @@ Forecasts:    Open-Meteo Previous Runs API (archived lead-time offsets).
               `<var>_previous_dayN` is what the model predicted N*24 h before
               the valid time, i.e. a lead of N days. Hourly precipitation is
               the sum over the preceding hour.
-Observations: NOAA/NCEI Integrated Surface Database (ISD), one CSV per
-              station-year, fed by the WMO SYNOP/METAR stream from IPMA.
-              Temperature comes from the hourly reports; precipitation from the
-              SYNOP accumulation groups (1/3/6/12/24 h), tiled exactly onto
-              06Z-06Z days so forecast and observation cover the same window.
-              Station metadata (name, coordinates, elevation) is read from the
-              ISD file itself and the forecast point is placed on the station.
+Observations: NOAA GHCN-hourly (GHCNh), the successor of ISD, read from the
+              public S3 bucket noaa-ghcnh-pds (one PSV per station-year,
+              updated daily). ISD itself stopped updating in Aug 2025 and its
+              old ncei.noaa.gov download path was retired in July 2026.
+              Temperature comes from the hourly reports; precipitation from
+              the SYNOP accumulation columns (precipitation_3_hour ...
+              precipitation_24_hour, plus hourly `precipitation`), tiled
+              exactly onto 06Z-06Z days so forecast and observation cover the
+              same window. Station name/coordinates/elevation are read from
+              the file itself and the forecast point is placed on the station.
 
-Stations (--station, ISD id = WMO index + "0" + "99999"):
-  08522099999  Funchal (city observatory, ~32.63N 16.90W, 58 m)   [default]
-  08521099999  the other Funchal entry, believed to be the airport (LPMA)
-  The script prints the station name/coordinates it actually got, so an
-  unexpected mapping is visible immediately.
+Stations (--station, GHCNh ids; FFNIIIIIIII = country, network, id):
+  POM00008521  WMO 08521, Funchal                                    [default]
+  POM00008520  WMO 08520, the other Funchal/Madeira SYNOP station
+  POI0000LPMA  Madeira airport METARs (half-hourly, no precipitation totals)
+  The first lines of the report print the station name and coordinates the
+  file actually carries. `--find PO` lists every Portuguese station file for
+  the current year with its name and position, so you can pick.
 
 Usage:
     uv run wxverif_madeira.py                        # fetch (cached) + report
-    uv run wxverif_madeira.py --station 08521099999
+    uv run wxverif_madeira.py --find PO              # list candidate stations
+    uv run wxverif_madeira.py --station POM00008520
     uv run wxverif_madeira.py --season 10-01:11-15   # default window, every year
     uv run wxverif_madeira.py --models ecmwf_ifs025,ecmwf_aifs025_single
     uv run wxverif_madeira.py --selftest             # synthetic data, no network
 """
 
 import argparse
+import io
 import re
 import sys
 import time
@@ -43,7 +50,7 @@ import pandas as pd
 
 # ---------------------------------------------------------------- configuration
 
-STATION = "08522099999"
+STATION = "POM00008521"
 TZ = "Atlantic/Madeira"            # local calendar days for temperature
 START = "2024-01-01"               # Open-Meteo previous-runs archive start
 SEASON = "10-01:11-15"             # MM-DD:MM-DD window, applied to every year
@@ -71,10 +78,11 @@ MIN_HOURS_PER_DAY = 22                 # completeness required to score a day
 PRECIP_DAY_START_UTC = 6               # WMO climatological day: 06Z -> 06Z
 MIN_FRAC = 0.8                         # model must cover this share of dates
 N_BOOT = 2000
-BAD_QC = {"2", "3", "6", "7"}          # ISD quality codes: suspect/erroneous
 
 FORECAST_API = "https://previous-runs-api.open-meteo.com/v1/forecast"
-ISD_URL = "https://www.ncei.noaa.gov/data/global-hourly/access/{year}/{station}.csv"
+GHCNH_BASE = "https://noaa-ghcnh-pds.s3.us-east-1.amazonaws.com"
+GHCNH_PREFIX = "hourly/access/by-year/{year}/psv/GHCNh_"
+GHCNH_FILE = GHCNH_BASE + "/" + GHCNH_PREFIX + "{station}_{year}.psv"
 
 CACHE = Path("cache")
 OUT = Path("out")
@@ -82,13 +90,15 @@ OUT = Path("out")
 
 # ------------------------------------------------------------------- fetching
 
-def _get(url, params=None, retries=5, ok_statuses=()):
+def _get(url, params=None, retries=5, ok_statuses=(), headers=None):
     import requests
+    hdrs = {"User-Agent": "wxverif-madeira/1.1"}
+    if headers:
+        hdrs.update(headers)
     last = None
     for attempt in range(retries):
         try:
-            r = requests.get(url, params=params, timeout=180,
-                             headers={"User-Agent": "wxverif-madeira/1.0"})
+            r = requests.get(url, params=params, timeout=180, headers=hdrs)
         except requests.RequestException as e:   # transient network trouble
             last = e
             time.sleep(5 * (attempt + 1))
@@ -150,7 +160,7 @@ def probe_models(candidates, site, end):
 
 
 def fetch_forecasts(models, site, start, end):
-    """One request per model per ~6-month chunk. Returns long-format frame:
+    """One request per model per ~4-month chunk. Returns long-format frame:
     columns time (UTC), model, lead, t2m, precip."""
     frames = []
     hourly = ",".join(f"{v}_previous_day{d}"
@@ -189,60 +199,112 @@ def fetch_forecasts(models, site, start, end):
     return pd.concat(frames, ignore_index=True)
 
 
-def fetch_isd_raw(station, start, end):
-    """Download (cached) the ISD station-year CSVs covering start..end."""
+def _read_psv(path_or_bytes):
+    src = io.BytesIO(path_or_bytes) if isinstance(path_or_bytes, bytes) else path_or_bytes
+    return pd.read_csv(src, sep="|", dtype=str, low_memory=False, keep_default_na=False)
+
+
+def fetch_ghcnh_raw(station, start, end):
+    """Download (cached) the GHCNh by-year PSV files covering start..end."""
     this_year = pd.Timestamp.now(tz="UTC").year
     frames = []
     for year in range(int(start[:4]), int(end[:4]) + 1):
-        f = CACHE / f"isd_{station}_{year}.csv"
+        f = CACHE / f"ghcnh_{station}_{year}.psv"
         stale = (f.exists() and year == this_year
                  and time.time() - f.stat().st_mtime > 86400)
         if not f.exists() or stale:
             print(f"  obs {station} {year}")
-            r = _get(ISD_URL.format(year=year, station=station), ok_statuses=(404,))
-            if r.status_code == 404:
-                print(f"    no ISD file for {station} in {year}")
+            r = _get(GHCNH_FILE.format(year=year, station=station),
+                     ok_statuses=(403, 404))
+            if r.status_code in (403, 404):
+                print(f"    no GHCNh file for {station} in {year}")
                 continue
+            if not r.content.lstrip().startswith(b"Station_ID"):
+                head = r.content[:200].decode("utf-8", "replace")
+                raise RuntimeError(f"unexpected content for {station} {year} "
+                                   f"(not a GHCNh PSV): {head!r}")
             f.write_bytes(r.content)
-        frames.append(pd.read_csv(f, dtype=str, low_memory=False))
+        frames.append(_read_psv(f))
     if not frames:
-        raise RuntimeError(f"no ISD data at all for station {station}; "
-                           "check the id (WMO index + '0' + '99999')")
+        raise RuntimeError(f"no GHCNh data at all for station {station}; "
+                           "run with --find PO to list the available ids")
     return pd.concat(frames, ignore_index=True)
 
 
+def find_stations(prefix, year):
+    """List GHCNh station files for one year whose id starts with prefix, with
+    the name/position read from the head of each file."""
+    import requests
+    url = (f"{GHCNH_BASE}/?list-type=2&max-keys=1000"
+           f"&prefix={GHCNH_PREFIX.format(year=year)}{prefix}")
+    xml = _get(url).text
+    entries = re.findall(r"<Key>(.*?)</Key>.*?<Size>(\d+)</Size>", xml, flags=re.S)
+    if not entries:
+        print(f"no station files with prefix {prefix} in {year}")
+        return
+    print(f"{'station':12} {'size_MB':>7} {'lat':>8} {'lon':>9} {'elev':>6}  name")
+    for key, size in entries:
+        sid = re.search(r"GHCNh_(.+?)_\d{4}\.psv$", key).group(1)
+        r = requests.get(f"{GHCNH_BASE}/{key}", timeout=60,
+                         headers={"Range": "bytes=0-60000"})
+        try:
+            df = _read_psv(r.content.rsplit(b"\n", 1)[0])
+            meta = station_metadata(df)
+            print(f"{sid:12} {int(size)/1e6:7.1f} {meta['lat']:8.3f} {meta['lon']:9.3f} "
+                  f"{meta['elev']:6.0f}  {meta['name']}")
+        except Exception as e:                                  # noqa: BLE001
+            print(f"{sid:12} {int(size)/1e6:7.1f}  (could not read head: {e})")
+
+
 def station_metadata(raw):
-    last = raw.dropna(subset=["LATITUDE", "LONGITUDE"]).iloc[-1]
-    return dict(
-        name=str(last.get("NAME", "?")).strip(),
-        call_sign=str(last.get("CALL_SIGN", "")).strip(),
-        lat=float(last["LATITUDE"]), lon=float(last["LONGITUDE"]),
-        elev=float(last.get("ELEVATION", "nan")),
-    )
+    first = raw.iloc[0]
+    def num(col):
+        try:
+            return float(first.get(col, "nan") or "nan")
+        except ValueError:
+            return float("nan")
+    return dict(name=str(first.get("Station_name", "?")).strip(),
+                lat=num("Latitude"), lon=num("Longitude"), elev=num("Elevation"))
 
 
-# ------------------------------------------------------------ ISD parsing
+# ---------------------------------------------------------- GHCNh parsing
 
-def parse_isd(raw, start, end):
+def _numeric(series):
+    v = pd.to_numeric(series.replace("", np.nan), errors="coerce")
+    v[v <= -999] = np.nan                 # -9999 style sentinels
+    return v
+
+
+KEEP_FLAGGED = False   # --keep-flagged: ignore GHCNh quality codes
+
+
+def _flagged(raw, col):
+    """True where the element's quality code is non-blank (failed a check)."""
+    q = raw.get(f"{col}_Quality_Code")
+    if q is None or KEEP_FLAGGED:
+        return pd.Series(False, index=raw.index)
+    return q.fillna("").str.strip() != ""
+
+
+def parse_ghcnh(raw, start, end):
     """Returns (hourly temperature frame, precipitation reports, info dict).
 
     hourly:  time (UTC, on the hour), t2m_obs
-    reports: end (UTC), period_h, mm   -- one row per accumulation report
+    reports: end (UTC), period_h, mm   -- one row per accumulation value
     """
-    t = pd.to_datetime(raw["DATE"], utc=True, errors="coerce",
-                       format="%Y-%m-%dT%H:%M:%S")
+    t = pd.to_datetime(pd.DataFrame({
+        k.lower(): pd.to_numeric(raw[k], errors="coerce")
+        for k in ("Year", "Month", "Day", "Hour", "Minute")}), utc=True, errors="coerce")
     lo = pd.Timestamp(start, tz="UTC")
     hi = pd.Timestamp(end, tz="UTC") + pd.Timedelta(days=2)
     in_range = (t >= lo) & (t <= hi)
     raw, t = raw[in_range].reset_index(drop=True), t[in_range].reset_index(drop=True)
 
-    # --- temperature: "+0217,1" -> 21.7 degC, quality 1
-    tmp = raw["TMP"].fillna("+9999,9").str.split(",", expand=True)
-    val = pd.to_numeric(tmp[0], errors="coerce") / 10.0
-    val[(tmp[0] == "+9999") | tmp[1].isin(BAD_QC)] = np.nan
-    rtype = raw["REPORT_TYPE"].fillna("") if "REPORT_TYPE" in raw else \
-        pd.Series("", index=raw.index)
-    prio = rtype.map({"FM-12": 0, "SY-MT": 1, "SY-SY": 1}).fillna(2)  # SYNOP first
+    # --- temperature (degC); SYNOP rows (tenths) preferred over METAR (integers)
+    val = _numeric(raw["temperature"])
+    val[_flagged(raw, "temperature")] = np.nan
+    rtype = raw.get("temperature_Report_Type", pd.Series("", index=raw.index)).fillna("")
+    prio = rtype.map({"FM-12": 0, "SY-MT": 1, "SY-SY": 1}).fillna(2)
     rounded = t.dt.round("h")
     off = (t - rounded).abs()
     hourly = pd.DataFrame({"time": rounded, "t2m_obs": val, "prio": prio, "off": off})
@@ -251,17 +313,19 @@ def parse_isd(raw, start, end):
               .drop_duplicates("time")[["time", "t2m_obs"]]
               .reset_index(drop=True))
 
-    # --- precipitation: AA1..AA4 = "period_h,depth_tenths_mm,condition,quality"
-    rows = []
-    for col in [c for c in raw.columns if re.fullmatch(r"AA\d", c)]:
-        parts = raw[col].fillna("99,9999,9,9").str.split(",", expand=True)
-        if parts.shape[1] < 4:
+    # --- precipitation (mm): `precipitation` = 1 h, `precipitation_N_hour` = N h
+    rows, inventory = [], {}
+    for col in raw.columns:
+        m = re.fullmatch(r"precipitation(?:_(\d+)_hour)?", col)
+        if not m:
             continue
-        period = pd.to_numeric(parts[0], errors="coerce")
-        depth = pd.to_numeric(parts[1], errors="coerce")
-        ok = period.between(1, 48) & depth.between(0, 9998) & ~parts[3].isin(BAD_QC)
-        rows.append(pd.DataFrame({"end": rounded[ok], "period_h": period[ok].astype(int),
-                                  "mm": depth[ok] / 10.0}))
+        period = int(m.group(1) or 1)
+        mm = _numeric(raw[col])
+        mm[_flagged(raw, col)] = np.nan
+        ok = mm.notna() & (mm >= 0)
+        inventory[col] = int(ok.sum())
+        if ok.any():
+            rows.append(pd.DataFrame({"end": rounded[ok], "period_h": period, "mm": mm[ok]}))
     reports = (pd.concat(rows, ignore_index=True) if rows
                else pd.DataFrame(columns=["end", "period_h", "mm"]))
     reports = (reports.sort_values(["end", "period_h", "mm"], ascending=[True, True, False])
@@ -270,9 +334,10 @@ def parse_isd(raw, start, end):
     hours_per_day = hourly.groupby(hourly["time"].dt.floor("D")).size()
     info = dict(
         rows=len(raw), temp_hours=len(hourly),
+        temp_flagged=int(_flagged(raw, "temperature").sum()),
         median_hours_per_day=float(hours_per_day.median()) if len(hours_per_day) else 0.0,
-        report_types=rtype.value_counts().head(6).to_dict(),
-        precip_reports_by_period=reports["period_h"].value_counts().sort_index().to_dict(),
+        report_types=rtype.replace("", "(blank)").value_counts().head(6).to_dict(),
+        precip_values_by_column=inventory,
     )
     return hourly, reports, info
 
@@ -534,29 +599,40 @@ def report(daily_t, daily_p, label, tag, n_boot, min_frac, log):
 
 # ------------------------------------------------------------------ selftest
 
-def _selftest_isd_parsing():
-    csv = (
-        "STATION,DATE,SOURCE,LATITUDE,LONGITUDE,ELEVATION,NAME,REPORT_TYPE,"
-        "CALL_SIGN,QUALITY_CONTROL,TMP,AA1,AA2\n"
-        "08522099999,2025-10-01T06:00:00,4,32.63,-16.9,58,FUNCHAL,FM-12,,V020,"
-        "\"+0183,1\",\"24,0052,9,1\",\"12,0030,9,1\"\n"
-        "08522099999,2025-10-01T06:00:00,4,32.63,-16.9,58,FUNCHAL,FM-15,LPMA,V020,"
-        "\"+0180,1\",,\n"
-        "08522099999,2025-10-01T06:30:00,4,32.63,-16.9,58,FUNCHAL,FM-15,LPMA,V020,"
-        "\"+0190,1\",,\n"
-        "08522099999,2025-10-01T07:00:00,4,32.63,-16.9,58,FUNCHAL,FM-12,,V020,"
-        "\"+9999,9\",\"99,9999,9,9\",\n"
-        "08522099999,2025-10-01T08:00:00,4,32.63,-16.9,58,FUNCHAL,FM-12,,V020,"
-        "\"+0201,3\",\"06,0000,9,1\",\n"
-    )
-    import io
-    raw = pd.read_csv(io.StringIO(csv), dtype=str)
-    hourly, reports, info = parse_isd(raw, "2025-10-01", "2025-10-02")
-    assert len(hourly) == 1 and abs(hourly["t2m_obs"].iloc[0] - 18.3) < 1e-9, \
-        "SYNOP row should win over METAR at 06Z; 07Z missing; 08Z QC=3 dropped"
-    assert sorted(reports["period_h"].tolist()) == [6, 12, 24], reports
+def _selftest_ghcnh_parsing():
+    cols = ["Station_ID", "Station_name", "Year", "Month", "Day", "Hour", "Minute",
+            "Latitude", "Longitude", "Elevation",
+            "temperature", "temperature_Measurement_Code", "temperature_Quality_Code",
+            "temperature_Report_Type", "temperature_Source_Code",
+            "precipitation", "precipitation_Quality_Code",
+            "precipitation_6_hour", "precipitation_6_hour_Quality_Code",
+            "precipitation_24_hour", "precipitation_24_hour_Quality_Code"]
+    rows = [
+        # 06Z SYNOP with tenths temperature, 6 h and 24 h totals
+        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "6", "0",
+         "32.633", "-16.9", "58.0", "18.3", "", "", "FM-12", "", "", "",
+         "1.2", "", "5.2", ""],
+        # same hour METAR with integer temperature: must lose to the SYNOP row
+        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "6", "0",
+         "32.633", "-16.9", "58.0", "18.0", "", "", "FM-15", "", "", "", "", "", "", ""],
+        # half-hour METAR: not on the hour, dropped
+        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "6", "30",
+         "32.633", "-16.9", "58.0", "19.0", "", "", "FM-15", "", "", "", "", "", "", ""],
+        # 07Z missing temperature, 08Z flagged by QC: both dropped
+        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "7", "0",
+         "32.633", "-16.9", "58.0", "", "", "", "FM-12", "", "", "", "", "", "", ""],
+        ["POM00008521", "FUNCHAL [WMO=08521]", "2025", "10", "1", "8", "0",
+         "32.633", "-16.9", "58.0", "20.1", "", "L", "FM-12", "", "0.0", "",
+         "", "", "", ""],
+    ]
+    raw = pd.DataFrame(rows, columns=cols)
+    hourly, reports, info = parse_ghcnh(raw, "2025-10-01", "2025-10-02")
+    assert len(hourly) == 1 and abs(hourly["t2m_obs"].iloc[0] - 18.3) < 1e-9, hourly
+    assert sorted(reports["period_h"].tolist()) == [1, 6, 24], reports
+    assert info["precip_values_by_column"] == {
+        "precipitation": 1, "precipitation_6_hour": 1, "precipitation_24_hour": 1}
     meta = station_metadata(raw)
-    assert meta["name"] == "FUNCHAL" and abs(meta["lat"] - 32.63) < 1e-9
+    assert meta["name"].startswith("FUNCHAL") and abs(meta["lat"] - 32.633) < 1e-9
 
 
 def _selftest_tiling():
@@ -581,7 +657,7 @@ def _selftest_tiling():
 
 def selftest():
     """Synthetic data with known error structure through the full pipeline."""
-    _selftest_isd_parsing()
+    _selftest_ghcnh_parsing()
     _selftest_tiling()
 
     rng = np.random.default_rng(42)
@@ -641,7 +717,10 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--selftest", action="store_true")
-    ap.add_argument("--station", default=STATION, help="ISD station id")
+    ap.add_argument("--find", metavar="PREFIX",
+                    help="list GHCNh station files whose id starts with PREFIX "
+                         "(e.g. PO, POM0000852) and exit")
+    ap.add_argument("--station", default=STATION, help="GHCNh station id")
     ap.add_argument("--lat", type=float, help="override forecast point latitude")
     ap.add_argument("--lon", type=float, help="override forecast point longitude")
     ap.add_argument("--elev", type=float, help="override forecast point elevation (m)")
@@ -650,6 +729,8 @@ def main():
     ap.add_argument("--season", default=SEASON, help="MM-DD:MM-DD, every year")
     ap.add_argument("--models", default=None,
                     help="comma-separated Open-Meteo model ids (default: probe list)")
+    ap.add_argument("--keep-flagged", action="store_true",
+                    help="ignore GHCNh quality codes (if the flagged share looks absurd)")
     ap.add_argument("--min-frac", type=float, default=MIN_FRAC)
     ap.add_argument("--n-boot", type=int, default=N_BOOT)
     args = ap.parse_args()
@@ -657,38 +738,48 @@ def main():
     if args.selftest:
         selftest()
         return
+    global KEEP_FLAGGED
+    KEEP_FLAGGED = args.keep_flagged
 
     end = args.end or (pd.Timestamp.now(tz="UTC") - pd.Timedelta(days=1)).date().isoformat()
+    if args.find:
+        find_stations(args.find, int(end[:4]))
+        return
+
     CACHE.mkdir(exist_ok=True)
     OUT.mkdir(exist_ok=True)
     log = Log(OUT / "summary.txt")
 
     print("fetching observations")
-    raw = fetch_isd_raw(args.station, args.start, end)
+    raw = fetch_ghcnh_raw(args.station, args.start, end)
     meta = station_metadata(raw)
     site = dict(station=args.station,
                 lat=args.lat if args.lat is not None else meta["lat"],
                 lon=args.lon if args.lon is not None else meta["lon"],
                 elev=args.elev if args.elev is not None else meta["elev"])
-    hourly, reports, info = parse_isd(raw, args.start, end)
+    hourly, reports, info = parse_ghcnh(raw, args.start, end)
     daily_obs = tile_windows(reports)
 
-    log(f"station {args.station}: {meta['name']} {meta['call_sign']} "
+    log(f"station {args.station}: {meta['name']} "
         f"lat {meta['lat']:.3f} lon {meta['lon']:.3f} elev {meta['elev']:.0f} m")
     log(f"forecast point: lat {site['lat']:.3f} lon {site['lon']:.3f} "
         f"elev {site['elev']:.0f} m; period {args.start}..{end}; season {args.season}")
-    log(f"obs rows {info['rows']}, report types {info['report_types']}")
+    log(f"obs rows {info['rows']}, temperature report types {info['report_types']}")
     log(f"hourly temperatures {info['temp_hours']} "
-        f"(median {info['median_hours_per_day']:.0f} per day; "
+        f"({info['temp_flagged']} values dropped by QC flags; "
+        f"median {info['median_hours_per_day']:.0f} per day; "
         f"{MIN_HOURS_PER_DAY} needed to score a day)")
-    log(f"precip reports by accumulation period (h): {info['precip_reports_by_period']}; "
+    log(f"precip values by column: {info['precip_values_by_column']}; "
         f"tiled 06Z-06Z days: {len(daily_obs)}")
+    if info["temp_flagged"] > info["temp_hours"]:
+        log("WARNING: more temperature values flagged than kept; if the quality-code "
+            "convention differs from 'blank = passed', rerun with --keep-flagged")
     if info["median_hours_per_day"] < MIN_HOURS_PER_DAY:
         log("WARNING: station reports too sparsely for daily Tmin/Tmax from hourly "
-            "values; try the other Funchal station id")
+            "values; try another station id (--find PO)")
     if len(daily_obs) < 60:
-        log("WARNING: few tileable precipitation days; check the accumulation "
-            "periods above, or try the other station id")
+        log("WARNING: few tileable precipitation days; check the precipitation "
+            "columns above, or try another station id (--find PO)")
 
     print("probing models")
     models = (args.models.split(",") if args.models
